@@ -32,7 +32,10 @@ export const getOgImage = () => OG_IMAGE;
 
 export const getCuts = () => CUTS;
 export const getCutById = (id: string) => CUTS.find((c) => c.id === id);
-export const getCutsByPart = (part: CowPartId) => CUTS.filter((c) => c.part === part);
+/** Cuts on this part of the cow (a cut from two parts, like shin, is in both). */
+export const getCutsByPart = (part: CowPartId) => CUTS.filter((c) => c.parts.includes(part));
+/** Cuts that are not one place on the cow (trimmings, bones): in the grid, not on the map. */
+export const getCutsWithoutPart = () => CUTS.filter((c) => c.parts.length === 0);
 export const getCutsByMethod = (method: Cut["methods"][number]) => CUTS.filter((c) => c.methods.includes(method));
 export const getCookingMethods = () => COOKING_METHODS;
 export const getCutTiers = () => CUT_TIERS;

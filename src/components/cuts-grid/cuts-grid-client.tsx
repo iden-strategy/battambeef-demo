@@ -2,7 +2,7 @@
 
 import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChipRow } from "@/components/chip-row";
 import { FILTER_PART_EVENT } from "@/components/cut-map/cut-events";
@@ -34,6 +34,7 @@ export function CutsGridClient({ cuts, parts, methods, tiers }: CutsGridClientPr
   const tm = useTranslations("cutOptions.methods");
   const tt = useTranslations("cutOptions.tiers");
   const lang = useFallbackLang();
+  const locale = useLocale();
   const { reduced } = useMotionPrefs();
 
   const [filters, setFilters] = useState<Filters>(NO_FILTERS);
@@ -64,14 +65,25 @@ export function CutsGridClient({ cuts, parts, methods, tiers }: CutsGridClientPr
     () =>
       cuts.filter(
         (c) =>
-          (filters.part === ALL || c.part === filters.part) &&
+          (filters.part === ALL || c.parts.includes(filters.part)) &&
           (filters.method === ALL || c.methods.includes(filters.method)) &&
           (filters.tier === ALL || c.tier === filters.tier),
       ),
     [cuts, filters],
   );
 
-  const partOf = (id: CowPartId) => parts.find((p) => p.id === id)!;
+  const partsOf = (cut: Cut) => cut.parts.map((id) => parts.find((p) => p.id === id)!);
+  // "Fore shank and Hind shank": joined in the language the sentence around it is shown in.
+  const listLocale = lang("beefCuts.detail.description") ?? locale;
+  const partNames = (cut: Cut) =>
+    new Intl.ListFormat(listLocale, { type: "conjunction" }).format(cut.parts.map((id) => tp(id)));
+  // The card's small label: the code, else the part(s), else the tier (bones and trimmings).
+  const cardLabel = (cut: Cut) =>
+    cut.code
+      ? { text: cut.code, lang: undefined }
+      : cut.parts.length > 0
+        ? { text: partNames(cut), lang: lang(`cutMap.parts.${cut.parts[0]}`) }
+        : { text: tt(cut.tier), lang: lang(`cutOptions.tiers.${cut.tier}`) };
   const openCut = cuts.find((c) => c.id === openId) ?? null;
   const filtered = filters.part !== ALL || filters.method !== ALL || filters.tier !== ALL;
 
@@ -166,7 +178,7 @@ export function CutsGridClient({ cuts, parts, methods, tiers }: CutsGridClientPr
                   else cardRefs.current.delete(cut.id);
                 }}
                 cut={cut}
-                partName={tp(cut.part)}
+                label={cardLabel(cut)}
                 imageLayoutId={reduced ? undefined : `cut-image-${cut.id}`}
                 onOpen={() => setOpenId(cut.id)}
               />
@@ -180,18 +192,25 @@ export function CutsGridClient({ cuts, parts, methods, tiers }: CutsGridClientPr
           <CutDetail
             key={openCut.id}
             cut={openCut}
-            part={partOf(openCut.part)}
-            partName={tp(openCut.part)}
+            parts={partsOf(openCut)}
+            partNames={partNames(openCut)}
             totalParts={parts.length}
             tierName={tt(openCut.tier)}
             imageLayoutId={reduced ? undefined : `cut-image-${openCut.id}`}
             reduced={reduced}
             onClose={() => setOpenId(null)}
-            onShowOnCow={() => {
-              showOnCowRef.current = openCut.part;
-              selectCowPart(openCut.part);
-              setOpenId(null);
-            }}
+            // Cuts that are not on the map (bones, trimmings) have no "Show on the cow".
+            // A cut from two parts (shin) shows its first part.
+            onShowOnCow={
+              openCut.parts.length > 0
+                ? () => {
+                    const first = openCut.parts[0];
+                    showOnCowRef.current = first;
+                    selectCowPart(first);
+                    setOpenId(null);
+                  }
+                : undefined
+            }
             onClosed={onClosed}
           />
         )}

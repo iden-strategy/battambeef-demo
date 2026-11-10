@@ -45,7 +45,6 @@
   },
   "header": {
     "logo": "BattamBeef",
-    "logoHome": "TODO-KM",
     "contactUs": "TODO-KM"
   },
   "language": {
@@ -276,6 +275,7 @@
   "cutMap": {
     "chipsLabel": "TODO-KM",
     "partOf": "TODO-KM",
+    "partsOf": "TODO-KM",
     "cutsHeading": "TODO-KM",
     "parts": {
       "neck": "TODO-KM",
@@ -306,7 +306,6 @@
     "requestQuote": "TODO-KM",
     "seeAll": "TODO-KM",
     "exploreAll": "TODO-KM",
-    "toConfirm": "TODO-KM",
     "topCuts": "TODO-KM"
   },
   "cutOptions": {
@@ -352,6 +351,7 @@
     "detail": {
       "close": "TODO-KM",
       "description": "TODO-KM",
+      "descriptionNoPart": "TODO-KM",
       "code": "TODO-KM",
       "part": "TODO-KM",
       "tier": "TODO-KM",
@@ -360,7 +360,29 @@
       "showOnCow": "TODO-KM",
       "loading": "TODO-KM",
       "loadError": "TODO-KM",
-      "retry": "TODO-KM"
+      "retry": "TODO-KM",
+      "photoAlt": {
+        "neck-chuck": "TODO-KM",
+        "blade": "TODO-KM",
+        "shoulder-clod": "TODO-KM",
+        "oyster-blade": "TODO-KM",
+        "ribeye": "TODO-KM",
+        "short-rib": "TODO-KM",
+        "striploin": "TODO-KM",
+        "tenderloin": "TODO-KM",
+        "rump": "TODO-KM",
+        "topside": "TODO-KM",
+        "silverside": "TODO-KM",
+        "knuckle": "TODO-KM",
+        "eye-round": "TODO-KM",
+        "brisket": "TODO-KM",
+        "short-plate": "TODO-KM",
+        "thin-flank": "TODO-KM",
+        "shin": "TODO-KM",
+        "heel-muscle": "TODO-KM",
+        "trimmings-mince": "TODO-KM",
+        "soup-bones": "TODO-KM"
+      }
     },
     "byProducts": {
       "label": "TODO-KM",
@@ -388,31 +410,37 @@
       "goTo": "TODO-KM",
       "pendingNote": "TODO-KM",
       "photoSoon": "TODO-KM",
+      "illustrationNote": "TODO-KM",
       "stages": {
         "raising": {
           "short": "TODO-KM",
           "title": "TODO-KM",
-          "body": "TODO-KM"
+          "body": "TODO-KM",
+          "imageAlt": "TODO-KM"
         },
         "processing": {
           "short": "TODO-KM",
           "title": "TODO-KM",
-          "body": "TODO-KM"
+          "body": "TODO-KM",
+          "imageAlt": "TODO-KM"
         },
         "chilling": {
           "short": "TODO-KM",
           "title": "TODO-KM",
-          "body": "TODO-KM"
+          "body": "TODO-KM",
+          "imageAlt": "TODO-KM"
         },
         "cutting": {
           "short": "TODO-KM",
           "title": "TODO-KM",
-          "body": "TODO-KM"
+          "body": "TODO-KM",
+          "imageAlt": "TODO-KM"
         },
         "delivery": {
           "short": "TODO-KM",
           "title": "TODO-KM",
-          "body": "TODO-KM"
+          "body": "TODO-KM",
+          "imageAlt": "TODO-KM"
         }
       }
     },
@@ -430,7 +458,7 @@
           "title": "TODO-KM",
           "body": "TODO-KM"
         },
-        "consistency": {
+        "ourBeef": {
           "title": "TODO-KM",
           "body": "TODO-KM"
         }
@@ -619,6 +647,7 @@
       "tabsLabel": "TODO-KM",
       "cutsHeading": "TODO-KM",
       "cutLink": "TODO-KM",
+      "cutLinkGrid": "TODO-KM",
       "guides": {
         "grill": "TODO-KM",
         "pan-sear": "TODO-KM",
@@ -869,6 +898,7 @@
       "interest": {
         "label": "TODO-KM",
         "anyCut": "TODO-KM",
+        "otherGroup": "TODO-KM",
         "errorInvalid": "TODO-KM"
       },
       "businessType": {

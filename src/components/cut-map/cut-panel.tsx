@@ -91,7 +91,6 @@ export function CutPanel({ part, total, cuts, compact = false }: CutPanelProps) 
 }
 
 function CutRow({ cut, compact }: { cut: Cut; compact: boolean }) {
-  const t = useTranslations("cutMap");
   const tm = useTranslations("cutOptions.methods");
   const lang = useFallbackLang();
 
@@ -127,11 +126,6 @@ function CutRow({ cut, compact }: { cut: Cut; compact: boolean }) {
             </li>
           ))}
         </ul>
-      )}
-      {cut.toConfirm && (
-        <p className="mt-2 text-xs text-muted-foreground italic" lang={lang("cutMap.toConfirm")}>
-          {t("toConfirm")}
-        </p>
       )}
     </li>
   );

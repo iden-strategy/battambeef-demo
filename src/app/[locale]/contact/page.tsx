@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/components/ui/button";
 import { getFallbackLang } from "@/i18n/get-fallback-lang";
 import { ScopedMessages } from "@/i18n/scoped-messages";
-import { getContactCards, getContactDetails, getCowMap, getCutsByPart, getEnquiryTypes, getSocialLinks, getQuickActions } from "@/lib/data";
+import { getContactCards, getContactDetails, getCowMap, getCuts, getCutsByPart, getCutsWithoutPart, getEnquiryTypes, getSocialLinks, getQuickActions } from "@/lib/data";
 import { pageMetadata } from "@/lib/metadata";
 
 export const generateMetadata = () => pageMetadata("contact");
@@ -87,21 +87,30 @@ export default async function Page() {
                 label: tForm(`enquiryType.options.${v}`),
                 lang: lang(`forms.fields.enquiryType.options.${v}`),
               }))}
-              interestGroups={parts.map((part) => {
-                const partName = tParts(part.id);
-                return {
-                  label: partName,
-                  lang: lang(`cutMap.parts.${part.id}`),
-                  options: [
-                    { value: `part:${part.id}`, label: tForm("interest.anyCut", { part: partName }), lang: lang("forms.fields.interest.anyCut") },
-                    // Cut names are English (Khmer names in the option would mix scripts in one line).
-                    ...getCutsByPart(part.id).map((cut) => ({ value: `cut:${cut.id}`, label: cut.nameEn, lang: "en" })),
-                  ],
-                };
-              })}
+              interestGroups={[
+                ...parts.map((part) => {
+                  const partName = tParts(part.id);
+                  return {
+                    label: partName,
+                    lang: lang(`cutMap.parts.${part.id}`),
+                    options: [
+                      { value: `part:${part.id}`, label: tForm("interest.anyCut", { part: partName }), lang: lang("forms.fields.interest.anyCut") },
+                      // Cut names are English (Khmer names in the option would mix scripts in one line).
+                      // A cut from two parts (shin) is listed under both.
+                      ...getCutsByPart(part.id).map((cut) => ({ value: `cut:${cut.id}`, label: cut.nameEn, lang: "en" })),
+                    ],
+                  };
+                }),
+                // Cuts that are not on the map: bones and trimmings.
+                {
+                  label: tForm("interest.otherGroup"),
+                  lang: lang("forms.fields.interest.otherGroup"),
+                  options: getCutsWithoutPart().map((cut) => ({ value: `cut:${cut.id}`, label: cut.nameEn, lang: "en" })),
+                },
+              ]}
               allow={{
                 parts: parts.map((p) => p.id),
-                cuts: parts.flatMap((p) => getCutsByPart(p.id).map((c) => ({ id: c.id, part: c.part }))),
+                cuts: getCuts().map((c) => ({ id: c.id, parts: c.parts })),
               }}
             />
           </ScopedMessages>
@@ -121,10 +130,11 @@ export default async function Page() {
                 </a>
               </Button>
             ) : (
-              <Button size="lg" disabled aria-describedby="telegram-soon" lang={lang("footer.telegram")}>
-                <Send aria-hidden />
-                {tf("telegram")}
-              </Button>
+              <p className="body font-medium text-muted-foreground">
+                <span lang={lang("footer.telegram")}>{tf("telegram")}</span>
+                {": "}
+                <span lang={k("social.soon")}>{t("social.soon")}</span>
+              </p>
             )}
             <ul className="flex flex-wrap gap-2">
               {getSocialLinks().map((s) => (
@@ -142,9 +152,6 @@ export default async function Page() {
                 </li>
               ))}
             </ul>
-            <span id="telegram-soon" className="sr-only" lang={k("social.soon")}>
-              {t("social.soon")}
-            </span>
           </div>
         </div>
       </section>

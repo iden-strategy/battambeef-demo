@@ -7,7 +7,7 @@ import { parseQuoteParams, type QuoteAllowList } from "@/lib/quote-link";
 
 const allow: QuoteAllowList = {
   parts: getCowMap().parts.map((p) => p.id),
-  cuts: getCuts().map((c) => ({ id: c.id, part: c.part })),
+  cuts: getCuts().map((c) => ({ id: c.id, parts: c.parts })),
 };
 const parse = (query: string) => parseQuoteParams(new URLSearchParams(query), allow);
 
@@ -50,6 +50,27 @@ test.describe("quote link parameters", () => {
 
   test("a cut from another part is dropped; the part stays", () => {
     expect(parse("part=loin&cut=brisket")).toEqual({ part: "loin", cut: null });
+    expect(parse("part=rib&cut=shin")).toEqual({ part: "rib", cut: null });
+  });
+
+  test("a cut from two parts is accepted with either part; on its own it brings the first", () => {
+    expect(parse("part=fore-shank&cut=shin")).toEqual({ part: "fore-shank", cut: "shin" });
+    expect(parse("part=hind-shank&cut=shin")).toEqual({ part: "hind-shank", cut: "shin" });
+    expect(parse("cut=shin")).toEqual({ part: "fore-shank", cut: "shin" });
+  });
+
+  test("a cut that is not on the map comes without a part", () => {
+    expect(parse("cut=soup-bones")).toEqual({ part: null, cut: "soup-bones" });
+    expect(parse("cut=trimmings-mince")).toEqual({ part: null, cut: "trimmings-mince" });
+    // A part next to it does not belong to it: the part stays, the cut is dropped.
+    expect(parse("part=neck&cut=soup-bones")).toEqual({ part: "neck", cut: null });
+  });
+
+  test("old cut IDs from earlier versions of the site are ignored; old part IDs still work", () => {
+    for (const old of ["neck", "chuck", "plate", "flank", "fore-shank", "hind-shank"]) {
+      expect(parse(`cut=${old}`), old).toBeNull();
+      expect(parse(`part=${old}&cut=${old}`), old).toEqual({ part: old, cut: null });
+    }
   });
 
   test("repeated parameters: only the first counts", () => {
@@ -60,10 +81,10 @@ test.describe("quote link parameters", () => {
   test("the result only ever holds IDs from the data", () => {
     const parts = new Set(allow.parts);
     const cuts = new Set(allow.cuts.map((c) => c.id));
-    for (const query of ["part=rib", "cut=tenderloin", "part=round&cut=topside", "part=x&cut=y"]) {
+    for (const query of ["part=rib", "cut=tenderloin", "part=round&cut=topside", "part=x&cut=y", "cut=soup-bones", "cut=shin"]) {
       const r = parse(query);
       if (r) {
-        expect(parts.has(r.part)).toBe(true);
+        if (r.part !== null) expect(parts.has(r.part)).toBe(true);
         if (r.cut) expect(cuts.has(r.cut)).toBe(true);
       }
     }
@@ -164,7 +185,7 @@ test.describe("business enquiry form", () => {
     await expect(form.getByRole("button", { name: "Send enquiry" })).toBeEnabled();
     await form.getByRole("button", { name: "Send enquiry" }).click();
 
-    const summary = form.getByRole("alert");
+    const summary = form.locator("div[tabindex=\"-1\"]");
     await expect(summary).toBeFocused();
     await expect(summary).toContainText("There are 4 problems with this form.");
     await expect(form.getByLabel("Business name")).toHaveAttribute("aria-invalid", "true");
@@ -197,7 +218,7 @@ test.describe("business enquiry form", () => {
     await form.getByLabel("Email").fill(`a${SECRET.toLowerCase()}@example.com`);
     await form.getByLabel("Business type").selectOption("restaurant");
     await form.getByLabel("Estimated weekly volume").selectOption("20to50");
-    await form.getByText("Ribeye (Cube roll)").click();
+    await form.getByText("Ribeye (cube roll)").click();
     await form.getByText("Brisket", { exact: true }).click();
     await form.getByLabel("Delivery area").fill(`Battambang ${SECRET}`);
     await form.getByLabel("Message").fill(`Hello ${SECRET}`);
@@ -206,7 +227,7 @@ test.describe("business enquiry form", () => {
     await expect(form.getByRole("button", { name: "Sending…" })).toBeVisible();
     await expect(form.getByRole("button", { name: "Preview only: not sent" })).toBeVisible();
     await expect(form.getByRole("status")).toContainText("Preview only: not sent");
-    await expect(form.getByRole("alert")).toHaveCount(0);
+    await expect(form.locator("div[tabindex=\"-1\"]")).toHaveCount(0);
 
     const after = leaks.requests.slice(before);
     expect(after.filter((r) => r.method !== "GET"), "no POST/PUT").toEqual([]);
@@ -258,6 +279,17 @@ test.describe("contact form", () => {
     await page.goto("/en/contact?part=rib");
     await expect(interest(page)).toHaveValue("part:rib");
     await expect(interest(page).locator("option:checked")).toHaveText("Any Rib cut");
+  });
+
+  test("quote links for a two-part cut and a cut that is not on the map", async ({ page }) => {
+    await page.goto("/en/contact?part=hind-shank&cut=shin");
+    await expect(interest(page)).toHaveValue("cut:shin");
+    await page.goto("/en/contact?cut=soup-bones");
+    await expect(interest(page)).toHaveValue("cut:soup-bones");
+    await expect(interest(page).locator("option:checked")).toHaveText("Soup bones (leg, neck, hip)");
+    // Shin is listed under both shanks; bones and trimmings have their own group.
+    await expect(interest(page).locator("option[value='cut:shin']")).toHaveCount(2);
+    await expect(interest(page).locator("optgroup[label='Bones and trimmings'] option")).toHaveText(["Trimmings for mince", "Soup bones (leg, neck, hip)"]);
   });
 
   test("arriving from the cut map's quote button (client navigation) preselects the part", async ({ page }) => {
@@ -321,8 +353,8 @@ test.describe("contact form", () => {
     await page.goto("/en/contact");
     const form = page.locator("#contact-form");
     await form.getByRole("button", { name: "Send message" }).click();
-    await expect(form.getByRole("alert")).toBeFocused();
-    await expect(form.getByRole("alert")).toContainText("There are 4 problems with this form.");
+    await expect(form.locator("div[tabindex=\"-1\"]")).toBeFocused();
+    await expect(form.locator("div[tabindex=\"-1\"]")).toContainText("There are 4 problems with this form.");
     await expect(form.getByLabel("Message")).toHaveAccessibleDescription("Write a short message (at least 10 characters).");
 
     const before = leaks.requests.length;
@@ -332,7 +364,7 @@ test.describe("contact form", () => {
     await form.getByLabel("Email").fill("dara@example.com");
     await form.getByLabel("Enquiry type").selectOption("general");
     await form.getByLabel("Message").fill(`Hello there ${SECRET}`);
-    await expect(form.getByRole("alert")).toHaveCount(0);
+    await expect(form.locator("div[tabindex=\"-1\"]")).toHaveCount(0);
     await form.getByRole("button", { name: "Send message" }).click();
     await expect(form.getByRole("button", { name: "Preview only: not sent" })).toBeVisible();
     const after = leaks.requests.slice(before);

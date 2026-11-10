@@ -54,6 +54,8 @@ export async function Journey() {
   }));
 
   const pending = { text: t("pendingNote"), lang: lang("pendingNote") };
+  // The stage photos are AI-generated: say so where they are shown (CLAUDE.md section 12).
+  const illustrations = { text: t("illustrationNote"), lang: lang("illustrationNote") };
   const soon = { text: t("photoSoon"), lang: lang("photoSoon") };
   const media = (s: StageView, version: JourneyVersion, sizes: string) => (
     <StageMedia
@@ -61,6 +63,8 @@ export async function Journey() {
       number={s.number}
       name={s.title}
       nameLang={s.lang.title}
+      alt={t(`stages.${s.id}.imageAlt`)}
+      altLang={lang(`stages.${s.id}.imageAlt`)}
       soonLabel={soon.text}
       soonLang={soon.lang}
       version={version}
@@ -127,15 +131,21 @@ export async function Journey() {
 
               {/* Photo frame: each stage's photo wipes up over the previous one. Only the stage
                   on screen is exposed to screen readers (JourneyPinned keeps aria-hidden in step). */}
-              <div className="relative aspect-[4/5] w-[min(36vw,54svh)] overflow-hidden rounded-2xl bg-card">
-                {stages.map((s) => (
-                  <div key={s.id} data-layer="" aria-hidden={s.index > 0 || undefined} className="absolute inset-0 overflow-hidden">
-                    <div data-layer-inner="" className="absolute inset-0">
-                      {media(s, "desktop", "(min-width: 1024px) 36vw, 1px")}
+              <figure className="relative">
+                <div className="relative aspect-[4/5] w-[min(36vw,54svh)] overflow-hidden rounded-2xl bg-card">
+                  {stages.map((s) => (
+                    <div key={s.id} data-layer="" aria-hidden={s.index > 0 || undefined} className="absolute inset-0 overflow-hidden">
+                      <div data-layer-inner="" className="absolute inset-0">
+                        {media(s, "desktop", "(min-width: 1024px) 36vw, 1px")}
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+                {/* Out of the flow, so the frame stays centred in the screen height. */}
+                <figcaption data-illustration-note="" className="label absolute inset-x-0 top-full mt-3 text-muted-foreground" lang={illustrations.lang}>
+                  {illustrations.text}
+                </figcaption>
+              </figure>
 
               {/* Stage text: all five share one grid cell, so the tallest sets the height. */}
               <div className="grid">
@@ -184,6 +194,9 @@ export async function Journey() {
             </div>
           </div>
 
+          <p data-illustration-note="" className="container-page label pt-8 text-muted-foreground md:pt-10" lang={illustrations.lang}>
+            {illustrations.text}
+          </p>
           <ol className="container-page">
             {stages.map((s) => (
               <li

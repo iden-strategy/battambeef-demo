@@ -47,25 +47,80 @@ test.describe("cut map", () => {
     await expect(page).toHaveURL(/#round$/);
   });
 
-  test("all 18 cuts are in the grid and in their own cow part", async ({ page }) => {
+  test("all 20 cuts are in the grid and in their own cow part(s)", async ({ page }) => {
     await page.goto("/en/beef-cuts");
-    await expect(cards(page)).toHaveCount(18);
-    const expected: Record<string, number> = { Neck: 1, Chuck: 3, Rib: 1, Loin: 2, Rump: 1, Round: 4, Brisket: 1, Plate: 1, Flank: 1, "Fore shank": 1, "Hind shank": 2 };
+    await expect(cards(page)).toHaveCount(20);
+    // Shin is in both shanks; trimmings and soup bones are in no part (grid only).
+    const expected: Record<string, number> = { Neck: 1, Chuck: 3, Rib: 2, Loin: 2, Rump: 1, Round: 4, Brisket: 1, Plate: 1, Flank: 1, "Fore shank": 1, "Hind shank": 2 };
     for (const [name, count] of Object.entries(expected)) {
       await page.locator("#cut-map [aria-pressed]", { hasText: name }).click();
       await expect(page.locator("#cut-map ul.divide-y > li")).toHaveCount(count);
       await page.getByRole("group", { name: "Cow part" }).getByRole("button", { name, exact: true }).click();
       await expect(cards(page)).toHaveCount(count);
     }
+    for (const name of ["Fore shank", "Hind shank"]) {
+      await page.locator("#cut-map [aria-pressed]", { hasText: name }).click();
+      await expect(page.locator("#cut-map ul.divide-y > li", { hasText: "Shin (fore and hind)" })).toHaveCount(1);
+    }
+    // The grid keeps the cow order, bones and trimmings last.
+    await page.getByRole("group", { name: "Cow part" }).getByRole("button", { name: "All", exact: true }).click();
+    const names = await cards(page).locator("span[lang=en]").allTextContents();
+    expect(names.at(0)).toBe("Neck / chuck");
+    expect(names.slice(-2)).toEqual(["Trimmings for mince", "Soup bones (leg, neck, hip)"]);
+  });
+
+  test("cut photos: 4:3 WebP in cards and dialog; card photos decorative, the dialog's described", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/en/beef-cuts");
+    const ratio = (box: { width: number; height: number } | null) => box!.width / box!.height;
+    const card = page.locator("#all-cuts ul.grid > li button", { hasText: "Ribeye" });
+    await card.scrollIntoViewIfNeeded();
+    const cardImg = card.locator("img");
+    await expect(cardImg).toHaveAttribute("alt", "");
+    await expect(cardImg).toHaveAttribute("src", /cuts%2Fribeye\.webp/);
+    expect(ratio(await cardImg.boundingBox())).toBeCloseTo(4 / 3, 1);
+    // Every cut has a photo: no "Photo coming soon" tiles left.
+    await expect(page.locator("#all-cuts").getByText("Photo coming soon")).toHaveCount(0);
+
+    await card.click();
+    const dialogImg = page.getByRole("dialog").getByRole("img", { name: "A raw, marbled ribeye steak on butcher paper" });
+    await expect(dialogImg).toBeVisible();
+    await expect.poll(async () => ratio(await dialogImg.boundingBox())).toBeCloseTo(4 / 3, 1);
+  });
+
+  test("cut detail for a two-part cut and for a cut that is not on the map", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/en/beef-cuts");
+    const dialog = page.getByRole("dialog");
+
+    // Shin: both parts named; "Show on the cow" selects the first.
+    const shin = page.locator("#all-cuts ul.grid > li button", { hasText: "Shin" });
+    await shin.scrollIntoViewIfNeeded();
+    await shin.click();
+    await expect(dialog.getByText("2360 · Parts 10 and 11 of 11")).toBeVisible();
+    await expect(dialog.getByText("From the Fore shank and Hind shank. Tier: Slow-cook.")).toBeVisible();
+    await expect(dialog.getByRole("link", { name: "Request a quote" })).toHaveAttribute("href", "/en/contact?part=fore-shank&cut=shin");
+    await dialog.getByRole("button", { name: "Show on the cow" }).click();
+    await expect(selectedChip(page)).toContainText("Fore shank");
+
+    // Soup bones: no part line, no "Show on the cow", quote link carries only the cut.
+    const bones = page.locator("#all-cuts ul.grid > li button", { hasText: "Soup bones" });
+    await bones.scrollIntoViewIfNeeded();
+    await expect(bones.locator(".label.text-label")).toHaveText("Slow-cook");
+    await bones.click();
+    await expect(dialog.getByRole("heading", { name: "Soup bones (leg, neck, hip)" })).toBeVisible();
+    await expect(dialog.getByText(/^Part/)).toHaveCount(0);
+    await expect(dialog.getByRole("button", { name: "Show on the cow" })).toHaveCount(0);
+    await expect(dialog.getByRole("link", { name: "Request a quote" })).toHaveAttribute("href", "/en/contact?cut=soup-bones");
   });
 
   test("filters combine", async ({ page }) => {
     await page.goto("/en/beef-cuts");
     await page.getByRole("group", { name: "Tier" }).getByRole("button", { name: "Premium" }).click();
     await page.getByRole("group", { name: "Cooking method" }).getByRole("button", { name: "Roast" }).click();
-    await expect(page.locator("#all-cuts [role=status]")).toHaveText("Showing 2 of 18 cuts");
+    await expect(page.locator("#all-cuts [role=status]")).toHaveText("Showing 2 of 20 cuts");
     await page.getByRole("button", { name: "Clear filters" }).click();
-    await expect(cards(page)).toHaveCount(18);
+    await expect(cards(page)).toHaveCount(20);
   });
 
   test("cut detail: opens, traps focus, closes with Escape / close / backdrop, focus returns", async ({ page }) => {
@@ -79,7 +134,7 @@ test.describe("cut map", () => {
     await card.click();
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole("heading", { name: "Ribeye (Cube roll)" })).toBeVisible();
+    await expect(dialog.getByRole("heading", { name: "Ribeye (cube roll)" })).toBeVisible();
     expect(await page.evaluate(() => !!document.activeElement?.closest("[role=dialog]"))).toBe(true);
     await page.keyboard.press("Escape");
     await expect(dialog).toHaveCount(0);
@@ -145,7 +200,7 @@ test.describe("cut map", () => {
     await page.getByRole("button", { name: "See all Loin cuts" }).click();
     await expect(page.locator("#all-cuts-heading")).toBeFocused();
     await expect(page.locator("#all-cuts-heading")).toBeInViewport();
-    await expect(page.locator("#all-cuts [role=status]")).toHaveText("Showing 2 of 18 cuts");
+    await expect(page.locator("#all-cuts [role=status]")).toHaveText("Showing 2 of 20 cuts");
 
     // The header still follows the surface under it over the deferred kraft section. Fresh page,
     // so no smooth scroll or exit animation from the steps above is still moving things.
@@ -188,7 +243,7 @@ test.describe("cut map", () => {
     expect(failed).toBeGreaterThanOrEqual(2); // first try + the automatic retry
     await expect(errorNote.getByRole("button", { name: "Try again" })).toBeFocused();
     await expect(page.getByText("Something went wrong")).toHaveCount(0);
-    await expect(cards(page)).toHaveCount(18);
+    await expect(cards(page)).toHaveCount(20);
 
     // Escape closes the note; focus goes back to the card.
     await page.keyboard.press("Escape");
@@ -208,7 +263,7 @@ test.describe("cut map", () => {
     await errorNote.getByRole("button", { name: "Try again" }).click();
     await expect(page.locator("[data-cut-detail-status=loading]").getByRole("status")).toHaveText("Loading cut details…");
     const dialog = page.getByRole("dialog");
-    await expect(dialog.getByRole("heading", { name: "Ribeye (Cube roll)" })).toBeVisible();
+    await expect(dialog.getByRole("heading", { name: "Ribeye (cube roll)" })).toBeVisible();
     await page.keyboard.press("Escape");
     await expect(dialog).toHaveCount(0);
     await expect(card).toBeFocused();
@@ -231,7 +286,7 @@ test.describe("cut map", () => {
     await page.goto("/en/beef-cuts#loin");
     await expect(page.getByRole("link", { name: "Request a quote for Loin cuts" })).toHaveAttribute("href", "/en/contact?part=loin");
     await page.getByRole("button", { name: "See all Loin cuts" }).click();
-    await expect(page.locator("#all-cuts [role=status]")).toHaveText("Showing 2 of 18 cuts");
+    await expect(page.locator("#all-cuts [role=status]")).toHaveText("Showing 2 of 20 cuts");
     // Focus moves to the grid heading (a script-only focus target), not back to the panel button.
     await expect(page.locator("#all-cuts-heading")).toBeFocused();
   });

@@ -147,7 +147,7 @@ test.describe("header", () => {
       names.push(await page.evaluate(() => (document.activeElement?.getAttribute("aria-label") || document.activeElement?.textContent || "").trim()));
     }
     expect(names).toEqual([
-      "BattamBeef, home",
+      "BattamBeef",
       "Home",
       "About",
       "Farm to Table",
@@ -590,5 +590,66 @@ test.describe("privacy and security", () => {
     expect(h["referrer-policy"]).toBe("strict-origin-when-cross-origin");
     expect(h["permissions-policy"]).toContain("camera=()");
     expect(h["set-cookie"]).toBeUndefined();
+  });
+});
+
+test.describe("logo and icons", () => {
+  /** Which header logo is showing: "dark" (charcoal wordmark) or "light" (white wordmark). */
+  const shownLogo = (page: Page) =>
+    page.evaluate(() => {
+      const op = (sel: string) => Number(getComputedStyle(document.querySelector(`header.site-header ${sel}`)!).opacity);
+      return op(".brand-logo-dark") > 0.5 ? "dark" : op(".brand-logo-light") > 0.5 ? "light" : "none";
+    });
+
+  for (const width of [360, 1440]) {
+    test(`${width}px: header logo follows the surface; named "BattamBeef", links home`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      await page.goto("/en/about");
+      const link = page.locator("header.site-header").getByRole("link", { name: "BattamBeef", exact: true });
+      await expect(link).toHaveAttribute("href", "/en");
+      const box = (await link.locator("img").first().boundingBox())!;
+      expect(box.height).toBe(width >= 1024 ? 44 : 36);
+      expect(box.width / box.height).toBeCloseTo(2224 / 952, 1);
+      // Tap target and clear space inside the header bar.
+      expect((await link.boundingBox())!.height).toBeGreaterThanOrEqual(44);
+      // About opens on a dark section: white wordmark.
+      await expect.poll(() => shownLogo(page)).toBe("light");
+      // Over a light section: charcoal wordmark.
+      await scrollToSelector(page, "[data-surface=light]", 10);
+      await expect.poll(() => headerTheme(page)).toBe("light");
+      await expect.poll(() => shownLogo(page)).toBe("dark");
+
+      // Home: over the pale hero sky (charcoal text) the charcoal wordmark; once scrolled onto
+      // the charcoal header background, the white one.
+      await page.goto("/en");
+      await expect.poll(() => shownLogo(page)).toBe("dark");
+      await scrollToSelector(page, "#statement-heading", 300);
+      await expect.poll(() => shownLogo(page)).toBe("light");
+    });
+  }
+
+  test("footer shows the white logo, linked home", async ({ page }) => {
+    await page.goto("/en/contact");
+    const link = page.locator("#site-footer").getByRole("link", { name: "BattamBeef", exact: true });
+    await expect(link).toHaveAttribute("href", "/en");
+    await expect(link.locator("img")).toHaveAttribute("src", "/brand/battambeef-logo-light.svg");
+  });
+
+  test("favicon, app icons and the manifest are the real logo", async ({ page, request }) => {
+    await page.goto("/en");
+    const href = (sel: string) => page.locator(`head ${sel}`).first().getAttribute("href");
+    expect(await href('link[rel="icon"][type="image/svg+xml"]')).toMatch(/^\/icon\.svg/);
+    expect(await href('link[rel="apple-touch-icon"]')).toMatch(/^\/apple-icon\.png/);
+    expect(await href('link[rel="manifest"]')).toBe("/manifest.webmanifest");
+
+    const svg = await request.get("/icon.svg");
+    expect(svg.ok()).toBe(true);
+    expect(await svg.text()).toContain("#A30113");
+    for (const path of ["/favicon.ico", "/apple-icon.png", "/brand/icon-192.png", "/brand/icon-512.png"]) {
+      expect((await request.get(path)).ok(), path).toBe(true);
+    }
+    const manifest = await (await request.get("/manifest.webmanifest")).json();
+    expect(manifest.name).toBe("BattamBeef");
+    expect(manifest.icons.map((i: { src: string }) => i.src)).toEqual(["/brand/icon-192.png", "/brand/icon-512.png"]);
   });
 });

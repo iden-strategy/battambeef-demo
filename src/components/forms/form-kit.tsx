@@ -150,7 +150,6 @@ export function PreviewForm({ id, validate, multi = [], submitKey = "submit", ch
           <div
             ref={summaryRef}
             tabIndex={-1}
-            role="alert"
             className="rounded-2xl border-2 border-error p-5 focus-visible:outline-offset-4"
           >
             <p className="body flex items-center gap-2 font-semibold" lang={lang("forms.errorSummary")}>
@@ -390,7 +389,7 @@ export function SelectField({ name, optional = false, emptyLabel, options, group
 export function CheckboxChips({ name, options, optional = true, className }: { name: string; options: Option[]; optional?: boolean; className?: string }) {
   const f = useField(name, optional);
   return (
-    <fieldset className={cn("grid gap-2", className)} aria-describedby={f.describedBy} aria-invalid={f.invalid || undefined}>
+    <fieldset className={cn("grid gap-2", className)} aria-describedby={f.describedBy}>
       <legend className="body mb-2 font-semibold">
         <LabelText f={f} />
       </legend>

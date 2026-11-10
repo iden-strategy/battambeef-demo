@@ -5,9 +5,12 @@ type StageMediaProps = {
   image: string | null;
   /** "01" … "05": the big mark on the placeholder. */
   number: string;
-  /** Stage title: the photo's alt text, and the name on the placeholder. */
+  /** Stage title: the name on the placeholder. */
   name: string;
   nameLang?: string;
+  /** The photo's alt text ("Illustration: …"). */
+  alt: string;
+  altLang?: string;
   soonLabel: string;
   soonLang?: string;
   /** The journey version this copy belongs to: its photo is only rendered while that version runs. */
@@ -21,11 +24,11 @@ type StageMediaProps = {
  * The journey is below the fold: photos are lazy, never priority, and the hidden version's photos
  * are not rendered at all (JourneyVersionOnly), so they are never downloaded.
  */
-export function StageMedia({ image, number, name, nameLang, soonLabel, soonLang, version, sizes }: StageMediaProps) {
+export function StageMedia({ image, number, name, nameLang, alt, altLang, soonLabel, soonLang, version, sizes }: StageMediaProps) {
   if (image) {
     return (
       <JourneyVersionOnly version={version}>
-        <Image src={image} alt={name} fill sizes={sizes} loading="lazy" className="object-cover" />
+        <Image src={image} alt={alt} lang={altLang} fill sizes={sizes} loading="lazy" className="object-cover" />
       </JourneyVersionOnly>
     );
   }

@@ -126,7 +126,7 @@ test.describe("beef cuts: the cut detail dialog loads on demand", () => {
     await card.scrollIntoViewIfNeeded();
     await card.tap();
     await expect(page.getByRole("dialog")).toBeVisible();
-    await expect(page.getByRole("dialog").getByRole("heading", { name: "Ribeye (Cube roll)" })).toBeVisible();
+    await expect(page.getByRole("dialog").getByRole("heading", { name: "Ribeye (cube roll)" })).toBeVisible();
     expect(urls.length, "the dialog's code arrives with the first tap").toBeGreaterThan(atLoad);
     await ctx.close();
   });

@@ -45,7 +45,6 @@
   },
   "header": {
     "logo": "BattamBeef",
-    "logoHome": "BattamBeef, home",
     "contactUs": "Contact us"
   },
   "language": {
@@ -276,6 +275,7 @@
   "cutMap": {
     "chipsLabel": "Choose a part of the cow",
     "partOf": "Part {n} of {total}",
+    "partsOf": "Parts {list} of {total}",
     "cutsHeading": "Cuts in this part",
     "parts": {
       "neck": "Neck",
@@ -306,7 +306,6 @@
     "requestQuote": "Request a quote for {part} cuts",
     "seeAll": "See all {part} cuts",
     "exploreAll": "Explore all cuts",
-    "toConfirm": "Name to be confirmed",
     "topCuts": "Top cuts"
   },
   "cutOptions": {
@@ -352,6 +351,7 @@
     "detail": {
       "close": "Close",
       "description": "From the {part}. Tier: {tier}.",
+      "descriptionNoPart": "Comes from several parts of the cow, so it is not on the cut map. Tier: {tier}.",
       "code": "Code",
       "part": "Cow part",
       "tier": "Tier",
@@ -360,7 +360,29 @@
       "showOnCow": "Show on the cow",
       "loading": "Loading cut details…",
       "loadError": "The cut details could not be loaded. Check your connection and try again.",
-      "retry": "Try again"
+      "retry": "Try again",
+      "photoAlt": {
+        "neck-chuck": "Two thick slices of raw, marbled neck and chuck on butcher paper",
+        "blade": "A raw blade steak on butcher paper",
+        "shoulder-clod": "A large raw shoulder clod joint on butcher paper",
+        "oyster-blade": "A raw, finely marbled oyster blade steak on butcher paper",
+        "ribeye": "A raw, marbled ribeye steak on butcher paper",
+        "short-rib": "Three raw short ribs on the bone, on butcher paper",
+        "striploin": "A raw striploin steak with its fat cap, on butcher paper",
+        "tenderloin": "A whole raw tenderloin on butcher paper",
+        "rump": "A raw rump joint with its fat cap, on butcher paper",
+        "topside": "A raw topside joint with a sprig of rosemary, on butcher paper",
+        "silverside": "A long raw silverside joint on butcher paper",
+        "knuckle": "A rounded raw knuckle joint on butcher paper",
+        "eye-round": "A long raw eye round joint on butcher paper",
+        "brisket": "A raw brisket with its fat cap, on butcher paper",
+        "short-plate": "A raw short plate with layers of fat, on butcher paper",
+        "thin-flank": "A raw thin flank with long grain, on butcher paper",
+        "shin": "Two raw cross-cut slices of shin around the marrow bone, on butcher paper",
+        "heel-muscle": "A raw heel muscle with silvery connective tissue, on butcher paper",
+        "trimmings-mince": "A pile of raw beef trimmings for mince on butcher paper",
+        "soup-bones": "Raw beef soup bones with marrow on butcher paper"
+      }
     },
     "byProducts": {
       "label": "By-products",
@@ -388,31 +410,37 @@
       "goTo": "Go to stage {n}: {name}",
       "pendingNote": "Details being confirmed",
       "photoSoon": "Photo coming soon",
+      "illustrationNote": "Images are illustrations.",
       "stages": {
         "raising": {
           "short": "Raising",
           "title": "Raised in Battambang",
-          "body": "Every cut begins with cattle raised in Battambang province. This is where the BattamBeef story starts."
+          "body": "Every cut begins with cattle raised in Battambang province. This is where the BattamBeef story starts.",
+          "imageAlt": "Illustration: white cattle grazing in a green field with sugar palms behind"
         },
         "processing": {
           "short": "Processing",
           "title": "Slaughter and processing",
-          "body": "Cattle are processed with a slaughterhouse partner in Battambang. Details of the process are being confirmed."
+          "body": "Cattle are processed with a slaughterhouse partner in Battambang. Details of the process are being confirmed.",
+          "imageAlt": "Illustration: a worker in a hairnet, mask and gloves checking a hanging beef carcass"
         },
         "chilling": {
           "short": "Chilling",
           "title": "Chilled for 72 hours",
-          "body": "After slaughter, carcasses are chilled for 72 hours. Chilling is an important step for food safety and tenderness."
+          "body": "After slaughter, carcasses are chilled for 72 hours. In general, chilling matters for food safety and tenderness.",
+          "imageAlt": "Illustration: packs of beef on steel shelves in a cold room"
         },
         "cutting": {
           "short": "Cutting",
           "title": "Cut and packed",
-          "body": "Next, the beef is cut and packed."
+          "body": "Next, the beef is cut and packed.",
+          "imageAlt": "Illustration: gloved hands cutting a piece of beef on a white board"
         },
         "delivery": {
           "short": "Delivery",
           "title": "Delivery",
-          "body": "We're preparing deliveries to restaurants and home kitchens."
+          "body": "We're preparing deliveries to restaurants and home kitchens.",
+          "imageAlt": "Illustration: a delivery truck with a beef brand on its side, parked on a tree-lined street"
         }
       }
     },
@@ -424,15 +452,15 @@
       "points": {
         "foodSafety": {
           "title": "Food safety",
-          "body": "Chilling brings the carcass temperature down quickly."
+          "body": "In general, chilling brings the carcass temperature down quickly, which matters for food safety."
         },
         "tenderness": {
           "title": "Tenderness",
-          "body": "As rigor mortis passes, natural enzymes begin to tenderise the meat."
+          "body": "In general, as rigor mortis passes during chilling, natural enzymes begin to tenderise the meat."
         },
-        "consistency": {
-          "title": "Consistency",
-          "body": "A set chilling time helps each batch come out the same."
+        "ourBeef": {
+          "title": "Our beef",
+          "body": "72 hours is the chilling time used for our beef."
         }
       }
     },
@@ -619,6 +647,7 @@
       "tabsLabel": "Cooking methods",
       "cutsHeading": "Cuts for this method",
       "cutLink": "{cut}: see it on the cut map",
+      "cutLinkGrid": "{cut}: see it in all cuts",
       "guides": {
         "grill": "High, direct heat for a charred outside and a juicy middle. Pat the meat dry, oil it lightly and let the grill get very hot before you start. Rest the meat for a few minutes before slicing.",
         "pan-sear": "A heavy pan, very hot, and not too much in it at once. Sear without moving the meat so it browns, turn it once, and finish with butter if you like.",
@@ -731,7 +760,7 @@
           "title": "Beef stir-fry with Kampot pepper",
           "intro": "Quick, peppery and made in minutes, with thin slices of flank.",
           "ingredients": {
-            "beef": "300 g flank, thinly sliced across the grain",
+            "beef": "300 g thin flank, thinly sliced across the grain",
             "pepper": "1 tsp crushed Kampot black pepper, or fresh green peppercorns",
             "garlic": "3 cloves garlic, sliced",
             "onion": "1 onion, cut into wedges",
@@ -760,7 +789,7 @@
         },
         "chilling": {
           "q": "What does \"chilled for 72 hours\" mean?",
-          "a": "After slaughter, the beef is chilled for 72 hours. Chilling brings the temperature down, and as rigor mortis passes, natural enzymes begin to tenderise the meat."
+          "a": "After slaughter, the beef is chilled for 72 hours. In general, chilling brings the temperature down quickly, and as rigor mortis passes during chilling, natural enzymes begin to tenderise the meat."
         },
         "homeCooks": {
           "q": "Can I buy BattamBeef for my home kitchen?",
@@ -869,6 +898,7 @@
       "interest": {
         "label": "Cut or part of interest",
         "anyCut": "Any {part} cut",
+        "otherGroup": "Bones and trimmings",
         "errorInvalid": "Choose a cut from the list."
       },
       "businessType": {

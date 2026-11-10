@@ -2,7 +2,7 @@
 
 import * as m from "motion/react-m";
 import { X } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Dialog } from "radix-ui";
 import { CutImage } from "@/components/cuts-grid/cut-image";
 import { EASE_OUT_EXPO } from "@/components/motion/tokens";
@@ -11,18 +11,53 @@ import { Link } from "@/i18n/navigation";
 import { useFallbackLang } from "@/i18n/use-fallback-lang";
 import type { CowPartGeometry } from "@/lib/data/cow-map";
 import type { Cut } from "@/lib/data/cuts";
-import { quoteHref } from "@/lib/quote-link";
+import { cutQuoteHref } from "@/lib/quote-link";
+
+type Text = { text: string; lang?: string };
+
+/** "2360 · Part 10 of 11", "2360 · Parts 10 and 11 of 11", or just the code for a cut not on the map. */
+function PartLabel({
+  code,
+  numbers,
+  one,
+  many,
+  listLocale,
+}: {
+  code: string | null;
+  numbers: number[];
+  one: (n: number) => Text;
+  many: (list: string) => Text;
+  listLocale: string;
+}) {
+  const part =
+    numbers.length === 0
+      ? null
+      : numbers.length === 1
+        ? one(numbers[0])
+        : many(new Intl.ListFormat(listLocale, { type: "conjunction" }).format(numbers.map(String)));
+  if (!code && !part) return null;
+  return (
+    <p className="label tabular text-label">
+      {code}
+      {code && part ? " · " : ""}
+      {part && <span lang={part.lang}>{part.text}</span>}
+    </p>
+  );
+}
 
 export type CutDetailProps = {
   cut: Cut;
-  part: CowPartGeometry;
-  partName: string;
+  /** The cut's parts on the map: none (bones, trimmings), one, or two (shin). */
+  parts: CowPartGeometry[];
+  /** The part names joined for a sentence ("Fore shank and Hind shank"); "" when there are none. */
+  partNames: string;
   totalParts: number;
   tierName: string;
   imageLayoutId?: string;
   reduced: boolean;
   onClose: () => void;
-  onShowOnCow: () => void;
+  /** "Show on the cow"; undefined hides the button (cuts that are not on the map). */
+  onShowOnCow?: () => void;
   /** Called after the dialog has gone, to put focus back (the card, or the map chip). */
   onClosed: () => void;
 };
@@ -34,8 +69,8 @@ export type CutDetailProps = {
  */
 export function CutDetail({
   cut,
-  part,
-  partName,
+  parts,
+  partNames,
   totalParts,
   tierName,
   imageLayoutId,
@@ -49,6 +84,10 @@ export function CutDetail({
   const tc = useTranslations("cutMap");
   const tm = useTranslations("cutOptions.methods");
   const lang = useFallbackLang();
+  const locale = useLocale();
+  // Photo description from messages; a cut added later without one falls back to its name.
+  const altKey = `photoAlt.${cut.id}` as Parameters<typeof t>[0]; // cut ids are data, checked with t.has
+  const hasAlt = t.has(altKey);
   const fade = reduced ? { duration: 0.15, ease: "linear" as const } : { duration: 0.35, ease: EASE_OUT_EXPO };
 
   return (
@@ -90,19 +129,29 @@ export function CutDetail({
                 </Button>
               </Dialog.Close>
 
+              {/* 4:3 like the card photo, so the card → dialog morph keeps its shape. */}
               <m.div
                 layoutId={imageLayoutId}
-                className="relative aspect-[16/10] w-full overflow-hidden md:aspect-auto md:min-h-80"
+                lang={hasAlt ? lang(`beefCuts.detail.photoAlt.${cut.id}`) : "en"}
+                className="relative aspect-[4/3] w-full overflow-hidden md:self-start"
               >
-                <CutImage cut={cut} alt={cut.nameEn} soonLabel={tg("photoSoon")} sizes="(min-width: 768px) 448px, 92vw" />
+                <CutImage
+                  cut={cut}
+                  alt={hasAlt ? t(altKey) : cut.nameEn}
+                  soonLabel={tg("photoSoon")}
+                  sizes="(min-width: 896px) 448px, (min-width: 768px) 46vw, 92vw"
+                />
               </m.div>
 
               <div className="flex flex-col gap-5 p-6 md:p-8">
                 <div>
-                  <p className="label tabular text-label">
-                    {cut.code ? `${cut.code} · ` : ""}
-                    <span lang={lang("cutMap.partOf")}>{tc("partOf", { n: part.number, total: totalParts })}</span>
-                  </p>
+                  <PartLabel
+                    code={cut.code}
+                    numbers={parts.map((p) => p.number)}
+                    one={(n) => ({ text: tc("partOf", { n, total: totalParts }), lang: lang("cutMap.partOf") })}
+                    many={(list) => ({ text: tc("partsOf", { list, total: totalParts }), lang: lang("cutMap.partsOf") })}
+                    listLocale={lang("cutMap.partsOf") ?? locale}
+                  />
                   <Dialog.Title lang="en" className="title-md mt-2">
                     {cut.nameEn}
                   </Dialog.Title>
@@ -111,16 +160,17 @@ export function CutDetail({
                       {cut.nameKm}
                     </p>
                   )}
-                  {cut.toConfirm && (
-                    <p className="mt-1 text-xs text-muted-foreground italic" lang={lang("cutMap.toConfirm")}>
-                      {tc("toConfirm")}
-                    </p>
-                  )}
                 </div>
 
-                <Dialog.Description className="body text-muted-foreground" lang={lang("beefCuts.detail.description")}>
-                  {t("description", { part: partName, tier: tierName })}
-                </Dialog.Description>
+                {parts.length > 0 ? (
+                  <Dialog.Description className="body text-muted-foreground" lang={lang("beefCuts.detail.description")}>
+                    {t("description", { part: partNames, tier: tierName })}
+                  </Dialog.Description>
+                ) : (
+                  <Dialog.Description className="body text-muted-foreground" lang={lang("beefCuts.detail.descriptionNoPart")}>
+                    {t("descriptionNoPart", { tier: tierName })}
+                  </Dialog.Description>
+                )}
 
                 <div>
                   <p className="label text-label" lang={lang("beefCuts.detail.methods")}>
@@ -141,13 +191,15 @@ export function CutDetail({
 
                 <div className="mt-auto flex flex-wrap gap-3 pt-2">
                   <Button asChild>
-                    <Link href={quoteHref(cut.part, cut.id)} lang={lang("beefCuts.detail.requestQuote")}>
+                    <Link href={cutQuoteHref(cut)} lang={lang("beefCuts.detail.requestQuote")}>
                       {t("requestQuote")}
                     </Link>
                   </Button>
-                  <Button variant="outline" onClick={onShowOnCow} lang={lang("beefCuts.detail.showOnCow")}>
-                    {t("showOnCow")}
-                  </Button>
+                  {onShowOnCow && (
+                    <Button variant="outline" onClick={onShowOnCow} lang={lang("beefCuts.detail.showOnCow")}>
+                      {t("showOnCow")}
+                    </Button>
+                  )}
                 </div>
               </div>
             </m.div>

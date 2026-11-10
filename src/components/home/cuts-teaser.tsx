@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { CutMap } from "@/components/cut-map/cut-map";
 import { DragCarousel } from "@/components/motion/drag-carousel";
@@ -7,6 +8,7 @@ import { PlaceholderWord } from "@/components/placeholder-word";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { getFallbackLang } from "@/i18n/get-fallback-lang";
+import { cutMapHref } from "@/lib/cut-links";
 import { getFeaturedCuts, type Cut } from "@/lib/data";
 
 /** Section 4: the compact cut map on its deep "stage" band. */
@@ -87,6 +89,9 @@ export async function FeaturedCuts() {
   );
 }
 
+/** Matches the carousel's slide width (DragCarousel: 80 / 56 / 38 / 30 % of its width). */
+const SLIDE_SIZES = "(min-width: 1280px) 30vw, (min-width: 896px) 38vw, (min-width: 576px) 56vw, 80vw";
+
 type FeaturedCutCardProps = {
   cut: Cut;
   code: string;
@@ -99,16 +104,23 @@ type FeaturedCutCardProps = {
 };
 
 /**
- * Photo placeholder (raised charcoal with the cut name in big type) until cut photos exist.
+ * The cut photo (4:3), or a placeholder (raised charcoal with the cut name in big type) for a cut
+ * without one. The photo is decorative (alt=""): the card's visible name labels it.
  * The whole card links to its part on the Beef Cuts cut map.
  */
 function FeaturedCutCard({ cut, code, codeLang, methodsLabel, methodsLang, methods, viewLabel, viewLang }: FeaturedCutCardProps) {
   return (
     <TiltCard className="h-full rounded-2xl bg-card">
       <article className="flex h-full flex-col">
-        <div aria-hidden className="stage-placeholder placeholder-fit relative flex aspect-[4/3] items-end overflow-hidden p-5 sm:p-6">
-          <PlaceholderWord variant="card" lang="en" text={cut.nameEn.replace(/\s*\(.*\)$/, "")} className="text-balance text-foreground/90" />
-        </div>
+        {cut.image ? (
+          <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl">
+            <Image src={cut.image} alt="" fill sizes={SLIDE_SIZES} className="object-cover" />
+          </div>
+        ) : (
+          <div aria-hidden className="stage-placeholder placeholder-fit relative flex aspect-[4/3] items-end overflow-hidden p-5 sm:p-6">
+            <PlaceholderWord variant="card" lang="en" text={cut.nameEn.replace(/\s*\(.*\)$/, "")} className="text-balance text-foreground/90" />
+          </div>
+        )}
         <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
           <div>
             <p className="label tabular text-label" lang={codeLang}>
@@ -116,7 +128,7 @@ function FeaturedCutCard({ cut, code, codeLang, methodsLabel, methodsLang, metho
             </p>
             <h3 className="title-md mt-2 [--fs:clamp(1.25rem,1.1rem+0.6vw,1.625rem)]">
               <Link
-                href={`/beef-cuts#${cut.part}`}
+                href={cutMapHref(cut)}
                 aria-label={viewLabel}
                 lang={viewLang}
                 className="after:absolute after:inset-0 after:z-20 after:rounded-2xl focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-[-2px] focus-visible:after:outline-ring"

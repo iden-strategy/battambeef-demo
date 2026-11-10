@@ -349,3 +349,41 @@ test.describe("farm to table: GSAP only for the desktop journey", () => {
     });
   }
 });
+
+test.describe("journey photos are labelled as illustrations", () => {
+  const ALTS = /^Illustration: /;
+
+  for (const [width, version] of [[1440, "desktop"], [390, "stacked"]] as const) {
+    test(`${width}px: five 4:5 photos with "Illustration:" alt text and a visible note`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(URL_EN);
+      const root = version === "desktop" ? desktop(page) : stacked(page);
+      await root.scrollIntoViewIfNeeded();
+      const imgs = root.locator("img");
+      await expect(imgs).toHaveCount(5);
+      for (const alt of await imgs.evaluateAll((els) => els.map((e) => e.getAttribute("alt") ?? ""))) {
+        expect(alt).toMatch(ALTS);
+        expect(alt.toLowerCase()).not.toMatch(/\bour\b/);
+      }
+      await expect(root.locator("[data-illustration-note]")).toHaveText("Images are illustrations.");
+      await expect(root.locator("[data-illustration-note]")).toBeVisible();
+      await expect(root.getByText("Photo coming soon")).toHaveCount(0);
+    });
+  }
+
+  test("Home preview: the same photos, labelled, and the note", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/en");
+    const section = page.locator("section", { has: page.locator("#farm-heading") });
+    await section.scrollIntoViewIfNeeded();
+    const imgs = section.locator("img");
+    await expect(imgs).toHaveCount(4);
+    await expect(imgs.first()).toHaveAttribute("src", /journey-raising\.webp/);
+    await expect(imgs.first()).toHaveAttribute("alt", ALTS);
+    await expect(section.locator("[data-illustration-note]")).toHaveText("Images are illustrations.");
+    // The chilling step keeps its 72-hour count over the photo.
+    await expect(section.getByText("hours", { exact: true })).toBeVisible();
+    // The statement's third pill is the cold-room photo (no snowflake placeholder).
+    await expect(page.locator("#statement-heading img[src*='pill-chilled']")).toHaveCount(1);
+  });
+});

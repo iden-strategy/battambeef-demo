@@ -82,7 +82,7 @@ export const RECIPES: Recipe[] = [
   },
   {
     id: "pepper-stir-fry",
-    cutId: "flank",
+    cutId: "thin-flank",
     method: "stir-fry",
     serves: 2,
     minutes: 20,

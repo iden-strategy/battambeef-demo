@@ -4,6 +4,7 @@ import { AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { BrandLogo } from "@/components/brand-logo";
 import { Button } from "@/components/ui/button";
 import { MagneticButton } from "@/components/motion/magnetic-button";
 import { LanguageSwitch } from "@/components/shell/language-switch";
@@ -216,14 +217,15 @@ export function SiteHeader({ navItems }: { navItems: NavItem[] }) {
         onFocusCapture={() => setHidden(false)}
       >
         <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
+          {/* Logo: 36px tall (44px from 1024px) with at least 14px clear space above and below;
+              the link is the 44px+ tap target. */}
           <Link
             href="/"
-            aria-label={t("header.logoHome")}
-            lang={lang("header.logoHome")}
+            aria-label={t("header.logo")}
             onClick={() => menuOpen && closeMenu(false)}
-            className="font-display text-lg font-extrabold tracking-[-0.02em] lg:text-xl"
+            className="-my-1 inline-flex shrink-0 items-center py-1"
           >
-            {t("header.logo")}
+            <BrandLogo variant="auto" className="h-9 lg:h-11" />
           </Link>
 
           {/* aria-labelledby (not aria-label) so the name can carry its own language. */}

@@ -18,10 +18,12 @@ test.describe("beef knowledge", () => {
     await expect(tabs.getByRole("tab", { name: "Soup" })).toHaveAttribute("aria-selected", "true");
     const panel = page.getByRole("tabpanel");
     await expect(panel).toContainText("simmering");
-    // Soup cuts: brisket and both shanks (and the heel muscle), from cuts.ts.
+    // Soup cuts: brisket, shin, heel muscle and soup bones, from cuts.ts.
     const brisket = panel.getByRole("link", { name: "Brisket: see it on the cut map" });
     await expect(brisket).toHaveAttribute("href", "/en/beef-cuts#brisket");
-    await expect(panel.getByRole("link", { name: /Fore shank/ })).toBeVisible();
+    await expect(panel.getByRole("link", { name: "Shin (fore and hind): see it on the cut map" })).toHaveAttribute("href", "/en/beef-cuts#fore-shank");
+    // Soup bones are not on the map: the link goes to the grid and says so.
+    await expect(panel.getByRole("link", { name: "Soup bones (leg, neck, hip): see it in all cuts" })).toHaveAttribute("href", "/en/beef-cuts#all-cuts");
   });
 
   test("recipe dialog: opens from the card, shows ingredients and steps, Escape closes, focus returns", async ({ page }) => {
@@ -208,5 +210,19 @@ test.describe("walkthroughs", () => {
       }
       await context.close();
     });
+  }
+});
+
+test.describe("no sideways scroll", () => {
+  for (const path of ["about", "for-business", "beef-knowledge", "contact"]) {
+    for (const width of [360, 390, 768, 1440]) {
+      test(`/en/${path} at ${width}px has no horizontal page scroll`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 844 });
+        await page.goto(`/en/${path}`);
+        await page.waitForLoadState("networkidle");
+        const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+        expect(over).toBeLessThanOrEqual(0);
+      });
+    }
   }
 });

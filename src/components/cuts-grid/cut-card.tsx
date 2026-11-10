@@ -11,7 +11,8 @@ import type { Cut } from "@/lib/data/cuts";
 
 type CutCardProps = {
   cut: Cut;
-  partName: string;
+  /** Small label above the name: the code, else the part(s), else the tier. */
+  label: { text: string; lang?: string };
   /** Shared-element id for the image, or undefined when motion is reduced. */
   imageLayoutId?: string;
   onOpen: () => void;
@@ -19,7 +20,7 @@ type CutCardProps = {
 
 /** One cut in the grid. The whole card is a button that opens the detail dialog. */
 export const CutCard = forwardRef<HTMLButtonElement, CutCardProps>(function CutCard(
-  { cut, partName, imageLayoutId, onOpen },
+  { cut, label, imageLayoutId, onOpen },
   ref,
 ) {
   const t = useTranslations("beefCuts.grid");
@@ -49,7 +50,9 @@ export const CutCard = forwardRef<HTMLButtonElement, CutCardProps>(function CutC
           />
         </m.span>
         <span className="flex flex-1 flex-col gap-1 p-5">
-          <span className="label tabular text-label">{cut.code ?? partName}</span>
+          <span className="label tabular text-label" lang={label.lang}>
+            {label.text}
+          </span>
           <span lang="en" className="title-md text-[1.375rem]! leading-tight!">
             {cut.nameEn}
           </span>

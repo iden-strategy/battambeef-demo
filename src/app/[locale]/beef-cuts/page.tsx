@@ -7,7 +7,9 @@ import { Reveal } from "@/components/motion/reveal";
 import { SplitTextReveal } from "@/components/motion/split-text-reveal";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { getCutById } from "@/lib/data";
 import { pageMetadata } from "@/lib/metadata";
+import { ImageReveal } from "@/components/motion/image-reveal";
 import { getFallbackLang } from "@/i18n/get-fallback-lang";
 
 export const generateMetadata = () => pageMetadata("beefCuts");
@@ -18,9 +20,10 @@ export default async function Page() {
   const t = await getTranslations("beefCuts");
   const lang = await getFallbackLang();
   const k = (key: string) => lang(`beefCuts.${key}`);
+  const soupBones = getCutById("soup-bones");
 
   return (
-    // Many animated elements here (cut map, 18 cards): animation features load with the page.
+    // Many animated elements here (cut map, 20 cards): animation features load with the page.
     <MotionPageProvider>
       {/* 1. Intro (dark). Above the fold: reveals with CSS, visible without JavaScript. */}
       <section
@@ -61,11 +64,11 @@ export default async function Page() {
 
       {/* 3. All cuts (dark). Below the fold from here on: each section is laid out only as it
           comes near the screen (.defer-render, globals.css). Placeholder heights are the measured
-          heights per breakpoint (1 column ~8000px, 2 ~3800–4500, 3 ~3100, 4 ~2650). */}
+          heights per breakpoint with 20 cuts (1 column ~8700–9100px, 2 ~4250–5000, 3 ~3600, 4 ~2650–2750). */}
       <section
         id="all-cuts"
         data-surface="dark"
-        className={`${SECTION} defer-render border-t border-border [--defer-h:8000px] xs:[--defer-h:3800px] md:[--defer-h:4500px] lg:[--defer-h:3100px] xl:[--defer-h:2650px]`}
+        className={`${SECTION} defer-render border-t border-border [--defer-h:8800px] xs:[--defer-h:4250px] md:[--defer-h:5000px] lg:[--defer-h:3600px] xl:[--defer-h:2700px]`}
         aria-labelledby="all-cuts-heading"
       >
         <div className="container-page">
@@ -85,8 +88,8 @@ export default async function Page() {
       </section>
 
       {/* 4. By-products teaser (kraft: this page's one kraft section) */}
-      <section data-surface="kraft" className={`${SECTION} defer-render [--defer-h:360px]`}>
-        <div className="container-page grid gap-8 md:grid-cols-[1.4fr_1fr] md:items-end">
+      <section data-surface="kraft" className={`${SECTION} defer-render [--defer-h:640px] md:[--defer-h:620px]`}>
+        <div className="container-page grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-12 lg:gap-20">
           <div>
             <p className="label" lang={k("byProducts.label")}>
               {t("byProducts.label")}
@@ -97,17 +100,26 @@ export default async function Page() {
               lang={k("byProducts.title")}
               className="title-lg mt-3 max-w-[20ch] text-balance"
             />
+            <Reveal className="mt-5">
+              <p className="body-lg max-w-xl text-muted-foreground" lang={k("byProducts.line")}>
+                {t("byProducts.line")}
+              </p>
+              <Button asChild variant="link" className="mt-4 px-0">
+                <Link href="/contact" lang={k("byProducts.cta")}>
+                  {t("byProducts.cta")}
+                </Link>
+              </Button>
+            </Reveal>
           </div>
-          <Reveal>
-            <p className="body-lg text-muted-foreground" lang={k("byProducts.line")}>
-              {t("byProducts.line")}
-            </p>
-            <Button asChild variant="link" className="mt-4 px-0">
-              <Link href="/contact" lang={k("byProducts.cta")}>
-                {t("byProducts.cta")}
-              </Link>
-            </Button>
-          </Reveal>
+          {soupBones?.image && (
+            <ImageReveal
+              src={soupBones.image}
+              alt={t("detail.photoAlt.soup-bones")}
+              lang={k("detail.photoAlt.soup-bones")}
+              sizes="(min-width: 1440px) 560px, (min-width: 768px) 40vw, 92vw"
+              className="aspect-[4/3] rounded-2xl"
+            />
+          )}
         </div>
       </section>
 

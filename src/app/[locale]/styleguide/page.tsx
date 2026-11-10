@@ -176,7 +176,7 @@ export default async function StyleguidePage() {
     { cls: "display-hero", en: t("type.sampleHero"), km: km("ribeye") },
     { cls: "display-xl", en: t("type.sampleXl"), km: km("tenderloin") },
     { cls: "title-lg", en: t("type.sampleTitle"), km: `${km("striploin")} ${km("rump")}` },
-    { cls: "title-md", en: t("type.sampleTitle"), km: `${km("brisket")} ${km("topside")} ${km("flank")}` },
+    { cls: "title-md", en: t("type.sampleTitle"), km: `${km("brisket")} ${km("topside")} ${km("thin-flank")}` },
     { cls: "label", en: t("type.sampleLabel"), km: `2243 · ${km("ribeye")}` },
     { cls: "body-lg", en: t("type.sampleBody"), km: kmList },
     { cls: "body", en: t("type.sampleBody"), km: kmList },

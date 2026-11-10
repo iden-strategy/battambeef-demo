@@ -12,6 +12,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { getFallbackLang } from "@/i18n/get-fallback-lang";
 import { Link } from "@/i18n/navigation";
+import { cutMapHref, isOnMap } from "@/lib/cut-links";
 import { getCutById, getCutsByMethod, getFaq, getGuideMethods, getQuickLinks, getRecipes, getStorageCards, type Cut } from "@/lib/data";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -112,8 +113,9 @@ export default async function Page() {
                         return (
                           <li key={cut.id}>
                             <Link
-                              href={`/beef-cuts#${cut.part}`}
-                              aria-label={t("methods.cutLink", { cut: name.text })}
+                              href={cutMapHref(cut)}
+                              // Cuts that are not on the map (bones, trimmings) link to the grid instead.
+                              aria-label={t(isOnMap(cut) ? "methods.cutLink" : "methods.cutLinkGrid", { cut: name.text })}
                               lang={name.lang}
                               className="body-sm inline-flex min-h-11 items-center gap-1.5 rounded-full border-[1.5px] border-border px-4 font-medium transition-colors duration-150 [@media(hover:hover)]:hover:border-foreground [@media(hover:hover)]:hover:bg-foreground [@media(hover:hover)]:hover:text-background"
                             >

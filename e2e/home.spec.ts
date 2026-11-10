@@ -201,7 +201,12 @@ test.describe("home sections", () => {
     await page.goto("/en");
     await expect(page.locator("#cut-map img").first()).toBeAttached();
     await expect(page.getByRole("region", { name: "Featured cuts" })).toBeAttached();
-    await expect(page.getByRole("link", { name: "See Ribeye (Cube roll) on the cut map" })).toHaveAttribute("href", "/en/beef-cuts#rib");
+    await expect(page.getByRole("link", { name: "See Ribeye (cube roll) on the cut map" })).toHaveAttribute("href", "/en/beef-cuts#rib");
+    // Featured cards show the cut photo (decorative: the card's name labels it).
+    const featuredImgs = page.getByRole("region", { name: "Featured cuts" }).locator("img");
+    await expect(featuredImgs).toHaveCount(6);
+    await expect(featuredImgs.first()).toHaveAttribute("alt", "");
+    await expect(page.getByRole("link", { name: "See Ribs with meat (short rib) on the cut map" })).toHaveAttribute("href", "/en/beef-cuts#rib");
     await expect(page.locator('[data-surface="light"]').filter({ has: page.locator("#business-heading") })).toBeAttached();
     await expect(page.locator('[data-surface="kraft"]').filter({ has: page.locator("#knowledge-heading") })).toBeAttached();
   });

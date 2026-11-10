@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import "./shadcn-tailwind.css";
 
 /* ------------------------------------------------------------------ */
 /* Theme: static brand values + breakpoints                            */
@@ -257,6 +257,31 @@ body:has(#main-content > div > [data-header="photo"]:first-child) .site-header[d
   --foreground: var(--charcoal);
   --ring: var(--crimson);
   color: var(--charcoal);
+}
+
+/* Header logo (BrandLogo variant="auto"): the charcoal wordmark wherever the header text is
+   charcoal (light and kraft surfaces, the unscrolled hero photo, and the same cases before
+   JavaScript runs), the white wordmark everywhere else. Cross-fades with the header colours. */
+.brand-logo-light,
+.brand-logo-dark {
+  transition: opacity 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+.brand-logo-dark {
+  opacity: 0;
+}
+.site-header:is([data-theme="light"], [data-theme="photo"]:not([data-scrolled])) .brand-logo-light,
+body:has(#main-content > div > :is([data-surface="light"], [data-surface="kraft"]):first-child)
+  .site-header[data-theme="auto"]
+  .brand-logo-light,
+body:has(#main-content > div > [data-header="photo"]:first-child) .site-header[data-theme="auto"]:not([data-scrolled]) .brand-logo-light {
+  opacity: 0;
+}
+.site-header:is([data-theme="light"], [data-theme="photo"]:not([data-scrolled])) .brand-logo-dark,
+body:has(#main-content > div > :is([data-surface="light"], [data-surface="kraft"]):first-child)
+  .site-header[data-theme="auto"]
+  .brand-logo-dark,
+body:has(#main-content > div > [data-header="photo"]:first-child) .site-header[data-theme="auto"]:not([data-scrolled]) .brand-logo-dark {
+  opacity: 1;
 }
 
 /* Home hero load sequence: the header fades down into place (0.2s delay). First page load only:

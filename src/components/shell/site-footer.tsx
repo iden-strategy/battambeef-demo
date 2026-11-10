@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { BrandLogo } from "@/components/brand-logo";
 import { getFallbackLang } from "@/i18n/get-fallback-lang";
 import { Link } from "@/i18n/navigation";
 import { getContactDetails, getCopyrightYear, getNavItems, getSocialLinks } from "@/lib/data";
@@ -7,6 +8,7 @@ import { getContactDetails, getCopyrightYear, getNavItems, getSocialLinks } from
 export async function SiteFooter() {
   const t = await getTranslations("footer");
   const tNav = await getTranslations("nav");
+  const tHeader = await getTranslations("header");
   const lang = await getFallbackLang();
   const f = (key: string) => lang(`footer.${key}`);
   const navItems = getNavItems();
@@ -16,7 +18,11 @@ export async function SiteFooter() {
   return (
     <footer id="site-footer" data-surface="dark" className="site-footer relative overflow-hidden">
       <div className="container-page pt-20 pb-10 md:pt-28">
-        <p className="display-xl max-w-[14ch] text-balance" lang={f("campaign")}>
+        {/* Light logo: the footer is always dark. */}
+        <Link href="/" aria-label={tHeader("logo")} className="inline-block">
+          <BrandLogo variant="light" className="h-14 sm:h-16 lg:h-20" />
+        </Link>
+        <p className="display-xl mt-12 max-w-[14ch] text-balance md:mt-16" lang={f("campaign")}>
           {t("campaign")}
         </p>
         <p className="body-lg mt-6 max-w-xl text-muted-foreground" lang={f("tagline")}>

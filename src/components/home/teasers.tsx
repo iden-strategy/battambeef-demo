@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { CountUp } from "@/components/motion/count-up";
 import { ImageReveal } from "@/components/motion/image-reveal";
@@ -63,13 +64,28 @@ export async function FarmPreview() {
             return (
               <li key={stage.id}>
                 {stage.image ? (
-                  <ImageReveal
-                    src={stage.image}
-                    alt=""
-                    sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 92vw"
-                    delay={i * 0.08}
-                    className="aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[4/5]"
-                  />
+                  <ImageReveal delay={i * 0.08} className="aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[4/5]">
+                    <Image
+                      src={stage.image}
+                      alt={tj(`stages.${stage.id}.imageAlt`)}
+                      lang={kj(`stages.${stage.id}.imageAlt`)}
+                      fill
+                      sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 92vw"
+                      className="object-cover"
+                    />
+                    {/* The chilling step keeps its "72 hours" count, on a charcoal fade for contrast. */}
+                    {stage.id === "chilling" && (
+                      <p className="absolute inset-x-0 bottom-0 flex items-baseline gap-2 bg-gradient-to-t from-brand-charcoal via-brand-charcoal/75 to-transparent p-5 pt-16">
+                        <CountUp
+                          to={hours}
+                          className="font-display text-[clamp(3.5rem,2.5rem+4vw,6rem)] leading-[0.85] font-black tracking-[-0.04em] text-accent-text"
+                        />
+                        <span className="label text-foreground" lang={k("hours")}>
+                          {t("hours")}
+                        </span>
+                      </p>
+                    )}
+                  </ImageReveal>
                 ) : (
                   <ImageReveal delay={i * 0.08} className="aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-[4/5]">
                     <div className="stage-placeholder absolute inset-0 flex flex-col justify-between p-5">
@@ -112,6 +128,11 @@ export async function FarmPreview() {
             );
           })}
         </ol>
+        {stages.some((s) => s.image) && (
+          <p data-illustration-note="" className="label mt-10 text-muted-foreground" lang={kj("illustrationNote")}>
+            {tj("illustrationNote")}
+          </p>
+        )}
       </div>
     </section>
   );

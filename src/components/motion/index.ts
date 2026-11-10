@@ -1,0 +1,15 @@
+export { SplitTextReveal, type SplitTextRevealProps } from "@/components/motion/split-text-reveal";
+export { Reveal, RevealItem, type RevealProps, type RevealItemProps } from "@/components/motion/reveal";
+export { ImageReveal, type ImageRevealProps } from "@/components/motion/image-reveal";
+export { InlinePill, type InlinePillProps } from "@/components/motion/inline-pill";
+export { ParallaxImage, type ParallaxImageProps } from "@/components/motion/parallax-image";
+export { MagneticButton, type MagneticButtonProps } from "@/components/motion/magnetic-button";
+export { CursorFollower } from "@/components/motion/cursor-follower";
+export { cursorTarget, type CursorLabel } from "@/components/motion/cursor-target";
+export { DragCarousel, type DragCarouselProps } from "@/components/motion/drag-carousel";
+export { Marquee, type MarqueeProps } from "@/components/motion/marquee";
+export { CountUp, type CountUpProps } from "@/components/motion/count-up";
+export { TiltCard, type TiltCardProps } from "@/components/motion/tilt-card";
+export { PageTransition } from "@/components/motion/page-transition";
+export { useMotionMode, useMotionPrefs, type MotionMode } from "@/components/motion/use-motion-prefs";
+export * from "@/components/motion/tokens";

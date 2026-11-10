@@ -1,0 +1,912 @@
+{
+  "meta": {
+    "siteName": "BattamBeef",
+    "titleTemplate": "%s · BattamBeef",
+    "description": "TODO-KM",
+    "titles": {
+      "home": "TODO-KM",
+      "about": "TODO-KM",
+      "farmToTable": "TODO-KM",
+      "beefCuts": "TODO-KM",
+      "forBusiness": "TODO-KM",
+      "beefKnowledge": "TODO-KM",
+      "contact": "TODO-KM",
+      "styleguide": "TODO-KM",
+      "notFound": "TODO-KM"
+    },
+    "descriptions": {
+      "home": "TODO-KM",
+      "about": "TODO-KM",
+      "farmToTable": "TODO-KM",
+      "beefCuts": "TODO-KM",
+      "forBusiness": "TODO-KM",
+      "beefKnowledge": "TODO-KM",
+      "contact": "TODO-KM",
+      "styleguide": "TODO-KM",
+      "notFound": "TODO-KM"
+    },
+    "ogAlt": "TODO-KM"
+  },
+  "a11y": {
+    "skipToContent": "TODO-KM"
+  },
+  "nav": {
+    "label": "TODO-KM",
+    "home": "TODO-KM",
+    "about": "TODO-KM",
+    "farmToTable": "TODO-KM",
+    "beefCuts": "TODO-KM",
+    "forBusiness": "TODO-KM",
+    "beefKnowledge": "TODO-KM",
+    "contact": "TODO-KM",
+    "openMenu": "TODO-KM",
+    "closeMenu": "TODO-KM",
+    "menuLabel": "TODO-KM"
+  },
+  "header": {
+    "logo": "BattamBeef",
+    "logoHome": "TODO-KM",
+    "contactUs": "TODO-KM"
+  },
+  "language": {
+    "label": "TODO-KM",
+    "en": "EN",
+    "km": "ខ្មែរ",
+    "enFull": "English",
+    "kmFull": "ភាសាខ្មែរ"
+  },
+  "bottomBar": {
+    "label": "TODO-KM",
+    "telegram": "TODO-KM",
+    "quote": "TODO-KM",
+    "contactUs": "TODO-KM"
+  },
+  "footer": {
+    "campaign": "TODO-KM",
+    "tagline": "TODO-KM",
+    "navTitle": "TODO-KM",
+    "contactTitle": "TODO-KM",
+    "socialTitle": "TODO-KM",
+    "phone": "TODO-KM",
+    "email": "TODO-KM",
+    "telegram": "TODO-KM",
+    "address": "TODO-KM",
+    "placeholder": "TODO-KM",
+    "socialSoon": "TODO-KM",
+    "preview": "TODO-KM",
+    "previewNote": "TODO-KM",
+    "rights": "TODO-KM"
+  },
+  "pages": {
+    "notFound": {
+      "title": "TODO-KM",
+      "line": "TODO-KM",
+      "back": "TODO-KM",
+      "label": "TODO-KM",
+      "cuts": "TODO-KM"
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "TODO-KM",
+      "title": "TODO-KM",
+      "imageAlt": "TODO-KM",
+      "actionsLabel": "TODO-KM",
+      "exploreCuts": "TODO-KM",
+      "forRestaurants": "TODO-KM"
+    },
+    "statement": {
+      "label": "TODO-KM",
+      "a": "TODO-KM",
+      "b": "TODO-KM",
+      "c": "TODO-KM",
+      "d": "TODO-KM",
+      "e": "TODO-KM",
+      "body": "TODO-KM",
+      "link": "TODO-KM"
+    },
+    "marquee": "TODO-KM",
+    "cutMap": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM",
+      "link": "TODO-KM"
+    },
+    "featured": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "carouselLabel": "TODO-KM",
+      "code": "TODO-KM",
+      "noCode": "TODO-KM",
+      "methods": "TODO-KM",
+      "view": "TODO-KM {cut}"
+    },
+    "farm": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "stepOf": "TODO-KM",
+      "hours": "TODO-KM",
+      "link": "TODO-KM"
+    },
+    "business": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM",
+      "points": {
+        "consistentCuts": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "customCutting": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "regularSupply": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        }
+      },
+      "cta": "TODO-KM",
+      "link": "TODO-KM"
+    },
+    "knowledge": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM",
+      "photoSoon": "TODO-KM",
+      "link": "TODO-KM"
+    }
+  },
+  "errors": {
+    "eyebrow": "TODO-KM",
+    "title": "TODO-KM",
+    "line": "TODO-KM",
+    "retry": "TODO-KM",
+    "home": "TODO-KM"
+  },
+  "kit": {
+    "cursorDrag": "TODO-KM",
+    "cursorExplore": "TODO-KM",
+    "cursorView": "TODO-KM",
+    "carouselLabel": "TODO-KM",
+    "carouselPrev": "TODO-KM",
+    "carouselNext": "TODO-KM",
+    "slideOf": "TODO-KM",
+    "slide": "TODO-KM"
+  },
+  "styleguide": {
+    "eyebrow": "TODO-KM",
+    "title": "TODO-KM",
+    "intro": "TODO-KM",
+    "sections": {
+      "colors": "TODO-KM",
+      "surfaces": "TODO-KM",
+      "type": "TODO-KM",
+      "buttons": "TODO-KM",
+      "kit": "TODO-KM"
+    },
+    "colors": {
+      "white": "TODO-KM",
+      "charcoal": "TODO-KM",
+      "charcoalDeep": "TODO-KM",
+      "crimson": "TODO-KM",
+      "crimsonHover": "TODO-KM",
+      "kraft": "TODO-KM",
+      "steel": "TODO-KM",
+      "surfaceRaised": "TODO-KM",
+      "surfaceLightRaised": "TODO-KM",
+      "textMuted": "TODO-KM",
+      "success": "TODO-KM",
+      "error": "TODO-KM"
+    },
+    "surfaces": {
+      "light": "TODO-KM",
+      "dark": "TODO-KM",
+      "kraft": "TODO-KM",
+      "allowed": "TODO-KM",
+      "notAllowed": "TODO-KM",
+      "largeOnly": "TODO-KM",
+      "sample": "TODO-KM",
+      "main": "TODO-KM",
+      "muted": "TODO-KM",
+      "accent": "TODO-KM",
+      "label": "TODO-KM",
+      "success": "TODO-KM",
+      "error": "TODO-KM",
+      "kraftOnWhite": "TODO-KM",
+      "steelOnWhite": "TODO-KM",
+      "crimsonOnCharcoal": "TODO-KM",
+      "link": "TODO-KM"
+    },
+    "type": {
+      "english": "TODO-KM",
+      "khmer": "TODO-KM",
+      "khmerSource": "TODO-KM",
+      "sampleHero": "TODO-KM",
+      "sampleXl": "TODO-KM",
+      "sampleTitle": "TODO-KM",
+      "sampleLabel": "TODO-KM",
+      "sampleBody": "TODO-KM"
+    },
+    "buttons": {
+      "primary": "TODO-KM",
+      "outline": "TODO-KM",
+      "ghost": "TODO-KM",
+      "link": "TODO-KM",
+      "default": "TODO-KM",
+      "hover": "TODO-KM",
+      "focus": "TODO-KM",
+      "pressed": "TODO-KM",
+      "disabled": "TODO-KM",
+      "magnetic": "TODO-KM",
+      "onLight": "TODO-KM",
+      "onKraft": "TODO-KM"
+    },
+    "kit": {
+      "splitTitle": "TODO-KM",
+      "splitEn": "TODO-KM",
+      "replay": "TODO-KM",
+      "revealTitle": "TODO-KM",
+      "revealItem": "TODO-KM",
+      "imageRevealTitle": "TODO-KM",
+      "pillTitle": "TODO-KM",
+      "pillBefore": "TODO-KM",
+      "pillMiddle": "TODO-KM",
+      "pillAfter": "TODO-KM",
+      "parallaxTitle": "TODO-KM",
+      "magneticTitle": "TODO-KM",
+      "cursorTitle": "TODO-KM",
+      "cursorHint": "TODO-KM",
+      "carouselTitle": "TODO-KM",
+      "carouselHint": "TODO-KM",
+      "card": "TODO-KM",
+      "cardBody": "TODO-KM",
+      "marqueeTitle": "TODO-KM",
+      "marqueeItems": "TODO-KM|BattamBeef",
+      "countTitle": "TODO-KM",
+      "countLabel": "TODO-KM",
+      "tiltTitle": "TODO-KM",
+      "tiltBody": "TODO-KM",
+      "transitionTitle": "TODO-KM",
+      "transitionHint": "TODO-KM",
+      "placeholderImage": "TODO-KM",
+      "cardCta": "TODO-KM"
+    }
+  },
+  "cutMap": {
+    "chipsLabel": "TODO-KM",
+    "partOf": "TODO-KM",
+    "cutsHeading": "TODO-KM",
+    "parts": {
+      "neck": "TODO-KM",
+      "chuck": "TODO-KM",
+      "rib": "TODO-KM",
+      "loin": "TODO-KM",
+      "rump": "TODO-KM",
+      "round": "TODO-KM",
+      "brisket": "TODO-KM",
+      "plate": "TODO-KM",
+      "flank": "TODO-KM",
+      "fore-shank": "TODO-KM",
+      "hind-shank": "TODO-KM"
+    },
+    "descriptions": {
+      "neck": "TODO-KM",
+      "chuck": "TODO-KM",
+      "rib": "TODO-KM",
+      "loin": "TODO-KM",
+      "rump": "TODO-KM",
+      "round": "TODO-KM",
+      "brisket": "TODO-KM",
+      "plate": "TODO-KM",
+      "flank": "TODO-KM",
+      "fore-shank": "TODO-KM",
+      "hind-shank": "TODO-KM"
+    },
+    "requestQuote": "TODO-KM",
+    "seeAll": "TODO-KM",
+    "exploreAll": "TODO-KM",
+    "toConfirm": "TODO-KM",
+    "topCuts": "TODO-KM"
+  },
+  "cutOptions": {
+    "methods": {
+      "grill": "TODO-KM",
+      "pan-sear": "TODO-KM",
+      "roast": "TODO-KM",
+      "braise": "TODO-KM",
+      "stew": "TODO-KM",
+      "stir-fry": "TODO-KM",
+      "lok-lak": "TODO-KM",
+      "soup": "TODO-KM",
+      "mince": "TODO-KM",
+      "smoke": "TODO-KM",
+      "thin-slice": "TODO-KM"
+    },
+    "tiers": {
+      "premium": "TODO-KM",
+      "everyday": "TODO-KM",
+      "slow-cook": "TODO-KM"
+    }
+  },
+  "beefCuts": {
+    "intro": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM"
+    },
+    "mapHeading": "TODO-KM",
+    "grid": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "filtersLabel": "TODO-KM",
+      "byPart": "TODO-KM",
+      "byMethod": "TODO-KM",
+      "byTier": "TODO-KM",
+      "all": "TODO-KM",
+      "count": "TODO-KM",
+      "empty": "TODO-KM",
+      "clear": "TODO-KM",
+      "photoSoon": "TODO-KM"
+    },
+    "detail": {
+      "close": "TODO-KM",
+      "description": "TODO-KM",
+      "code": "TODO-KM",
+      "part": "TODO-KM",
+      "tier": "TODO-KM",
+      "methods": "TODO-KM",
+      "requestQuote": "TODO-KM",
+      "showOnCow": "TODO-KM",
+      "loading": "TODO-KM",
+      "loadError": "TODO-KM",
+      "retry": "TODO-KM"
+    },
+    "byProducts": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "line": "TODO-KM",
+      "cta": "TODO-KM"
+    },
+    "quote": {
+      "title": "TODO-KM",
+      "line": "TODO-KM",
+      "cta": "TODO-KM"
+    }
+  },
+  "farmToTable": {
+    "intro": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM",
+      "scrollCue": "TODO-KM"
+    },
+    "journey": {
+      "heading": "TODO-KM",
+      "label": "TODO-KM",
+      "stageOf": "TODO-KM",
+      "goTo": "TODO-KM",
+      "pendingNote": "TODO-KM",
+      "photoSoon": "TODO-KM",
+      "stages": {
+        "raising": {
+          "short": "TODO-KM",
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "processing": {
+          "short": "TODO-KM",
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "chilling": {
+          "short": "TODO-KM",
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "cutting": {
+          "short": "TODO-KM",
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "delivery": {
+          "short": "TODO-KM",
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        }
+      }
+    },
+    "chill": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "unit": "TODO-KM",
+      "pointsTitle": "TODO-KM",
+      "points": {
+        "foodSafety": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "tenderness": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "consistency": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        }
+      }
+    },
+    "result": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "items": {
+        "consistentCuts": "TODO-KM",
+        "freshFlavour": "TODO-KM",
+        "restaurants": "TODO-KM",
+        "homeKitchens": "TODO-KM"
+      },
+      "ctaCuts": "TODO-KM",
+      "ctaQuote": "TODO-KM"
+    }
+  },
+  "about": {
+    "hero": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM",
+      "imageAlt": "TODO-KM"
+    },
+    "story": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "p1": "TODO-KM",
+      "p2": "TODO-KM",
+      "p3": "TODO-KM",
+      "photoSoon": "TODO-KM"
+    },
+    "missionVision": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "mission": {
+        "label": "TODO-KM",
+        "body": "TODO-KM"
+      },
+      "vision": {
+        "label": "TODO-KM",
+        "body": "TODO-KM"
+      }
+    },
+    "values": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "items": {
+        "proudlyLocal": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "trustworthy": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "culinaryExcellence": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "modernProgressive": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "peopleFirst": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        }
+      }
+    }
+  },
+  "forBusiness": {
+    "hero": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM",
+      "quote": "TODO-KM",
+      "cuts": "TODO-KM"
+    },
+    "offers": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "items": {
+        "wholesale": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "customCuts": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "partnerships": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        }
+      },
+      "pendingNote": "TODO-KM"
+    },
+    "steps": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "stepOf": "TODO-KM",
+      "items": {
+        "enquiry": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "discuss": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "samples": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "supply": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        }
+      }
+    },
+    "why": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "items": {
+        "chilled": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "consistentCuts": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "yourMenu": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "directLine": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        }
+      },
+      "pendingNote": "TODO-KM"
+    },
+    "enquiry": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM"
+    }
+  },
+  "beefKnowledge": {
+    "hero": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM"
+    },
+    "quickLinks": {
+      "label": "TODO-KM",
+      "items": {
+        "cutGuide": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "methods": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "storage": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "recipes": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "faq": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        }
+      }
+    },
+    "methods": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "tabsLabel": "TODO-KM",
+      "cutsHeading": "TODO-KM",
+      "cutLink": "TODO-KM",
+      "guides": {
+        "grill": "TODO-KM",
+        "pan-sear": "TODO-KM",
+        "roast": "TODO-KM",
+        "braise": "TODO-KM",
+        "stir-fry": "TODO-KM",
+        "soup": "TODO-KM"
+      }
+    },
+    "storage": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM",
+      "items": {
+        "fridge": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "freezer": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "thawing": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "refreezing": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        }
+      },
+      "productNote": "TODO-KM"
+    },
+    "recipes": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "carouselLabel": "TODO-KM",
+      "serves": "TODO-KM",
+      "minutes": "TODO-KM",
+      "hours": "TODO-KM",
+      "open": "TODO-KM",
+      "openLabel": "TODO-KM",
+      "close": "TODO-KM",
+      "ingredients": "TODO-KM",
+      "steps": "TODO-KM",
+      "cut": "TODO-KM",
+      "method": "TODO-KM",
+      "photoSoon": "TODO-KM",
+      "items": {
+        "lok-lak": {
+          "title": "TODO-KM",
+          "intro": "TODO-KM",
+          "ingredients": {
+            "beef": "TODO-KM",
+            "garlic": "TODO-KM",
+            "sauces": "TODO-KM",
+            "sugar": "TODO-KM",
+            "salad": "TODO-KM",
+            "dip": "TODO-KM",
+            "rice": "TODO-KM"
+          },
+          "steps": {
+            "marinate": "TODO-KM",
+            "salad": "TODO-KM",
+            "sear": "TODO-KM",
+            "dip": "TODO-KM",
+            "serve": "TODO-KM"
+          }
+        },
+        "pan-seared-ribeye": {
+          "title": "TODO-KM",
+          "intro": "TODO-KM",
+          "ingredients": {
+            "steak": "TODO-KM",
+            "salt": "TODO-KM",
+            "oil": "TODO-KM",
+            "butter": "TODO-KM",
+            "garlic": "TODO-KM",
+            "herbs": "TODO-KM"
+          },
+          "steps": {
+            "temper": "TODO-KM",
+            "heat": "TODO-KM",
+            "sear": "TODO-KM",
+            "baste": "TODO-KM",
+            "rest": "TODO-KM"
+          }
+        },
+        "brisket-soup": {
+          "title": "TODO-KM",
+          "intro": "TODO-KM",
+          "ingredients": {
+            "brisket": "TODO-KM",
+            "water": "TODO-KM",
+            "aromatics": "TODO-KM",
+            "spices": "TODO-KM",
+            "fishSauce": "TODO-KM",
+            "vegetables": "TODO-KM",
+            "herbs": "TODO-KM"
+          },
+          "steps": {
+            "blanch": "TODO-KM",
+            "simmer": "TODO-KM",
+            "vegetables": "TODO-KM",
+            "season": "TODO-KM",
+            "serve": "TODO-KM"
+          }
+        },
+        "pepper-stir-fry": {
+          "title": "TODO-KM",
+          "intro": "TODO-KM",
+          "ingredients": {
+            "beef": "TODO-KM",
+            "pepper": "TODO-KM",
+            "garlic": "TODO-KM",
+            "onion": "TODO-KM",
+            "sauces": "TODO-KM",
+            "sugar": "TODO-KM",
+            "oil": "TODO-KM",
+            "spring": "TODO-KM"
+          },
+          "steps": {
+            "slice": "TODO-KM",
+            "season": "TODO-KM",
+            "sear": "TODO-KM",
+            "vegetables": "TODO-KM",
+            "serve": "TODO-KM"
+          }
+        }
+      }
+    },
+    "faq": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "items": {
+        "origin": {
+          "q": "TODO-KM",
+          "a": "TODO-KM"
+        },
+        "chilling": {
+          "q": "TODO-KM",
+          "a": "TODO-KM"
+        },
+        "homeCooks": {
+          "q": "TODO-KM",
+          "a": "TODO-KM"
+        },
+        "delivery": {
+          "q": "TODO-KM",
+          "a": "TODO-KM"
+        },
+        "customCuts": {
+          "q": "TODO-KM",
+          "a": "TODO-KM"
+        },
+        "storage": {
+          "q": "TODO-KM",
+          "a": "TODO-KM"
+        }
+      }
+    }
+  },
+  "contact": {
+    "hero": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM"
+    },
+    "cards": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "items": {
+        "orders": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "partnerships": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        },
+        "location": {
+          "title": "TODO-KM",
+          "body": "TODO-KM"
+        }
+      }
+    },
+    "form": {
+      "label": "TODO-KM",
+      "title": "TODO-KM"
+    },
+    "social": {
+      "label": "TODO-KM",
+      "title": "TODO-KM",
+      "body": "TODO-KM",
+      "soon": "TODO-KM"
+    }
+  },
+  "forms": {
+    "optional": "TODO-KM",
+    "chooseOne": "TODO-KM",
+    "noPreference": "TODO-KM",
+    "submit": "TODO-KM",
+    "submitBusiness": "TODO-KM",
+    "sending": "TODO-KM",
+    "previewTitle": "TODO-KM",
+    "previewBody": "TODO-KM",
+    "privacy": "TODO-KM",
+    "fromQuote": "TODO-KM",
+    "errorSummary": "TODO-KM",
+    "errors": {
+      "tooLong": "TODO-KM"
+    },
+    "fields": {
+      "name": {
+        "label": "TODO-KM",
+        "errorRequired": "TODO-KM"
+      },
+      "company": {
+        "label": "TODO-KM"
+      },
+      "businessName": {
+        "label": "TODO-KM",
+        "errorRequired": "TODO-KM"
+      },
+      "contactName": {
+        "label": "TODO-KM",
+        "errorRequired": "TODO-KM"
+      },
+      "phone": {
+        "label": "TODO-KM",
+        "hint": "TODO-KM",
+        "errorRequired": "TODO-KM",
+        "errorFormat": "TODO-KM"
+      },
+      "email": {
+        "label": "TODO-KM",
+        "errorFormat": "TODO-KM"
+      },
+      "enquiryType": {
+        "label": "TODO-KM",
+        "errorRequired": "TODO-KM",
+        "options": {
+          "order": "TODO-KM",
+          "partnership": "TODO-KM",
+          "general": "TODO-KM"
+        }
+      },
+      "interest": {
+        "label": "TODO-KM",
+        "anyCut": "TODO-KM",
+        "errorInvalid": "TODO-KM"
+      },
+      "businessType": {
+        "label": "TODO-KM",
+        "errorRequired": "TODO-KM",
+        "options": {
+          "restaurant": "TODO-KM",
+          "hotel": "TODO-KM",
+          "cafe": "TODO-KM",
+          "catering": "TODO-KM",
+          "retail": "TODO-KM",
+          "other": "TODO-KM"
+        }
+      },
+      "cuts": {
+        "label": "TODO-KM",
+        "hint": "TODO-KM",
+        "errorInvalid": "TODO-KM"
+      },
+      "volume": {
+        "label": "TODO-KM",
+        "errorInvalid": "TODO-KM",
+        "options": {
+          "under20": "TODO-KM",
+          "20to50": "TODO-KM",
+          "50to100": "TODO-KM",
+          "over100": "TODO-KM",
+          "unsure": "TODO-KM"
+        }
+      },
+      "area": {
+        "label": "TODO-KM",
+        "hint": "TODO-KM"
+      },
+      "message": {
+        "label": "TODO-KM",
+        "errorShort": "TODO-KM"
+      }
+    }
+  }
+}

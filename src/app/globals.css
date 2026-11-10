@@ -1,0 +1,1071 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* ------------------------------------------------------------------ */
+/* Theme: static brand values + breakpoints                            */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  --breakpoint-xs: 30rem; /* 480px; the rest are Tailwind defaults (640, 768, 1024, 1280, 1536) */
+
+  --color-brand-white: #f5f3ef;
+  --color-brand-charcoal: #292b2d;
+  --color-brand-crimson: #7b1e2b;
+  --color-brand-crimson-hover: #a8323f;
+  --color-brand-kraft: #c5a77d;
+  --color-brand-steel: #b9bec2;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Semantic tokens: resolved per element, so they follow data-surface. */
+@theme inline {
+  --font-display: var(--font-montserrat), var(--font-noto-khmer), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), var(--font-noto-khmer), ui-sans-serif, system-ui, sans-serif;
+  --font-khmer: var(--font-noto-khmer), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--card);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--card);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--card);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--card);
+  --color-accent-foreground: var(--foreground);
+  --color-accent-text: var(--accent-text);
+  --color-label: var(--label);
+  --color-destructive: var(--error);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-link: var(--link-text);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-line-strong: var(--line-strong);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+/* ------------------------------------------------------------------ */
+/* Tokens                                                              */
+/* ------------------------------------------------------------------ */
+
+:root {
+  /* One dark theme: scrollbars and form controls match, whatever the phone's setting. */
+  color-scheme: dark;
+  --radius: 0.75rem;
+
+  /* Brand */
+  --white: #f5f3ef;
+  --charcoal: #292b2d;
+  --charcoal-deep: #1f2123; /* footer: one step deeper so it never blends into the last section */
+  --crimson: #7b1e2b;
+  --crimson-hover: #a8323f;
+  --kraft: #c5a77d;
+  --steel: #b9bec2;
+
+  /* Extra tokens from CLAUDE.md section 6 */
+  --surface-raised: #35383b; /* cards on the dark base */
+  /* The cut map photo's backdrop (average of its top and side edges). The cut map band uses it as
+     its background so the photo has no visible edge: a "stage" one step deeper than charcoal. */
+  --cutmap-stage: #1d1d1d;
+  --surface-light-raised: #eae6df; /* cards on light */
+  --text-muted-dark: var(--steel); /* 7.6:1 on charcoal */
+  --text-muted-light: #55585b; /* 6.5:1 on white */
+  --text-muted-kraft: #3b3d3f; /* 4.78:1 on kraft */
+  --success-on-dark: #8fd19e;
+  --error-on-dark: #ffa070; /* warm orange: clearly not crimson */
+  --success-on-light: #2e6b3a;
+  --error-on-light: #a63d00;
+
+  /* Layout */
+  --header-h: 4rem;
+  --bottom-bar-h: 4.5rem;
+  --container-max: 90rem;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --header-h: 4.5rem;
+  }
+}
+
+/* Dark surface (DEFAULT for the whole site): white text, steel secondary text, kraft highlights.
+   Crimson only as fills (buttons, badges, decoration), never as text. */
+:root,
+[data-surface="dark"] {
+  --background: var(--charcoal);
+  --foreground: var(--white);
+  --muted-foreground: var(--text-muted-dark);
+  --card: var(--surface-raised);
+  --accent-text: var(--kraft);
+  --label: var(--kraft);
+  --link-text: var(--kraft);
+  --primary: var(--crimson);
+  --primary-hover: var(--crimson-hover);
+  --primary-foreground: var(--white);
+  --border: color-mix(in srgb, var(--steel) 28%, transparent);
+  --input: color-mix(in srgb, var(--steel) 60%, var(--charcoal)); /* 3.7:1 */
+  --line-strong: var(--input); /* lines that must be seen, never text */
+  --ring: var(--kraft); /* 6.2:1 on charcoal */
+  --success: var(--success-on-dark);
+  --error: var(--error-on-dark);
+}
+
+/* Light surface (accent, 1–2 sections per page): charcoal text, crimson accents.
+   Never kraft or steel as text here. */
+[data-surface="light"] {
+  --background: var(--white);
+  --foreground: var(--charcoal);
+  --muted-foreground: var(--text-muted-light);
+  --card: var(--surface-light-raised);
+  --accent-text: var(--crimson);
+  --label: var(--crimson);
+  --link-text: var(--crimson);
+  --primary: var(--crimson);
+  --primary-hover: var(--crimson-hover);
+  --primary-foreground: var(--white);
+  --border: color-mix(in srgb, var(--steel) 70%, transparent);
+  --input: #8a8e92; /* 3.1:1 on white */
+  --line-strong: #84888c; /* 3.2:1 on white: lines that must be seen (dial ticks), never text */
+  --ring: var(--crimson);
+  --success: var(--success-on-light);
+  --error: var(--error-on-light);
+}
+
+/* Kraft surface (at most one section per page): charcoal text; crimson (4.46:1) for large
+   headings only, so labels and links stay charcoal. */
+[data-surface="kraft"] {
+  --background: var(--kraft);
+  --foreground: var(--charcoal);
+  --muted-foreground: var(--text-muted-kraft);
+  --card: #d4bd9b;
+  --accent-text: var(--crimson);
+  --label: var(--charcoal);
+  --link-text: var(--charcoal);
+  --primary: var(--crimson);
+  --primary-hover: var(--crimson-hover);
+  --primary-foreground: var(--white);
+  --border: color-mix(in srgb, var(--charcoal) 25%, transparent);
+  --input: color-mix(in srgb, var(--charcoal) 70%, var(--kraft));
+  --line-strong: var(--input);
+  --ring: var(--charcoal);
+  --success: #1a4322;
+  --error: #6b2600;
+}
+
+/* In the base layer so any Tailwind background or text class on the same element wins
+   (e.g. the translucent bottom bar). The token remaps above stay unlayered. */
+@layer base {
+  [data-surface] {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}
+
+/* Light and kraft panels inside light/kraft sections keep their own colour-scheme for controls. */
+[data-surface="light"],
+[data-surface="kraft"] {
+  color-scheme: light;
+}
+
+/* ------------------------------------------------------------------ */
+/* Header: adapts to the surface under it (set by SiteHeader)          */
+/* ------------------------------------------------------------------ */
+
+/* Default (and before JavaScript runs): transparent with white text over the hero.
+   Colours change in 200ms; hide on scroll down / show on scroll up slides in 0.35s expo-out
+   (instant with reduced motion). */
+.site-header {
+  background-color: transparent;
+  color: var(--white);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.2s cubic-bezier(0, 0, 0.2, 1),
+    color 0.2s cubic-bezier(0, 0, 0.2, 1),
+    border-color 0.2s cubic-bezier(0, 0, 0.2, 1),
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-header[data-hidden="true"] {
+  transform: translateY(-100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header {
+    transition:
+      background-color 0.2s cubic-bezier(0, 0, 0.2, 1),
+      color 0.2s cubic-bezier(0, 0, 0.2, 1),
+      border-color 0.2s cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* Over the hero photo (data-header="photo"): transparent with charcoal text, because the pale sky
+   is too light for white text (1.3:1). Once scrolled it turns translucent charcoal like any dark
+   section, since the hero melts into charcoal as it scrolls away. */
+.site-header[data-theme="photo"]:not([data-scrolled]) {
+  --foreground: var(--charcoal);
+  --ring: var(--crimson);
+  color: var(--charcoal);
+}
+
+/* Scrolled over dark content: translucent charcoal with a hairline. */
+.site-header:is([data-theme="dark"], [data-theme="auto"], [data-theme="photo"])[data-scrolled="true"] {
+  background-color: color-mix(in srgb, var(--charcoal) 86%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--steel) 14%, transparent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .site-header:is([data-theme="dark"], [data-theme="auto"], [data-theme="photo"])[data-scrolled="true"] {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* Over light and kraft sections: solid light background, charcoal text. */
+.site-header[data-theme="light"] {
+  background-color: var(--white);
+  color: var(--charcoal);
+  border-bottom-color: color-mix(in srgb, var(--steel) 55%, transparent);
+}
+
+/* Before JavaScript runs: go light if the page opens on a light or kraft section. */
+body:has(#main-content > div > :is([data-surface="light"], [data-surface="kraft"]):first-child)
+  .site-header[data-theme="auto"] {
+  --foreground: var(--charcoal);
+  --ring: var(--crimson);
+  background-color: var(--white);
+  color: var(--charcoal);
+  border-bottom-color: color-mix(in srgb, var(--steel) 55%, transparent);
+}
+
+/* Before JavaScript runs: charcoal text if the page opens on the hero photo. */
+body:has(#main-content > div > [data-header="photo"]:first-child) .site-header[data-theme="auto"]:not([data-scrolled]) {
+  --foreground: var(--charcoal);
+  --ring: var(--crimson);
+  color: var(--charcoal);
+}
+
+/* Home hero load sequence: the header fades down into place (0.2s delay). First page load only:
+   after a client-side navigation (html.has-navigated, PageTransition) it just stays put.
+   `translate`, not `transform`, so it never fights the hide-on-scroll slide. */
+html:not(.has-navigated) body:has([data-hero]) .site-header {
+  animation: hero-drop 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s backwards;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer: dark, one step deeper than the page, with a hairline        */
+/* ------------------------------------------------------------------ */
+
+.site-footer {
+  --background: var(--charcoal-deep);
+  border-top: 1px solid color-mix(in srgb, var(--steel) 18%, transparent);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reveal kit (CLAUDE.md section 8)                                    */
+/* Server HTML is always visible. A head script adds .js-motion before  */
+/* first paint; only then are in-view elements hidden until Motion     */
+/* animates them. If the app never hydrates, a failsafe shows them.    */
+/* ------------------------------------------------------------------ */
+
+html.js-motion [data-reveal="fade"],
+html.js-motion [data-reveal-group] > [data-reveal-item],
+html.js-motion [data-reveal="split"] [data-piece] {
+  opacity: 0;
+}
+
+html.js-motion [data-reveal="clip"] {
+  clip-path: inset(100% 0 0 0);
+}
+
+html.js-motion [data-reveal="pop"] {
+  transform: scale(0);
+}
+
+/* Failsafe: JavaScript started but the app never hydrated (blocked or failed bundle). */
+html.js-motion:not(.motion-ready) :is(
+    [data-reveal="fade"],
+    [data-reveal-group] > [data-reveal-item],
+    [data-reveal="split"] [data-piece],
+    [data-reveal="clip"],
+    [data-reveal="pop"],
+    .dial-lit > line
+  ) {
+  animation: bb-failsafe 0.3s linear 6s forwards;
+}
+
+/* Content that only appears when the head script flags the app as stalled (at 6s, e.g. the
+   stacked journey on desktop) starts its failsafe animation then: show it without a second wait. */
+html.app-stalled:not(.motion-ready) :is(
+    [data-reveal="fade"],
+    [data-reveal-group] > [data-reveal-item],
+    [data-reveal="split"] [data-piece],
+    [data-reveal="clip"],
+    [data-reveal="pop"],
+    .dial-lit > line
+  ) {
+  animation-delay: 0s;
+}
+
+@keyframes bb-failsafe {
+  to {
+    opacity: 1;
+    clip-path: inset(0);
+    transform: none;
+  }
+}
+
+/* Mount-time reveals (hero headings) are pure CSS: they play from the first paint, with or
+   without JavaScript, so the heading never waits for hydration. */
+.reveal-mount {
+  animation: bb-rise var(--reveal-dur, 0.8s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s) both;
+}
+
+.split-mount [data-piece] {
+  animation: bb-rise var(--reveal-dur, 0.9s) cubic-bezier(0.22, 1, 0.36, 1)
+    calc(var(--reveal-delay, 0s) + var(--i, 0) * var(--reveal-step, 0.035s)) both;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .split-mount [data-piece] {
+    animation-name: bb-rise-blur;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-mount,
+  .split-mount [data-piece] {
+    animation: bb-fade 0.2s linear both;
+  }
+}
+
+@keyframes bb-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-y, 0.6em)) rotate(var(--reveal-rotate, 0deg));
+  }
+}
+
+@keyframes bb-rise-blur {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-y, 0.6em)) rotate(var(--reveal-rotate, 0deg));
+    filter: blur(8px);
+  }
+}
+
+/* Characters picked out by SplitTextReveal's `accent` (kraft on dark, crimson on light). */
+.split-accent {
+  color: var(--accent-text);
+}
+
+@keyframes bb-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Panels that appear on demand (accordion answers, cooking method guides): a short fade, no
+   movement, so nothing below them is pushed by an animation. */
+.accordion-fade[data-state="open"],
+.panel-fade[data-state="active"] {
+  animation: bb-fade 0.25s linear both;
+}
+
+/* Recipe dialog: the backdrop fades, the panel rises 24px (expo-out). */
+.dialog-fade[data-state="open"] {
+  animation: bb-fade 0.3s linear both;
+}
+
+.dialog-rise[data-state="open"] {
+  --reveal-y: 24px;
+  animation: bb-rise 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-fade[data-state="open"],
+  .panel-fade[data-state="active"],
+  .dialog-fade[data-state="open"],
+  .dialog-rise[data-state="open"] {
+    animation: bb-fade 0.15s linear both;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scrollbar-gutter: stable;
+  }
+
+  /* Below 768px the fixed bottom bar covers the lowest strip of the screen: whatever the browser
+     scrolls into view (a field reached with Tab, a link target) stops above it. */
+  @media (max-width: 47.99rem) {
+    html {
+      scroll-padding-bottom: calc(var(--bottom-bar-h) + env(safe-area-inset-bottom) + 1rem);
+    }
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: clip;
+    min-height: 100svh;
+  }
+
+  :lang(km) body,
+  body:lang(km) {
+    font-family: var(--font-khmer);
+    line-height: 1.75;
+  }
+
+  /* English fallback text on Khmer pages (missing translations) keeps the English fonts. */
+  body:lang(km) [lang="en"] {
+    font-family: var(--font-sans);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  [id] {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Type scale (CLAUDE.md section 7)                                    */
+/* Each class sets --fs; Khmer reuses it 8% larger with taller lines.  */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+  .display-hero,
+  .display-xl,
+  .title-lg,
+  .title-md,
+  .label {
+    font-family: var(--font-display);
+    font-size: var(--fs);
+  }
+
+  .display-hero {
+    --fs: clamp(3.5rem, 16vw, 15.5rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+  }
+
+  .display-xl {
+    --fs: clamp(2.75rem, 8vw, 7.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+  }
+
+  .title-lg {
+    --fs: clamp(2rem, 1.4rem + 3vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 0.98;
+  }
+
+  .title-md {
+    --fs: clamp(1.5rem, 1.2rem + 1.4vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .label {
+    --fs: clamp(0.6875rem, 0.65rem + 0.15vw, 0.8125rem);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .body-lg,
+  .body,
+  .body-sm {
+    font-family: var(--font-sans);
+    font-size: var(--fs);
+    font-weight: 400;
+  }
+
+  .body-lg {
+    --fs: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+    line-height: 1.55;
+  }
+
+  .body {
+    --fs: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+    line-height: 1.6;
+  }
+
+  .body-sm {
+    --fs: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Khmer: Noto Sans Khmer, 8% larger, no uppercase, no negative tracking, open line-height. */
+  :is(.display-hero, .display-xl, .title-lg, .title-md, .label, .body-lg, .body, .body-sm):lang(km) {
+    font-family: var(--font-khmer);
+    font-size: calc(var(--fs) * 1.08);
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  :is(.display-hero, .display-xl, .title-lg, .title-md):lang(km) {
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .label:lang(km) {
+    line-height: 1.5;
+  }
+
+  :is(.body-lg, .body, .body-sm):lang(km) {
+    line-height: 1.75;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Section padding: the same two steps on every page. `.section` for full sections,
+     `.section-sm` for compact bands (intro follow-ups, short CTAs). */
+  .section {
+    padding-block: 5rem;
+  }
+
+  .section-sm {
+    padding-block: 4rem;
+  }
+
+  @media (min-width: 48rem) {
+    .section {
+      padding-block: 8rem;
+    }
+
+    .section-sm {
+      padding-block: 6rem;
+    }
+  }
+
+  .container-page {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Below-the-fold sections: laid out only as they come near the screen */
+/* ------------------------------------------------------------------ */
+
+/* The browser skips layout and paint of these sections until they approach the viewport, so the
+   first paint is not held up by content nobody can see yet (Beef Cuts: the 18-card grid).
+   --defer-h is the placeholder height while skipped: set it per breakpoint close to the real
+   height so the scrollbar stays honest. `auto` remembers the real height once rendered.
+   Side effects of the containment this brings:
+   - a `position: fixed` element inside is placed relative to the section: portal it to <body>
+   - content overflowing the section is clipped (keep shadows and focus rings inside its padding)
+   Never use above the fold. */
+.defer-render {
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto var(--defer-h, 600px);
+}
+
+/* ------------------------------------------------------------------ */
+/* Cut map                                                             */
+/* ------------------------------------------------------------------ */
+
+/* The cut map photo has a near-black backdrop. The band behind it (.cutmap-stage) uses that same
+   colour, and fading the photo's top and side edges by a few percent hides any leftover seam. The fades are narrower
+   than the gap between the photo's edge and the cow (ear tip 14px from the top, nose 46px from the
+   left, tail 48px from the right), so nothing on the animal is dimmed. There is no bottom fade:
+   the hooves reach within 10px of the bottom edge. The floor there is lighter than the page, so
+   .cutmap-floor (a strip below the photo) melts it into the page instead. */
+.cutmap-fade {
+  --fade-x: 2.5%;
+  --fade-top: 1.4%;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 var(--fade-x), #000 calc(100% - var(--fade-x)), transparent),
+    linear-gradient(to bottom, transparent, #000 var(--fade-top));
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 var(--fade-x), #000 calc(100% - var(--fade-x)), transparent),
+    linear-gradient(to bottom, transparent, #000 var(--fade-top));
+  mask-composite: intersect;
+}
+
+/* The band behind the cut map: the photo's own backdrop colour, melting into charcoal at the top
+   and bottom so it reads as a deeper "stage" section with soft edges. */
+.cutmap-stage {
+  background-image: linear-gradient(
+    to bottom,
+    var(--charcoal) 0,
+    var(--cutmap-stage) 6rem,
+    var(--cutmap-stage) calc(100% - 6rem),
+    var(--charcoal) 100%
+  );
+}
+
+/* The strip below the photo. Its colours are NOT brand tokens: they are sampled from the photo's
+   bottom row (left / centre / right: #403e40 / #454344 / #3f3d3e, the lighter studio floor), so
+   the strip continues the photo seamlessly and then fades into the stage colour. If the photo is
+   replaced, re-sample these. */
+.cutmap-floor {
+  height: 1.5rem;
+  pointer-events: none;
+  background: linear-gradient(to right, #403e40, #454344, #3f3d3e);
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 2.5%, #000 97.5%, transparent),
+    linear-gradient(to bottom, #000, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 2.5%, #000 97.5%, transparent),
+    linear-gradient(to bottom, #000, transparent);
+  mask-composite: intersect;
+}
+
+/* ------------------------------------------------------------------ */
+/* Farm to Table                                                       */
+/* ------------------------------------------------------------------ */
+
+/* The journey has two versions; exactly one shows. These queries must match DESKTOP in
+   components/farm-to-table/journey-scroller.tsx. The desktop version needs JavaScript
+   (html.js-motion is set before first paint), so without it everyone gets the stacked version.
+   Failsafe: it also goes stacked when the app never started (html.app-stalled, head script) or
+   the GSAP animation failed to load or start (html.journey-fallback, JourneyScroller), because
+   without the animation only stage 1 of the desktop version is readable.
+   The desktop track is 500svh: the stage sticks (CSS position: sticky) for the last 400svh.
+   Sticky breaks silently if any ancestor has overflow hidden/auto: use overflow-x: clip
+   (as body does) wherever sideways scroll must be prevented. */
+.journey-desktop {
+  display: none;
+  height: 500svh;
+}
+
+@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+  html.js-motion:not(.app-stalled, .journey-fallback) .journey-desktop {
+    display: block;
+  }
+
+  html.js-motion:not(.app-stalled, .journey-fallback) .journey-stacked {
+    display: none;
+  }
+}
+
+/* Before the script takes over, only the first stage's photo and text show. */
+.journey-desktop [data-layer]:not(:first-child) {
+  clip-path: inset(100% 0 0 0);
+}
+
+.journey-desktop [data-panel]:not(:first-child) {
+  opacity: 0;
+}
+
+/* The stacked progress bar only means something once the script updates it. It sits under the
+   header and moves up with it when the header hides on scroll (same timing as the header). */
+html:not(.js-motion) .journey-bar,
+html.app-stalled:not(.app-ready) .journey-bar {
+  display: none;
+}
+
+.journey-bar {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-header-hidden] .journey-bar {
+  transform: translateY(calc(-1 * var(--header-h)));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-bar {
+    transition: none;
+  }
+}
+
+/* Stage photo placeholder: raised charcoal with a faint kraft glow in one corner. */
+.stage-placeholder {
+  background:
+    radial-gradient(120% 80% at 100% 0%, color-mix(in srgb, var(--kraft) 14%, transparent), transparent 60%),
+    var(--surface-raised);
+}
+
+/* 72-hour dial: the crimson ticks wait for the count; without JavaScript the dial shows full. */
+html.js-motion .dial-lit > line {
+  opacity: 0;
+  transition: opacity 0.25s linear;
+}
+
+/* Intro scroll cue: a slow 3px nod, looping. Turned off with reduced motion (the arrow stays still). */
+.scroll-cue {
+  animation: bb-nod 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue {
+    animation: none;
+  }
+}
+
+@keyframes bb-nod {
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Home hero: "HOLY COW." depth reveal (components/home/hero.tsx)       */
+/* ------------------------------------------------------------------ */
+
+/* The stage has the photo's exact aspect ratio and holds three layers of identical size: photo,
+   title, cow. Everything inside is sized in cqw (1cqw = 1% of the stage width), so the overlap of
+   cow and letters is the same on every screen.
+
+   Portrait screens (aspect ratio < 1, the default here): tall images, the stage is exactly the
+   viewport width at its natural height (the cow is never cropped), and the page continues below.
+   Landscape screens (aspect ratio >= 1): wide images, the stage covers the viewport,
+   max(100vw, 100svh x 16:9) wide and centred, cropped by the 100svh hero.
+
+   Tuning by eye: --hero-title-top is where the cap top of the letters sits (percent of the stage
+   height); --hero-title-size is the font size. Measured cow (percent of the photo):
+   tall: left 8.1-94.4%, head top 51.3%, hump and back 52-56%, hooves 87.6%
+   wide: left 18.8-79.7%, head top 28.3%, hump about 33%, back 36-40%, hooves 99% */
+.hero {
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.hero-stage {
+  --hero-title-top: 34%;
+  --hero-title-size: 26cqw;
+  /* The action pill: centre x, and top (percent of the stage). It never goes lower than
+     --hero-pill-room above the bottom of the screen, so it is visible on first view. */
+  --hero-pill-x: 50%;
+  --hero-pill-top: 89.5%;
+  --hero-pill-room: calc(4.5rem + var(--bottom-bar-h) + env(safe-area-inset-bottom));
+  /* How far the stage's top sits above the top of the screen (landscape crop). */
+  --hero-stage-y: 0px;
+  /* Soft edge where the photo meets the charcoal page. */
+  --hero-fade-h: 9%;
+
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1638 / 2912;
+  container-type: inline-size;
+}
+
+@media (min-width: 48rem) {
+  .hero-stage {
+    --hero-pill-room: calc(4.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (min-width: 40rem) {
+  /* Tablets in portrait: between the legs. */
+  .hero-stage {
+    --hero-pill-x: 58%;
+    --hero-pill-top: 79%;
+  }
+}
+
+@media (min-aspect-ratio: 1/1) {
+  .hero {
+    height: 100svh;
+  }
+
+  .hero-stage {
+    --hero-title-top: 26%;
+    /* Capped at 16vw so the title always fits the visible width (on 4:3 screens the stage is
+       cropped at the sides). */
+    --hero-title-size: min(13cqw, 16vw);
+    --hero-pill-x: 55%;
+    --hero-pill-top: 84%;
+    --hero-stage-h: max(100svh, 100vw * 1638 / 2912);
+    --hero-stage-y: calc((100svh - var(--hero-stage-h)) / 2);
+    --hero-fade-h: 3%;
+
+    position: absolute;
+    top: var(--hero-stage-y);
+    left: 50%;
+    translate: -50% 0;
+    width: max(100vw, 100svh * 2912 / 1638);
+    aspect-ratio: 2912 / 1638;
+  }
+}
+
+.hero-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Photo and cow are visible at once (the photo is the LCP image); they only settle from 1.06 to
+   1. On a full-stage wrapper, so both scale around the same centre and stay aligned. */
+.hero-settle {
+  animation: hero-settle 2.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* The trimmed cow cutout, placed at its box on the photo (set inline from home.ts). */
+.hero-cow {
+  position: absolute;
+  display: block;
+  left: var(--cow-x);
+  top: var(--cow-y);
+  width: var(--cow-w);
+  height: var(--cow-h);
+}
+
+@media (min-aspect-ratio: 1/1) {
+  .hero-cow {
+    left: var(--cow-x-wide);
+    top: var(--cow-y-wide);
+    width: var(--cow-w-wide);
+    height: var(--cow-h-wide);
+  }
+}
+
+@keyframes hero-settle {
+  from {
+    scale: 1.06;
+  }
+}
+
+/* Desktop pointer depth shifts the photo and cow by up to 1.2%: a little overscan so no edge
+   ever shows. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero [data-depth="scene"] {
+    scale: 1.03;
+  }
+}
+
+.hero-stage::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: var(--hero-fade-h);
+  background: linear-gradient(to top, var(--charcoal), transparent);
+  pointer-events: none;
+}
+
+/* Title block: its top sits 0.08em above the cap top (Montserrat's cap top inside a 0.85 line). */
+.hero-title-block {
+  position: absolute;
+  inset-inline: 0;
+  top: calc(var(--hero-title-top) - 0.08 * var(--hero-title-size));
+  padding-inline: 2cqw;
+  text-align: center;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: var(--hero-title-size);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  text-transform: uppercase;
+  color: var(--charcoal);
+}
+
+/* Only the full stop is crimson: a small brand accent (crimson on the pale sky is 6.6:1). */
+.hero-title .split-accent {
+  color: var(--crimson);
+}
+
+/* Portrait: one word per line ("HOLY" / "COW."). */
+.hero-title [data-word] {
+  display: block;
+}
+
+@media (min-aspect-ratio: 1/1) {
+  .hero-title [data-word] {
+    display: inline-block;
+  }
+}
+
+/* Khmer headline: open line-height (stacked vowels and subscripts), no uppercase or negative
+   tracking, words wrap naturally. Re-tune the size once the Khmer title is written (TODO-KM). */
+.hero-title:lang(km) {
+  font-family: var(--font-khmer);
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 1.3;
+  text-transform: none;
+}
+
+.hero-eyebrow {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 100%;
+  margin-bottom: max(0.75rem, 1.4cqw);
+  color: var(--charcoal);
+  animation: hero-drop 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+/* The cream glass pill: rises in last. Desktop gets a real backdrop blur; phones a more opaque
+   fill instead (no backdrop filter on mobile). */
+.hero-actions {
+  position: absolute;
+  z-index: 1;
+  left: var(--hero-pill-x);
+  top: min(var(--hero-pill-top), 100svh - var(--hero-pill-room) - var(--hero-stage-y));
+  translate: -50% 0;
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.3125rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  background-color: color-mix(in srgb, var(--white) 90%, transparent);
+  box-shadow:
+    0 12px 32px -14px rgb(0 0 0 / 0.45),
+    inset 0 0 0 1px rgb(255 255 255 / 0.55);
+  animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.1s both;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-actions {
+    background-color: color-mix(in srgb, var(--white) 68%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    backdrop-filter: blur(14px) saturate(1.3);
+  }
+}
+
+/* Scroll melt: a charcoal gradient rising from the bottom (opacity and position are driven by
+   HeroEffects). Without JavaScript it simply stays hidden. */
+.hero-melt {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(to top, var(--charcoal) 0%, var(--charcoal) 35%, transparent 100%);
+}
+
+@keyframes hero-drop {
+  from {
+    opacity: 0;
+    translate: 0 -0.75rem;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    translate: -50% 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-settle {
+    animation: none;
+  }
+
+  .hero-eyebrow,
+  .hero-actions,
+  html:not(.has-navigated) body:has([data-hero]) .site-header {
+    animation-name: bb-fade;
+    animation-duration: 0.3s;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Home sections                                                       */
+/* ------------------------------------------------------------------ */
+
+/* Statement: "LOCAL BEEF ● FROM / BATTAMBANG ● / CHILLED 72 HOURS ●" */
+.display-statement {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 7vw, 7.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+
+/* Marquee band words */
+.display-marquee {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1rem + 2.4vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+:is(.display-statement, .display-marquee):lang(km) {
+  font-family: var(--font-khmer);
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 1.35;
+  text-transform: none;
+}
+
+/* Big type on photo placeholders (cut name on featured cards, cooking method on recipe cards). */
+.placeholder-word {
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+/* The placeholder box is a size container, and the word's size is capped so its longest word
+   (--fit-chars, set by PlaceholderWord) fits the box at every width: an uppercase Montserrat
+   800–900 letter is at most ~0.8em wide on average. */
+.placeholder-fit {
+  container-type: inline-size;
+}
+
+.placeholder-word--card {
+  font-size: min(4.5rem, calc(100cqi / (var(--fit-chars, 10) * 0.8)));
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.placeholder-word--recipe {
+  font-size: min(clamp(3rem, 2rem + 4vw, 5.5rem), calc(100cqi / (var(--fit-chars, 10) * 0.8)));
+}
+
+.placeholder-word:lang(km) {
+  font-family: var(--font-khmer);
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 1.35;
+  text-transform: none;
+}

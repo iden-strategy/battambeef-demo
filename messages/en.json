@@ -1,0 +1,912 @@
+{
+  "meta": {
+    "siteName": "BattamBeef",
+    "titleTemplate": "%s · BattamBeef",
+    "description": "From Battambang, with a better standard of beef.",
+    "titles": {
+      "home": "Holy Cow. That's Local Beef?",
+      "about": "About",
+      "farmToTable": "Farm to Table",
+      "beefCuts": "Beef Cuts",
+      "forBusiness": "For Business",
+      "beefKnowledge": "Beef Knowledge",
+      "contact": "Contact",
+      "styleguide": "Styleguide",
+      "notFound": "Page not found"
+    },
+    "descriptions": {
+      "home": "Cambodian premium beef from Battambang, chilled for 72 hours after slaughter. For restaurants, food businesses and home cooks.",
+      "about": "BattamBeef is a Cambodian beef brand from Battambang. Our story, mission, vision and values.",
+      "farmToTable": "Follow BattamBeef from Battambang to your table: raising, processing with a partner in Battambang, and 72 hours of chilling.",
+      "beefCuts": "Explore every BattamBeef cut on an interactive cow map, with cooking methods for each cut.",
+      "forBusiness": "Beef for restaurants, hotels and food businesses. Wholesale, custom cuts and partnerships. Send a business enquiry.",
+      "beefKnowledge": "Cooking methods, storage basics, recipes and answers to common questions about beef.",
+      "contact": "Contact BattamBeef about orders, business partnerships or general questions.",
+      "styleguide": "Internal styleguide.",
+      "notFound": "This page could not be found."
+    },
+    "ogAlt": "Illustration: a white cow standing in a green rice field with sugar palms and hills behind"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
+  },
+  "nav": {
+    "label": "Main",
+    "home": "Home",
+    "about": "About",
+    "farmToTable": "Farm to Table",
+    "beefCuts": "Beef Cuts",
+    "forBusiness": "For Business",
+    "beefKnowledge": "Beef Knowledge",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menuLabel": "Site menu"
+  },
+  "header": {
+    "logo": "BattamBeef",
+    "logoHome": "BattamBeef, home",
+    "contactUs": "Contact us"
+  },
+  "language": {
+    "label": "Language",
+    "en": "EN",
+    "km": "ខ្មែរ",
+    "enFull": "English",
+    "kmFull": "ភាសាខ្មែរ"
+  },
+  "bottomBar": {
+    "label": "Quick actions",
+    "telegram": "Contact on Telegram",
+    "quote": "Request a quote",
+    "contactUs": "Contact us"
+  },
+  "footer": {
+    "campaign": "Holy Cow. That's Local Beef?",
+    "tagline": "From Battambang, with a better standard of beef.",
+    "navTitle": "Explore",
+    "contactTitle": "Contact",
+    "socialTitle": "Follow",
+    "phone": "Phone",
+    "email": "Email",
+    "telegram": "Telegram",
+    "address": "Address",
+    "placeholder": "Placeholder: details coming soon",
+    "socialSoon": "Coming soon",
+    "preview": "Preview",
+    "previewNote": "Investor preview. Content and images are placeholders.",
+    "rights": "© {year} BattamBeef"
+  },
+  "pages": {
+    "notFound": {
+      "title": "Holy Cow. This page isn't here.",
+      "line": "The page may have moved, or the link may be wrong. Try one of these instead.",
+      "back": "Back to home",
+      "label": "Error 404",
+      "cuts": "Explore our cuts"
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Cambodian Premium Beef · Battambang",
+      "title": "Holy Cow.",
+      "imageAlt": "Illustration: a white cow standing in a green rice field with sugar palms and hills behind",
+      "actionsLabel": "Get started",
+      "exploreCuts": "Explore our cuts",
+      "forRestaurants": "For restaurants"
+    },
+    "statement": {
+      "label": "From Battambang",
+      "a": "Local beef",
+      "b": "from",
+      "c": "Battambang",
+      "d": "Chilled",
+      "e": "72 hours",
+      "body": "Cattle raised in Battambang province, processed with a slaughterhouse partner in Battambang and chilled for 72 hours after slaughter.",
+      "link": "See our farm-to-table journey"
+    },
+    "marquee": "Holy Cow|That's Local Beef?|From Battambang|Chilled 72 hours",
+    "cutMap": {
+      "label": "Explore our beef cuts",
+      "title": "Know your beef. Choose your cut.",
+      "body": "Tap any part of the cow to see where each cut comes from.",
+      "link": "See all beef cuts"
+    },
+    "featured": {
+      "label": "Featured cuts",
+      "title": "Premium and popular cuts",
+      "carouselLabel": "Featured cuts",
+      "code": "Code {code}",
+      "noCode": "No standard code",
+      "methods": "Good for",
+      "view": "See {cut} on the cut map"
+    },
+    "farm": {
+      "label": "From farm to table",
+      "title": "From Battambang farm to your table.",
+      "stepOf": "Step {n} of {total}",
+      "hours": "hours",
+      "link": "Follow the full journey"
+    },
+    "business": {
+      "label": "For business",
+      "title": "A reliable beef partner for your kitchen",
+      "body": "For restaurants, hotels and food businesses that want local beef cut to a clear standard.",
+      "points": {
+        "consistentCuts": {
+          "title": "Consistent cuts",
+          "body": "Cuts prepared to a clear standard. Details being confirmed."
+        },
+        "customCutting": {
+          "title": "Custom cutting",
+          "body": "Tell us your menu and portion sizes, and we will talk through the cuts that fit."
+        },
+        "regularSupply": {
+          "title": "Regular supply",
+          "body": "Ordering on a schedule that suits your kitchen. Details being confirmed."
+        }
+      },
+      "cta": "Request a quote",
+      "link": "See wholesale options"
+    },
+    "knowledge": {
+      "label": "Beef knowledge",
+      "title": "Cook it better.",
+      "body": "Simple recipes and guides for every cut.",
+      "photoSoon": "Photo coming soon",
+      "link": "Explore Beef Knowledge"
+    }
+  },
+  "errors": {
+    "eyebrow": "Error",
+    "title": "Something went wrong",
+    "line": "This page could not be shown. Please try again.",
+    "retry": "Try again",
+    "home": "Back to home"
+  },
+  "kit": {
+    "cursorDrag": "Drag",
+    "cursorExplore": "Explore",
+    "cursorView": "View",
+    "carouselLabel": "Carousel",
+    "carouselPrev": "Previous slide",
+    "carouselNext": "Next slide",
+    "slideOf": "{current} of {total}",
+    "slide": "Slide"
+  },
+  "styleguide": {
+    "eyebrow": "Internal",
+    "title": "Styleguide",
+    "intro": "Tokens, type and the interaction kit on the dark base, with the light and kraft accent surfaces. Not linked from the site.",
+    "sections": {
+      "colors": "Colors",
+      "surfaces": "Surfaces",
+      "type": "Typography",
+      "buttons": "Buttons",
+      "kit": "Interaction kit"
+    },
+    "colors": {
+      "white": "Main text and headlines on the dark base. Background of light sections.",
+      "charcoal": "Page background of the whole site. Main text on light and kraft.",
+      "charcoalDeep": "Footer background: one step deeper than charcoal.",
+      "crimson": "Filled buttons, badges and fills on dark (never text there). Accent text on light.",
+      "crimsonHover": "Hover and pressed buttons.",
+      "kraft": "Highlighted words and labels on dark. Kraft surface. Never text on white.",
+      "steel": "Secondary text and borders on dark. Lines only on light.",
+      "surfaceRaised": "One step lighter than charcoal: cards on the dark base.",
+      "surfaceLightRaised": "One step darker than white: cards on light sections.",
+      "textMuted": "Secondary text on dark. Light and kraft have their own muted text.",
+      "success": "Success messages on dark.",
+      "error": "Errors on dark. Clearly different from crimson."
+    },
+    "surfaces": {
+      "light": "Light surface (accent)",
+      "dark": "Dark surface (default)",
+      "kraft": "Kraft surface (accent)",
+      "allowed": "Allowed",
+      "notAllowed": "Not allowed",
+      "largeOnly": "Large text only",
+      "sample": "The quick cut",
+      "main": "Main text",
+      "muted": "Muted text",
+      "accent": "Accent text",
+      "label": "Label",
+      "success": "Success",
+      "error": "Error",
+      "kraftOnWhite": "Kraft text on white",
+      "steelOnWhite": "Steel text on white",
+      "crimsonOnCharcoal": "Crimson text on charcoal",
+      "link": "Link text"
+    },
+    "type": {
+      "english": "English",
+      "khmer": "Khmer",
+      "khmerSource": "Khmer samples use cut names checked with the team.",
+      "sampleHero": "Holy Cow.",
+      "sampleXl": "That's Local Beef?",
+      "sampleTitle": "From Battambang farm to your table",
+      "sampleLabel": "Part 3 of 11 · Code 2243",
+      "sampleBody": "From Battambang, with a better standard of beef. Chilled for 72 hours after slaughter. For restaurants, food businesses and home cooks."
+    },
+    "buttons": {
+      "primary": "Primary",
+      "outline": "Outline",
+      "ghost": "Ghost",
+      "link": "Link",
+      "default": "Default",
+      "hover": "Hover",
+      "focus": "Focus",
+      "pressed": "Pressed",
+      "disabled": "Disabled",
+      "magnetic": "Magnetic",
+      "onLight": "On light",
+      "onKraft": "On kraft"
+    },
+    "kit": {
+      "splitTitle": "SplitTextReveal",
+      "splitEn": "Holy Cow. That's Local Beef?",
+      "replay": "Replay",
+      "revealTitle": "Reveal",
+      "revealItem": "Card {n}",
+      "imageRevealTitle": "ImageReveal",
+      "pillTitle": "InlinePill",
+      "pillBefore": "Raised in Battambang",
+      "pillMiddle": "and chilled",
+      "pillAfter": "for 72 hours.",
+      "parallaxTitle": "ParallaxImage",
+      "magneticTitle": "MagneticButton",
+      "cursorTitle": "CursorFollower",
+      "cursorHint": "Hover these targets with a mouse.",
+      "carouselTitle": "DragCarousel",
+      "carouselHint": "Drag, swipe, use the arrows, or focus it and press ← →.",
+      "card": "Sample card {n}",
+      "cardBody": "Drag, swipe or use the arrows. Tab to the button to move here.",
+      "marqueeTitle": "Marquee",
+      "marqueeItems": "Holy Cow. That's Local Beef?|From Battambang|Chilled 72 hours|BattamBeef",
+      "countTitle": "CountUp",
+      "countLabel": "hours of chilling",
+      "tiltTitle": "TiltCard",
+      "tiltBody": "Tilts toward the cursor on desktop. Flat on touch.",
+      "transitionTitle": "PageTransition",
+      "transitionHint": "Navigate to any page: the new page rises in.",
+      "placeholderImage": "Placeholder illustration (AI-generated cow photo)",
+      "cardCta": "Details"
+    }
+  },
+  "cutMap": {
+    "chipsLabel": "Choose a part of the cow",
+    "partOf": "Part {n} of {total}",
+    "cutsHeading": "Cuts in this part",
+    "parts": {
+      "neck": "Neck",
+      "chuck": "Chuck",
+      "rib": "Rib",
+      "loin": "Loin",
+      "rump": "Rump",
+      "round": "Round",
+      "brisket": "Brisket",
+      "plate": "Plate",
+      "flank": "Flank",
+      "fore-shank": "Fore shank",
+      "hind-shank": "Hind shank"
+    },
+    "descriptions": {
+      "neck": "A hard-working muscle with plenty of flavour. Best cooked low and slow, or minced.",
+      "chuck": "The shoulder. Rich cuts for braises, stews and mince, plus the oyster blade for the grill.",
+      "rib": "Tender, rich meat from along the back. Home of the ribeye.",
+      "loin": "The most tender part, from along the spine. Striploin and tenderloin come from here.",
+      "rump": "Lean and full of flavour. Good for the grill, lok lak and stir-fries.",
+      "round": "The hindquarter. Lean, versatile cuts for roasting, thin slicing, lok lak and stir-fry.",
+      "brisket": "The chest. Slow cooking makes it tender, for smoking, braising and soups.",
+      "plate": "The belly below the ribs. Flavourful meat for braising and grilling.",
+      "flank": "The lower belly. Long-fibred meat for stir-fries, the grill and mince.",
+      "fore-shank": "The front leg. Full of collagen, it makes rich soups and braises.",
+      "hind-shank": "The back leg. Slow-cooked for deep, rich soups and braises."
+    },
+    "requestQuote": "Request a quote for {part} cuts",
+    "seeAll": "See all {part} cuts",
+    "exploreAll": "Explore all cuts",
+    "toConfirm": "Name to be confirmed",
+    "topCuts": "Top cuts"
+  },
+  "cutOptions": {
+    "methods": {
+      "grill": "Grill",
+      "pan-sear": "Pan-sear",
+      "roast": "Roast",
+      "braise": "Braise",
+      "stew": "Stew",
+      "stir-fry": "Stir-fry",
+      "lok-lak": "Lok lak",
+      "soup": "Soup",
+      "mince": "Mince",
+      "smoke": "Smoke",
+      "thin-slice": "Thin-slice"
+    },
+    "tiers": {
+      "premium": "Premium",
+      "everyday": "Everyday",
+      "slow-cook": "Slow-cook"
+    }
+  },
+  "beefCuts": {
+    "intro": {
+      "label": "Explore our beef cuts",
+      "title": "Know your beef. Choose your cut.",
+      "body": "Every part of the animal has its own character. Tap the cow to see where each cut comes from, then filter the full list by part, cooking method or tier."
+    },
+    "mapHeading": "Beef cut map",
+    "grid": {
+      "label": "All cuts",
+      "title": "Every cut, in one place",
+      "filtersLabel": "Filter the cuts",
+      "byPart": "Cow part",
+      "byMethod": "Cooking method",
+      "byTier": "Tier",
+      "all": "All",
+      "count": "Showing {shown} of {total} cuts",
+      "empty": "No cuts match these filters.",
+      "clear": "Clear filters",
+      "photoSoon": "Photo coming soon"
+    },
+    "detail": {
+      "close": "Close",
+      "description": "From the {part}. Tier: {tier}.",
+      "code": "Code",
+      "part": "Cow part",
+      "tier": "Tier",
+      "methods": "Good for",
+      "requestQuote": "Request a quote",
+      "showOnCow": "Show on the cow",
+      "loading": "Loading cut details…",
+      "loadError": "The cut details could not be loaded. Check your connection and try again.",
+      "retry": "Try again"
+    },
+    "byProducts": {
+      "label": "By-products",
+      "title": "Ask about bones and by-products",
+      "line": "Questions about bones and by-products? Get in touch.",
+      "cta": "Ask about by-products"
+    },
+    "quote": {
+      "title": "Need a cut for your menu?",
+      "line": "Tell us what you cook and we will help you choose.",
+      "cta": "Request a quote"
+    }
+  },
+  "farmToTable": {
+    "intro": {
+      "label": "From farm to table",
+      "title": "From Battambang to your table.",
+      "body": "Follow the beef from Battambang to the chiller, the cutting table and your kitchen.",
+      "scrollCue": "Follow the journey"
+    },
+    "journey": {
+      "heading": "The journey",
+      "label": "The journey",
+      "stageOf": "Stage {n} of {total}",
+      "goTo": "Go to stage {n}: {name}",
+      "pendingNote": "Details being confirmed",
+      "photoSoon": "Photo coming soon",
+      "stages": {
+        "raising": {
+          "short": "Raising",
+          "title": "Raised in Battambang",
+          "body": "Every cut begins with cattle raised in Battambang province. This is where the BattamBeef story starts."
+        },
+        "processing": {
+          "short": "Processing",
+          "title": "Slaughter and processing",
+          "body": "Cattle are processed with a slaughterhouse partner in Battambang. Details of the process are being confirmed."
+        },
+        "chilling": {
+          "short": "Chilling",
+          "title": "Chilled for 72 hours",
+          "body": "After slaughter, carcasses are chilled for 72 hours. Chilling is an important step for food safety and tenderness."
+        },
+        "cutting": {
+          "short": "Cutting",
+          "title": "Cut and packed",
+          "body": "Next, the beef is cut and packed."
+        },
+        "delivery": {
+          "short": "Delivery",
+          "title": "Delivery",
+          "body": "We're preparing deliveries to restaurants and home kitchens."
+        }
+      }
+    },
+    "chill": {
+      "label": "Chilled after slaughter",
+      "title": "72 hours in the chiller.",
+      "unit": "hours chilled",
+      "pointsTitle": "Why chilling matters",
+      "points": {
+        "foodSafety": {
+          "title": "Food safety",
+          "body": "Chilling brings the carcass temperature down quickly."
+        },
+        "tenderness": {
+          "title": "Tenderness",
+          "body": "As rigor mortis passes, natural enzymes begin to tenderise the meat."
+        },
+        "consistency": {
+          "title": "Consistency",
+          "body": "A set chilling time helps each batch come out the same."
+        }
+      }
+    },
+    "result": {
+      "label": "Our aims",
+      "title": "What we're working toward.",
+      "items": {
+        "consistentCuts": "Consistent cuts",
+        "freshFlavour": "Fresh flavour",
+        "restaurants": "Ready for restaurants",
+        "homeKitchens": "Ready for home kitchens"
+      },
+      "ctaCuts": "Explore our cuts",
+      "ctaQuote": "Request a quote"
+    }
+  },
+  "about": {
+    "hero": {
+      "label": "About BattamBeef",
+      "title": "Rooted in Battambang. Raised with purpose.",
+      "body": "BattamBeef is a Cambodian beef brand from Battambang. We want local beef to meet a better standard, for restaurants, food businesses and home cooks.",
+      "imageAlt": "Illustration: a white cow in a green rice field with sugar palms and hills behind"
+    },
+    "story": {
+      "label": "Our story",
+      "title": "Local beef, held to a better standard.",
+      "p1": "BattamBeef starts in Battambang, a province known for its rice fields and farming. Our cattle are raised in Battambang province and processed with a slaughterhouse partner in Battambang.",
+      "p2": "After slaughter, the beef is chilled for 72 hours. It is one step in a simple idea: Cambodian beef can stand with the best when it is handled with care.",
+      "p3": "We are building BattamBeef for the restaurants, food businesses and home cooks who want to know where their beef comes from.",
+      "photoSoon": "Photo coming soon"
+    },
+    "missionVision": {
+      "label": "What drives us",
+      "title": "Mission and vision.",
+      "mission": {
+        "label": "Our mission",
+        "body": "To bring Cambodian kitchens local beef from Battambang, handled with care and cut for the way they cook."
+      },
+      "vision": {
+        "label": "Our vision",
+        "body": "A Cambodia where \"local beef\" means a standard people trust, and Battambang is known for it."
+      }
+    },
+    "values": {
+      "label": "Our values",
+      "title": "What we stand for.",
+      "items": {
+        "proudlyLocal": {
+          "title": "Proudly local",
+          "body": "Battambang is where we started and where our cattle are raised."
+        },
+        "trustworthy": {
+          "title": "Trustworthy",
+          "body": "We only say what we can stand behind, and we are open about what is still being confirmed."
+        },
+        "culinaryExcellence": {
+          "title": "Culinary excellence",
+          "body": "We think about beef the way cooks do: the right cut for the right dish."
+        },
+        "modernProgressive": {
+          "title": "Modern and progressive",
+          "body": "We want to bring new standards and fresh ideas to Cambodian beef."
+        },
+        "peopleFirst": {
+          "title": "People first",
+          "body": "Farmers, partners, chefs and families: the people behind every meal come first."
+        }
+      }
+    }
+  },
+  "forBusiness": {
+    "hero": {
+      "label": "For business",
+      "title": "A reliable beef partner for your business.",
+      "body": "Local beef from Battambang for restaurants, hotels and food businesses. Tell us what you cook and we will talk through the cuts that fit.",
+      "quote": "Request a quote",
+      "cuts": "See our cuts"
+    },
+    "offers": {
+      "label": "What we offer",
+      "title": "Built for professional kitchens.",
+      "items": {
+        "wholesale": {
+          "title": "Wholesale supply",
+          "body": "Beef for kitchens that cook in volume. Volumes and schedules are being confirmed."
+        },
+        "customCuts": {
+          "title": "Custom cuts",
+          "body": "Tell us your dishes and portion sizes, and we will talk through which cuts can be prepared for you."
+        },
+        "partnerships": {
+          "title": "Restaurant partnerships",
+          "body": "Work with us on the cuts behind a signature dish or a seasonal menu."
+        }
+      },
+      "pendingNote": "Details being confirmed"
+    },
+    "steps": {
+      "label": "How it works",
+      "title": "How to work with us.",
+      "stepOf": "Step {n}",
+      "items": {
+        "enquiry": {
+          "title": "Send your enquiry",
+          "body": "Use the form below, or contact us with what you need."
+        },
+        "discuss": {
+          "title": "We discuss your needs",
+          "body": "We talk through your menu, the cuts and the amounts."
+        },
+        "samples": {
+          "title": "Samples and quotation",
+          "body": "Try the cuts and receive a quotation for your kitchen. Details being confirmed."
+        },
+        "supply": {
+          "title": "Regular supply",
+          "body": "Orders on a schedule that suits your kitchen. Details being confirmed."
+        }
+      }
+    },
+    "why": {
+      "label": "Why BattamBeef",
+      "title": "Why work with us.",
+      "items": {
+        "chilled": {
+          "title": "Chilled for 72 hours",
+          "body": "After slaughter, the beef is chilled for 72 hours."
+        },
+        "consistentCuts": {
+          "title": "Consistent cuts",
+          "body": "Cuts prepared to a clear specification."
+        },
+        "yourMenu": {
+          "title": "Built around your menu",
+          "body": "We talk through the cuts that suit your dishes and portion sizes."
+        },
+        "directLine": {
+          "title": "A direct line to our team",
+          "body": "Talk to the people who handle your order."
+        }
+      },
+      "pendingNote": "Details being confirmed"
+    },
+    "enquiry": {
+      "label": "Business enquiry",
+      "title": "Tell us about your kitchen.",
+      "body": "Share a few details and we will get back to you."
+    }
+  },
+  "beefKnowledge": {
+    "hero": {
+      "label": "Beef knowledge",
+      "title": "Know your beef better.",
+      "body": "Guides to cuts, cooking, storage and simple recipes, for home cooks and professional kitchens."
+    },
+    "quickLinks": {
+      "label": "Jump to",
+      "items": {
+        "cutGuide": {
+          "title": "Cut guide",
+          "body": "Every cut, on the cow."
+        },
+        "methods": {
+          "title": "Cooking methods",
+          "body": "Match the method to the cut."
+        },
+        "storage": {
+          "title": "Storage",
+          "body": "Fridge, freezer and thawing."
+        },
+        "recipes": {
+          "title": "Recipes",
+          "body": "Simple dishes to start with."
+        },
+        "faq": {
+          "title": "FAQ",
+          "body": "Quick answers."
+        }
+      }
+    },
+    "methods": {
+      "label": "Cooking methods",
+      "title": "Choose a method, find the cut.",
+      "tabsLabel": "Cooking methods",
+      "cutsHeading": "Cuts for this method",
+      "cutLink": "{cut}: see it on the cut map",
+      "guides": {
+        "grill": "High, direct heat for a charred outside and a juicy middle. Pat the meat dry, oil it lightly and let the grill get very hot before you start. Rest the meat for a few minutes before slicing.",
+        "pan-sear": "A heavy pan, very hot, and not too much in it at once. Sear without moving the meat so it browns, turn it once, and finish with butter if you like.",
+        "roast": "Steady oven heat for larger pieces. Brown the outside first, roast at a moderate heat, and let the meat rest well before carving.",
+        "braise": "Brown the meat, then cook it slowly, partly covered in liquid, until it is tender. Hard-working cuts turn soft and rich this way.",
+        "stir-fry": "Thin slices, a very hot wok and quick cooking. Slice across the grain and cook in small batches, so the beef sears instead of stewing.",
+        "soup": "Long, gentle simmering draws flavour and body into the broth. Skim the surface early and keep the pot just below a boil."
+      }
+    },
+    "storage": {
+      "label": "Storage",
+      "title": "Keep it cold, keep it safe.",
+      "body": "General food-safety basics for raw beef at home.",
+      "items": {
+        "fridge": {
+          "title": "In the fridge",
+          "body": "Keep raw beef in a fridge at 4°C or colder, never above 5°C. Store it wrapped or in a sealed container on the bottom shelf, so juices cannot drip onto other food."
+        },
+        "freezer": {
+          "title": "In the freezer",
+          "body": "Freeze at -18°C or colder. Wrap the beef tightly to keep air out, and label it with the date."
+        },
+        "thawing": {
+          "title": "Thawing",
+          "body": "Thaw frozen beef in the fridge, never at room temperature. Put it on a plate to catch drips and allow plenty of time: large pieces can take a day or more."
+        },
+        "refreezing": {
+          "title": "Refreezing",
+          "body": "Do not refreeze raw beef once it has thawed. Cook it instead."
+        }
+      },
+      "productNote": "Storage times for BattamBeef products: details being confirmed."
+    },
+    "recipes": {
+      "label": "Recipes",
+      "title": "Simple recipes to start with.",
+      "carouselLabel": "Recipes",
+      "serves": "Serves {n}",
+      "minutes": "{n} min",
+      "hours": "About {h} h {m} min",
+      "open": "View recipe",
+      "openLabel": "View recipe: {recipe}",
+      "close": "Close",
+      "ingredients": "Ingredients",
+      "steps": "Method",
+      "cut": "Cut",
+      "method": "Method",
+      "photoSoon": "Photo coming soon",
+      "items": {
+        "lok-lak": {
+          "title": "Beef lok lak",
+          "intro": "Cambodia's favourite stir-fried beef, served on salad with a lime and pepper dip.",
+          "ingredients": {
+            "beef": "400 g topside, cut into 2 cm cubes",
+            "garlic": "3 cloves garlic, chopped",
+            "sauces": "1 tbsp oyster sauce and 1 tbsp soy sauce",
+            "sugar": "1 tsp palm sugar",
+            "salad": "Lettuce, tomato and onion, to serve",
+            "dip": "Juice of 1 lime with black pepper and a pinch of salt, for the dip",
+            "rice": "Steamed rice or a fried egg, to serve"
+          },
+          "steps": {
+            "marinate": "Mix the beef with the garlic, sauces and sugar. Leave for 20 minutes.",
+            "salad": "Arrange the lettuce, sliced tomato and onion on plates.",
+            "sear": "Heat a wok until very hot. Sear the beef in small batches for 2–3 minutes, so it browns rather than steams.",
+            "dip": "Stir the lime juice, pepper and salt together for the dip.",
+            "serve": "Pile the beef on the salad and serve with rice and the dip."
+          }
+        },
+        "pan-seared-ribeye": {
+          "title": "Pan-seared ribeye",
+          "intro": "A thick ribeye with a deep brown crust, basted in garlic butter.",
+          "ingredients": {
+            "steak": "1 ribeye steak, about 3 cm thick",
+            "salt": "Salt and black pepper",
+            "oil": "1 tbsp neutral oil",
+            "butter": "2 tbsp butter",
+            "garlic": "2 cloves garlic, crushed",
+            "herbs": "A few sprigs of thyme"
+          },
+          "steps": {
+            "temper": "Take the steak out of the fridge 30 minutes before cooking. Pat it dry and season well.",
+            "heat": "Heat the oil in a heavy pan until it just starts to smoke.",
+            "sear": "Sear for 3–4 minutes on each side for medium-rare, turning once. Cook longer if you like it more done.",
+            "baste": "Add the butter, garlic and thyme, and spoon the foaming butter over the steak for a minute.",
+            "rest": "Rest the steak for 5 minutes, then slice it across the grain."
+          }
+        },
+        "brisket-soup": {
+          "title": "Slow-cooked brisket soup",
+          "intro": "A clear, fragrant broth with brisket simmered until it is soft.",
+          "ingredients": {
+            "brisket": "600 g brisket, in large pieces",
+            "water": "2 litres water",
+            "aromatics": "1 onion, a thumb of ginger and 2 stalks lemongrass",
+            "spices": "2 star anise and 1 cinnamon stick",
+            "fishSauce": "Fish sauce, to taste",
+            "vegetables": "Daikon or carrot, in chunks",
+            "herbs": "Spring onion, coriander and lime, to serve"
+          },
+          "steps": {
+            "blanch": "Blanch the brisket in boiling water for 5 minutes, then rinse it. This keeps the broth clear.",
+            "simmer": "Cover with the fresh water, add the aromatics and spices, and simmer gently for 2½–3 hours, until tender.",
+            "vegetables": "Add the vegetables for the last 30 minutes.",
+            "season": "Season with fish sauce. Slice the brisket and return it to the pot.",
+            "serve": "Serve hot with the herbs and lime."
+          }
+        },
+        "pepper-stir-fry": {
+          "title": "Beef stir-fry with Kampot pepper",
+          "intro": "Quick, peppery and made in minutes, with thin slices of flank.",
+          "ingredients": {
+            "beef": "300 g flank, thinly sliced across the grain",
+            "pepper": "1 tsp crushed Kampot black pepper, or fresh green peppercorns",
+            "garlic": "3 cloves garlic, sliced",
+            "onion": "1 onion, cut into wedges",
+            "sauces": "1 tbsp oyster sauce and 1 tsp soy sauce",
+            "sugar": "1 tsp sugar",
+            "oil": "1 tbsp oil",
+            "spring": "Spring onion, to finish"
+          },
+          "steps": {
+            "slice": "Slice the flank thinly across the grain, so it stays tender.",
+            "season": "Toss the beef with half the sauces and the pepper.",
+            "sear": "Stir-fry the beef in a very hot wok for 1–2 minutes, then take it out.",
+            "vegetables": "Stir-fry the garlic and onion, then return the beef with the rest of the sauces and the sugar.",
+            "serve": "Finish with spring onion and serve with rice."
+          }
+        }
+      }
+    },
+    "faq": {
+      "label": "FAQ",
+      "title": "Questions, answered.",
+      "items": {
+        "origin": {
+          "q": "Where does BattamBeef come from?",
+          "a": "Our cattle are raised in Battambang province and processed with a slaughterhouse partner in Battambang."
+        },
+        "chilling": {
+          "q": "What does \"chilled for 72 hours\" mean?",
+          "a": "After slaughter, the beef is chilled for 72 hours. Chilling brings the temperature down, and as rigor mortis passes, natural enzymes begin to tenderise the meat."
+        },
+        "homeCooks": {
+          "q": "Can I buy BattamBeef for my home kitchen?",
+          "a": "Details being confirmed. Send us a message and we will let you know."
+        },
+        "delivery": {
+          "q": "Do you deliver?",
+          "a": "Delivery areas and schedules are being confirmed. Tell us where you are in your enquiry."
+        },
+        "customCuts": {
+          "q": "Can you cut to my specification?",
+          "a": "Tell us your dishes and portion sizes and we will talk it through. Details being confirmed."
+        },
+        "storage": {
+          "q": "How should I store beef at home?",
+          "a": "Keep raw beef in the fridge at 4°C or colder, or freeze it at -18°C. See the storage guide above for the basics."
+        }
+      }
+    }
+  },
+  "contact": {
+    "hero": {
+      "label": "Contact",
+      "title": "Let's talk beef.",
+      "body": "Orders, partnerships or a question about a cut: we would like to hear from you."
+    },
+    "cards": {
+      "label": "Get in touch",
+      "title": "Who to contact.",
+      "items": {
+        "orders": {
+          "title": "Order enquiries",
+          "body": "For orders and questions about cuts."
+        },
+        "partnerships": {
+          "title": "Business partnerships",
+          "body": "For restaurants, hotels and food businesses."
+        },
+        "location": {
+          "title": "Location",
+          "body": "Battambang, Cambodia"
+        }
+      }
+    },
+    "form": {
+      "label": "Send a message",
+      "title": "Tell us what you need."
+    },
+    "social": {
+      "label": "Telegram and social",
+      "title": "Follow BattamBeef.",
+      "body": "Our Telegram and social media accounts are coming soon.",
+      "soon": "Coming soon"
+    }
+  },
+  "forms": {
+    "optional": "optional",
+    "chooseOne": "Choose one",
+    "noPreference": "No preference",
+    "submit": "Send message",
+    "submitBusiness": "Send enquiry",
+    "sending": "Sending…",
+    "previewTitle": "Preview only: not sent",
+    "previewBody": "This demo does not send or save anything you enter.",
+    "privacy": "Preview site: nothing you enter here is sent or saved.",
+    "fromQuote": "We have filled in the cut from your quote request. You can change it below.",
+    "errorSummary": "{count, plural, one {There is # problem} other {There are # problems}} with this form.",
+    "errors": {
+      "tooLong": "This is too long. Use {max} characters or fewer."
+    },
+    "fields": {
+      "name": {
+        "label": "Your name",
+        "errorRequired": "Enter your name."
+      },
+      "company": {
+        "label": "Company"
+      },
+      "businessName": {
+        "label": "Business name",
+        "errorRequired": "Enter your business name."
+      },
+      "contactName": {
+        "label": "Contact name",
+        "errorRequired": "Enter a contact name."
+      },
+      "phone": {
+        "label": "Phone",
+        "hint": "A Cambodian number, for example 012 345 678 or +855 12 345 678.",
+        "errorRequired": "Enter a phone number.",
+        "errorFormat": "Enter a Cambodian phone number, for example 012 345 678."
+      },
+      "email": {
+        "label": "Email",
+        "errorFormat": "Enter an email address like name@example.com."
+      },
+      "enquiryType": {
+        "label": "Enquiry type",
+        "errorRequired": "Choose an enquiry type.",
+        "options": {
+          "order": "Order enquiry",
+          "partnership": "Business partnership",
+          "general": "General"
+        }
+      },
+      "interest": {
+        "label": "Cut or part of interest",
+        "anyCut": "Any {part} cut",
+        "errorInvalid": "Choose a cut from the list."
+      },
+      "businessType": {
+        "label": "Business type",
+        "errorRequired": "Choose a business type.",
+        "options": {
+          "restaurant": "Restaurant",
+          "hotel": "Hotel",
+          "cafe": "Café",
+          "catering": "Catering",
+          "retail": "Shop or market",
+          "other": "Other"
+        }
+      },
+      "cuts": {
+        "label": "Cuts of interest",
+        "hint": "Choose any that apply.",
+        "errorInvalid": "Choose cuts from the list."
+      },
+      "volume": {
+        "label": "Estimated weekly volume",
+        "errorInvalid": "Choose a volume from the list.",
+        "options": {
+          "under20": "Under 20 kg",
+          "20to50": "20–50 kg",
+          "50to100": "50–100 kg",
+          "over100": "Over 100 kg",
+          "unsure": "Not sure yet"
+        }
+      },
+      "area": {
+        "label": "Delivery area",
+        "hint": "City or district."
+      },
+      "message": {
+        "label": "Message",
+        "errorShort": "Write a short message (at least 10 characters)."
+      }
+    }
+  }
+}

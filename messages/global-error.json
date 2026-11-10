@@ -1,0 +1,18 @@
+{
+  "en": {
+    "siteName": "BattamBeef",
+    "eyebrow": "Error",
+    "title": "Something went wrong",
+    "line": "This page could not be shown. Please try again.",
+    "retry": "Try again",
+    "home": "Back to home"
+  },
+  "km": {
+    "siteName": "BattamBeef",
+    "eyebrow": "TODO-KM",
+    "title": "TODO-KM",
+    "line": "TODO-KM",
+    "retry": "TODO-KM",
+    "home": "TODO-KM"
+  }
+}

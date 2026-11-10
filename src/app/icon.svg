@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Placeholder site icon (BattamBeef "B" monogram in brand colours) until the real logo exists. -->
+  <rect width="64" height="64" rx="14" fill="#292B2D"/>
+  <circle cx="48" cy="48" r="6" fill="#7B1E2B"/>
+  <path fill="#F5F3EF" d="M17 12h17.5c7.6 0 12.5 4 12.5 10.2 0 4-2.1 7-5.6 8.4 4.6 1.2 7.4 4.6 7.4 9.4 0 7-5.4 12-13.9 12H17V12Zm10 8v8.2h6.4c2.8 0 4.4-1.5 4.4-4.1 0-2.6-1.6-4.1-4.4-4.1H27Zm0 15.6V44h7.5c3 0 4.8-1.6 4.8-4.2 0-2.6-1.8-4.2-4.8-4.2H27Z"/>
+</svg>

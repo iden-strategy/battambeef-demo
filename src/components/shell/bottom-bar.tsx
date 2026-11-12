@@ -25,6 +25,7 @@ const LABEL = "block leading-tight [&:lang(km)]:leading-[1.4]";
  */
 export function BottomBar({ contact, quoteHref }: BottomBarProps) {
   const t = useTranslations("bottomBar");
+  const tNewTab = useTranslations("a11y");
   const lang = useFallbackLang();
   const { menuOpen } = useShell();
   const mode = useMotionMode();
@@ -54,6 +55,10 @@ export function BottomBar({ contact, quoteHref }: BottomBarProps) {
                   <MessageCircle aria-hidden className="hidden xs:block" />
                   <span className={LABEL} lang={lang("bottomBar.telegram")}>
                     {t("telegram")}
+                    {" "}
+                    <span className="sr-only" lang={lang("a11y.newTab")}>
+                      {tNewTab("newTab")}
+                    </span>
                   </span>
                 </a>
               ) : (

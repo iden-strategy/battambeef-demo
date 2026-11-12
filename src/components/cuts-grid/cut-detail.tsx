@@ -137,7 +137,7 @@ export function CutDetail({
               >
                 <CutImage
                   cut={cut}
-                  alt={hasAlt ? t(altKey) : cut.nameEn}
+                  alt={`${t("illustrationPrefix")} ${hasAlt ? t(altKey) : cut.nameEn}`}
                   soonLabel={tg("photoSoon")}
                   sizes="(min-width: 896px) 448px, (min-width: 768px) 46vw, 92vw"
                 />
@@ -188,6 +188,12 @@ export function CutDetail({
                     ))}
                   </ul>
                 </div>
+
+                {cut.image && (
+                  <p data-illustration-note="" className="label text-muted-foreground" lang={lang("beefCuts.detail.illustrationNote")}>
+                    {t("illustrationNote")}
+                  </p>
+                )}
 
                 <div className="mt-auto flex flex-wrap gap-3 pt-2">
                   <Button asChild>

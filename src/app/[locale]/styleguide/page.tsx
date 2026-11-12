@@ -23,8 +23,9 @@ import { Link } from "@/i18n/navigation";
 import { getBrandColors, getCowMap, getCuts } from "@/lib/data";
 import { cn, contrastRatio } from "@/lib/utils";
 
-// Internal page: 404 on the production deployment, available locally and on preview deployments.
-const HIDDEN = process.env.VERCEL_ENV === "production";
+// Internal page: available only in local development (next dev). 404 on every deployment,
+// preview and production alike.
+const HIDDEN = process.env.NODE_ENV !== "development";
 
 // No robots override: the page inherits the layout's full noindex/nofollow metadata.
 export const generateMetadata = () => pageMetadata("styleguide");

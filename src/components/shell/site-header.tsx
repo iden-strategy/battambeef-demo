@@ -225,7 +225,7 @@ export function SiteHeader({ navItems }: { navItems: NavItem[] }) {
             onClick={() => menuOpen && closeMenu(false)}
             className="-my-1 inline-flex shrink-0 items-center py-1"
           >
-            <BrandLogo variant="auto" className="h-9 lg:h-11" />
+            <BrandLogo variant="current" className="h-9 lg:h-11" />
           </Link>
 
           {/* aria-labelledby (not aria-label) so the name can carry its own language. */}

@@ -85,6 +85,13 @@ export async function FeaturedCuts() {
           />
         ))}
       </DragCarousel>
+      {cuts.some((c) => c.image) && (
+        <div className="container-page">
+          <p data-illustration-note="" className="label mt-6 text-muted-foreground" lang={k("illustrationNote")}>
+            {t("illustrationNote")}
+          </p>
+        </div>
+      )}
     </section>
   );
 }

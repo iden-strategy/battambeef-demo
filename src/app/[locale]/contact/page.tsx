@@ -21,6 +21,7 @@ export const generateMetadata = () => pageMetadata("contact");
 export default async function Page() {
   const t = await getTranslations("contact");
   const tf = await getTranslations("footer");
+  const tNewTab = await getTranslations("a11y");
   const tForm = await getTranslations("forms.fields");
   const tParts = await getTranslations("cutMap.parts");
   const lang = await getFallbackLang();
@@ -127,6 +128,10 @@ export default async function Page() {
                 <a href={telegram.href} rel="noopener noreferrer" target="_blank" lang={lang("footer.telegram")}>
                   <Send aria-hidden />
                   {tf("telegram")}
+                  {" "}
+                  <span className="sr-only" lang={lang("a11y.newTab")}>
+                    {tNewTab("newTab")}
+                  </span>
                 </a>
               </Button>
             ) : (
@@ -142,6 +147,10 @@ export default async function Page() {
                   {s.href ? (
                     <a href={s.href} rel="noopener noreferrer" target="_blank" className="body-sm inline-flex min-h-11 items-center rounded-full border border-border px-4 font-medium">
                       {s.name}
+                      {" "}
+                      <span className="sr-only" lang={lang("a11y.newTab")}>
+                        {tNewTab("newTab")}
+                      </span>
                     </a>
                   ) : (
                     <span className="body-sm inline-flex min-h-11 items-center gap-1.5 rounded-full border border-border px-4 font-medium text-muted-foreground">

@@ -28,7 +28,8 @@
     "ogAlt": "Illustration: a white cow standing in a green rice field with sugar palms and hills behind"
   },
   "a11y": {
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "newTab": "(opens in a new tab)"
   },
   "nav": {
     "label": "Main",
@@ -118,7 +119,8 @@
       "code": "Code {code}",
       "noCode": "No standard code",
       "methods": "Good for",
-      "view": "See {cut} on the cut map"
+      "view": "See {cut} on the cut map",
+      "illustrationNote": "Images are illustrations."
     },
     "farm": {
       "label": "From farm to table",
@@ -346,10 +348,13 @@
       "count": "Showing {shown} of {total} cuts",
       "empty": "No cuts match these filters.",
       "clear": "Clear filters",
-      "photoSoon": "Photo coming soon"
+      "photoSoon": "Photo coming soon",
+      "illustrationNote": "Images are illustrations."
     },
     "detail": {
       "close": "Close",
+      "illustrationPrefix": "Illustration:",
+      "illustrationNote": "Images are illustrations.",
       "description": "From the {part}. Tier: {tier}.",
       "descriptionNoPart": "Comes from several parts of the cow, so it is not on the cut map. Tier: {tier}.",
       "code": "Code",

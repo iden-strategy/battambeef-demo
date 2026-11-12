@@ -63,12 +63,14 @@ export default async function Page() {
       </section>
 
       {/* 3. All cuts (dark). Below the fold from here on: each section is laid out only as it
-          comes near the screen (.defer-render, globals.css). Placeholder heights are the measured
-          heights per breakpoint with 20 cuts (1 column ~8700–9100px, 2 ~4250–5000, 3 ~3600, 4 ~2650–2750). */}
+          comes near the screen (.defer-render, globals.css). The heights are only estimates for the
+          first render (contain-intrinsic-block-size: auto <estimate>); the browser remembers the real
+          height afterwards. Measured with 20 cuts, English and Khmer within ~1%: the grid is
+          1 column ~8750px, 2 ~4300–5050, 3 ~3650, 4 ~2700–2810. */}
       <section
         id="all-cuts"
         data-surface="dark"
-        className={`${SECTION} defer-render border-t border-border [--defer-h:8800px] xs:[--defer-h:4250px] md:[--defer-h:5000px] lg:[--defer-h:3600px] xl:[--defer-h:2700px]`}
+        className={`${SECTION} defer-render border-t border-border [contain-intrinsic-block-size:auto_8750px] xs:[contain-intrinsic-block-size:auto_4300px] md:[contain-intrinsic-block-size:auto_5050px] lg:[contain-intrinsic-block-size:auto_3650px] xl:[contain-intrinsic-block-size:auto_2700px] min-[1400px]:[contain-intrinsic-block-size:auto_2810px]`}
         aria-labelledby="all-cuts-heading"
       >
         <div className="container-page">
@@ -84,11 +86,14 @@ export default async function Page() {
             className="title-lg mt-3 mb-8 max-w-[18ch] text-balance focus:outline-none md:mb-10"
           />
           <CutsGrid />
+          <p data-illustration-note="" className="label mt-8 text-muted-foreground" lang={k("grid.illustrationNote")}>
+            {t("grid.illustrationNote")}
+          </p>
         </div>
       </section>
 
       {/* 4. By-products teaser (kraft: this page's one kraft section) */}
-      <section data-surface="kraft" className={`${SECTION} defer-render [--defer-h:640px] md:[--defer-h:620px]`}>
+      <section data-surface="kraft" className={`${SECTION} defer-render [contain-intrinsic-block-size:auto_620px] xs:[contain-intrinsic-block-size:auto_710px] md:[contain-intrinsic-block-size:auto_495px] xl:[contain-intrinsic-block-size:auto_565px] min-[1400px]:[contain-intrinsic-block-size:auto_620px]`}>
         <div className="container-page grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-12 lg:gap-20">
           <div>
             <p className="label" lang={k("byProducts.label")}>
@@ -124,7 +129,7 @@ export default async function Page() {
       </section>
 
       {/* 5. Quote CTA (light: the page's breathing section) */}
-      <section data-surface="light" className="section defer-render [--defer-h:420px] md:[--defer-h:510px] lg:[--defer-h:550px] xl:[--defer-h:600px]">
+      <section data-surface="light" className="section defer-render [contain-intrinsic-block-size:auto_445px] xs:[contain-intrinsic-block-size:auto_405px] md:[contain-intrinsic-block-size:auto_510px] lg:[contain-intrinsic-block-size:auto_545px] xl:[contain-intrinsic-block-size:auto_590px] min-[1400px]:[contain-intrinsic-block-size:auto_610px]">
         {/* The magnetic button moves up to 8px: well inside this section's padding (no clipping). */}
         <div className="container-page text-center">
           <SplitTextReveal

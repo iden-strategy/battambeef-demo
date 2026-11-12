@@ -9,6 +9,7 @@ export async function SiteFooter() {
   const t = await getTranslations("footer");
   const tNav = await getTranslations("nav");
   const tHeader = await getTranslations("header");
+  const tNewTab = await getTranslations("a11y");
   const lang = await getFallbackLang();
   const f = (key: string) => lang(`footer.${key}`);
   const navItems = getNavItems();
@@ -77,6 +78,10 @@ export async function SiteFooter() {
                   {s.href ? (
                     <a href={s.href} rel="noopener noreferrer" target="_blank" className="hover:underline">
                       {s.name}
+                      {" "}
+                      <span className="sr-only" lang={lang("a11y.newTab")}>
+                        {tNewTab("newTab")}
+                      </span>
                     </a>
                   ) : (
                     <>

@@ -28,7 +28,8 @@
     "ogAlt": "TODO-KM"
   },
   "a11y": {
-    "skipToContent": "TODO-KM"
+    "skipToContent": "TODO-KM",
+    "newTab": "TODO-KM"
   },
   "nav": {
     "label": "TODO-KM",
@@ -118,7 +119,8 @@
       "code": "TODO-KM",
       "noCode": "TODO-KM",
       "methods": "TODO-KM",
-      "view": "TODO-KM {cut}"
+      "view": "TODO-KM {cut}",
+      "illustrationNote": "TODO-KM"
     },
     "farm": {
       "label": "TODO-KM",
@@ -346,10 +348,13 @@
       "count": "TODO-KM",
       "empty": "TODO-KM",
       "clear": "TODO-KM",
-      "photoSoon": "TODO-KM"
+      "photoSoon": "TODO-KM",
+      "illustrationNote": "TODO-KM"
     },
     "detail": {
       "close": "TODO-KM",
+      "illustrationPrefix": "TODO-KM",
+      "illustrationNote": "TODO-KM",
       "description": "TODO-KM",
       "descriptionNoPart": "TODO-KM",
       "code": "TODO-KM",

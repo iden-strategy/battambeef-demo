@@ -12,7 +12,7 @@ import { SiteHeader } from "@/components/shell/site-header";
 import { pickClientMessages } from "@/i18n/client-messages";
 import { getFallbackLang } from "@/i18n/get-fallback-lang";
 import { routing } from "@/i18n/routing";
-import { getNavItems, getQuickActions } from "@/lib/data";
+import { getBrandColor, getNavItems, getQuickActions } from "@/lib/data";
 import { fontVariables } from "@/lib/fonts";
 import "../globals.css";
 
@@ -44,7 +44,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   colorScheme: "dark",
-  themeColor: "#292B2D",
+  themeColor: getBrandColor("charcoal"),
 };
 
 // Runs before first paint. Only with `js-motion` does CSS hide in-view reveals until Motion

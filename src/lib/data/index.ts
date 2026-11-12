@@ -8,7 +8,7 @@ import { BUSINESS_POINTS, FEATURED_CUT_IDS, HERO_IMAGES, HOME_JOURNEY_STAGE_IDS,
 import { ABOUT_IMAGES, VALUES } from "@/lib/data/about";
 import { BUSINESS_TYPES, OFFERS, STEPS, WEEKLY_VOLUMES, WHY_POINTS } from "@/lib/data/business";
 import { FAQ, FEATURED_RECIPE_IDS, GUIDE_METHODS, QUICK_LINKS, RECIPES, STORAGE_CARDS, type Recipe } from "@/lib/data/knowledge";
-import { BRAND_COLORS } from "@/lib/data/brand";
+import { BRAND_COLORS, type BrandColor } from "@/lib/data/brand";
 import { CHILL_HOURS, CHILL_POINTS, JOURNEY_IMAGE_RATIO, JOURNEY_RESULTS, JOURNEY_STAGES } from "@/lib/data/journey";
 import {
   buildQuickActions,
@@ -42,6 +42,8 @@ export const getCutTiers = () => CUT_TIERS;
 export const getCowMap = () => ({ image: CUT_MAP_IMAGE, silhouette: COW_SILHOUETTE, parts: COW_PARTS });
 
 export const getBrandColors = () => BRAND_COLORS;
+/** One brand colour's hex by key (manifest, theme colour). */
+export const getBrandColor = (key: BrandColor["key"]) => BRAND_COLORS.find((c) => c.key === key)!.hex;
 
 export const getJourneyStages = () => JOURNEY_STAGES;
 export const getJourneyImageRatio = () => JOURNEY_IMAGE_RATIO;

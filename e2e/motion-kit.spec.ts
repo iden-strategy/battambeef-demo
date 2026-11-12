@@ -147,14 +147,4 @@ test.describe("motion kit: reduced motion", () => {
       .toEqual(Array(4).fill("1|none"));
   });
 
-  test("header hides instantly (no slide)", async ({ page }) => {
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/styleguide", { waitUntil: "networkidle" });
-    const header = page.locator("header.site-header");
-    expect(await header.evaluate((el) => getComputedStyle(el).transition)).not.toContain("transform");
-    await page.mouse.wheel(0, 1200);
-    await expect(header).toHaveAttribute("data-hidden", "true");
-    const box = (await header.boundingBox())!;
-    expect(box.y).toBeLessThan(-box.height + 2); // already fully up, no transition in between
-  });
 });

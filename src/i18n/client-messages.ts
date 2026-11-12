@@ -12,6 +12,7 @@ export const CLIENT_NAMESPACES = [
   "header",
   "language",
   "bottomBar",
+  "a11y",
   "kit",
   "errors",
   "cutMap",

@@ -14,7 +14,7 @@ npm run test:e2e     # browser checks (Playwright, needs a build first)
 
 ## Where things are
 
-- `src/app/[locale]/` pages (`en`, `km`); `styleguide/` is hidden and not linked
+- `src/app/[locale]/` pages (`en`, `km`); `styleguide/` is hidden, not linked and only available in `next dev` (404 on every deployment)
 - `src/components/motion/` the interaction kit
 - `src/components/shell/` header, mobile menu, bottom bar, footer
 - `src/lib/data/` all content, read through the getters in `src/lib/data/index.ts`

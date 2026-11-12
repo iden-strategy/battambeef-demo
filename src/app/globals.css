@@ -259,31 +259,6 @@ body:has(#main-content > div > [data-header="photo"]:first-child) .site-header[d
   color: var(--charcoal);
 }
 
-/* Header logo (BrandLogo variant="auto"): the charcoal wordmark wherever the header text is
-   charcoal (light and kraft surfaces, the unscrolled hero photo, and the same cases before
-   JavaScript runs), the white wordmark everywhere else. Cross-fades with the header colours. */
-.brand-logo-light,
-.brand-logo-dark {
-  transition: opacity 0.2s cubic-bezier(0, 0, 0.2, 1);
-}
-.brand-logo-dark {
-  opacity: 0;
-}
-.site-header:is([data-theme="light"], [data-theme="photo"]:not([data-scrolled])) .brand-logo-light,
-body:has(#main-content > div > :is([data-surface="light"], [data-surface="kraft"]):first-child)
-  .site-header[data-theme="auto"]
-  .brand-logo-light,
-body:has(#main-content > div > [data-header="photo"]:first-child) .site-header[data-theme="auto"]:not([data-scrolled]) .brand-logo-light {
-  opacity: 0;
-}
-.site-header:is([data-theme="light"], [data-theme="photo"]:not([data-scrolled])) .brand-logo-dark,
-body:has(#main-content > div > :is([data-surface="light"], [data-surface="kraft"]):first-child)
-  .site-header[data-theme="auto"]
-  .brand-logo-dark,
-body:has(#main-content > div > [data-header="photo"]:first-child) .site-header[data-theme="auto"]:not([data-scrolled]) .brand-logo-dark {
-  opacity: 1;
-}
-
 /* Home hero load sequence: the header fades down into place (0.2s delay). First page load only:
    after a client-side navigation (html.has-navigated, PageTransition) it just stays put.
    `translate`, not `transform`, so it never fights the hide-on-scroll slide. */
@@ -615,15 +590,16 @@ html.app-stalled:not(.motion-ready) :is(
 
 /* The browser skips layout and paint of these sections until they approach the viewport, so the
    first paint is not held up by content nobody can see yet (Beef Cuts: the 18-card grid).
-   --defer-h is the placeholder height while skipped: set it per breakpoint close to the real
-   height so the scrollbar stays honest. `auto` remembers the real height once rendered.
+   While skipped, a section takes the height set with `contain-intrinsic-block-size: auto <estimate>`
+   (a utility class on the section, per breakpoint if needed): the estimate is only used until the
+   section has rendered once; `auto` makes the browser remember the real rendered height after that.
    Side effects of the containment this brings:
    - a `position: fixed` element inside is placed relative to the section: portal it to <body>
    - content overflowing the section is clipped (keep shadows and focus rings inside its padding)
    Never use above the fold. */
 .defer-render {
   content-visibility: auto;
-  contain-intrinsic-block-size: auto var(--defer-h, 600px);
+  contain-intrinsic-block-size: auto 600px; /* default estimate: override per section */
 }
 
 /* ------------------------------------------------------------------ */

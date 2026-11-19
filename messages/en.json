@@ -6,22 +6,20 @@
     "titles": {
       "home": "Holy Cow. That's Local Beef?",
       "about": "About",
-      "farmToTable": "Farm to Table",
       "beefCuts": "Beef Cuts",
       "forBusiness": "For Business",
       "beefKnowledge": "Beef Knowledge",
-      "contact": "Contact",
+      "contact": "Order Inquiry",
       "styleguide": "Styleguide",
       "notFound": "Page not found"
     },
     "descriptions": {
       "home": "Cambodian premium beef from Battambang, chilled for 72 hours after slaughter. For restaurants, food businesses and home cooks.",
-      "about": "BattamBeef is a Cambodian beef brand from Battambang. Our story, mission, vision and values.",
-      "farmToTable": "Follow BattamBeef from Battambang to your table: raising, processing with a partner in Battambang, and 72 hours of chilling.",
+      "about": "BattamBeef is a Cambodian beef brand from Battambang. Our story, the journey from Battambang to your table, our mission, vision and values.",
       "beefCuts": "Explore every BattamBeef cut on an interactive cow map, with cooking methods for each cut.",
-      "forBusiness": "Beef for restaurants, hotels and food businesses. Wholesale, custom cuts and partnerships. Send a business enquiry.",
+      "forBusiness": "Beef for restaurants, hotels and food businesses. Wholesale, custom cuts and partnerships. Send a business inquiry.",
       "beefKnowledge": "Cooking methods, storage basics, recipes and answers to common questions about beef.",
-      "contact": "Contact BattamBeef about orders, business partnerships or general questions.",
+      "contact": "Send BattamBeef an order inquiry, or ask about business partnerships and general questions.",
       "styleguide": "Internal styleguide.",
       "notFound": "This page could not be found."
     },
@@ -33,20 +31,22 @@
   },
   "nav": {
     "label": "Main",
-    "home": "Home",
     "about": "About",
-    "farmToTable": "Farm to Table",
-    "beefCuts": "Beef Cuts",
     "forBusiness": "For Business",
-    "beefKnowledge": "Beef Knowledge",
-    "contact": "Contact",
+    "contact": "Order Inquiry",
+    "businessPages": "For Business pages",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "menuLabel": "Site menu"
   },
+  "businessNav": {
+    "label": "For Business sections",
+    "overview": "Overview",
+    "cuts": "Beef Cuts",
+    "knowledge": "Beef Knowledge"
+  },
   "header": {
-    "logo": "BattamBeef",
-    "contactUs": "Contact us"
+    "logo": "BattamBeef home"
   },
   "language": {
     "label": "Language",
@@ -569,7 +569,7 @@
       "stepOf": "Step {n}",
       "items": {
         "enquiry": {
-          "title": "Send your enquiry",
+          "title": "Send your inquiry",
           "body": "Use the form below, or contact us with what you need."
         },
         "discuss": {
@@ -578,7 +578,7 @@
         },
         "samples": {
           "title": "Samples and quotation",
-          "body": "Try the cuts and receive a quotation for your kitchen. Details being confirmed."
+          "body": "Samples and quotations: details being confirmed."
         },
         "supply": {
           "title": "Regular supply",
@@ -610,7 +610,7 @@
       "pendingNote": "Details being confirmed"
     },
     "enquiry": {
-      "label": "Business enquiry",
+      "label": "Business inquiry",
       "title": "Tell us about your kitchen.",
       "body": "Share a few details and we will get back to you."
     }
@@ -802,7 +802,7 @@
         },
         "delivery": {
           "q": "Do you deliver?",
-          "a": "Delivery areas and schedules are being confirmed. Tell us where you are in your enquiry."
+          "a": "Delivery areas and schedules are being confirmed. Tell us where you are in your inquiry."
         },
         "customCuts": {
           "q": "Can you cut to my specification?",
@@ -817,16 +817,16 @@
   },
   "contact": {
     "hero": {
-      "label": "Contact",
-      "title": "Let's talk beef.",
-      "body": "Orders, partnerships or a question about a cut: we would like to hear from you."
+      "label": "Order Inquiry",
+      "title": "Let's talk about your order.",
+      "body": "Tell us which cuts you'd like and how much. Questions about partnerships or anything else are welcome too."
     },
     "cards": {
       "label": "Get in touch",
       "title": "Who to contact.",
       "items": {
         "orders": {
-          "title": "Order enquiries",
+          "title": "Order inquiries",
           "body": "For orders and questions about cuts."
         },
         "partnerships": {
@@ -840,7 +840,7 @@
       }
     },
     "form": {
-      "label": "Send a message",
+      "label": "Your inquiry",
       "title": "Tell us what you need."
     },
     "social": {
@@ -855,7 +855,7 @@
     "chooseOne": "Choose one",
     "noPreference": "No preference",
     "submit": "Send message",
-    "submitBusiness": "Send enquiry",
+    "submitBusiness": "Send inquiry",
     "sending": "Sending…",
     "previewTitle": "Preview only: not sent",
     "previewBody": "This demo does not send or save anything you enter.",
@@ -892,10 +892,10 @@
         "errorFormat": "Enter an email address like name@example.com."
       },
       "enquiryType": {
-        "label": "Enquiry type",
-        "errorRequired": "Choose an enquiry type.",
+        "label": "Inquiry type",
+        "errorRequired": "Choose an inquiry type.",
         "options": {
-          "order": "Order enquiry",
+          "order": "Order inquiry",
           "partnership": "Business partnership",
           "general": "General"
         }

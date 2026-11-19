@@ -18,9 +18,16 @@ const MAJOR_EVERY = 6;
 /** Hour numbers printed inside the ring. */
 const MARKS = [0, 24, 48];
 
+/**
+ * Math.sin/cos can differ in the last decimals between Node (server render) and the browser, which
+ * breaks hydration (the SVG attributes would not match). Rounding to 3 decimals gives both the same
+ * value; 0.001 of the 400-unit viewBox is invisible.
+ */
+const round3 = (v: number) => Math.round(v * 1000) / 1000;
+
 function polar(r: number, i: number, count: number) {
   const a = (i / count) * Math.PI * 2 - Math.PI / 2; // 0 at the top, clockwise
-  return { x: C + r * Math.cos(a), y: C + r * Math.sin(a) };
+  return { x: round3(C + r * Math.cos(a)), y: round3(C + r * Math.sin(a)) };
 }
 
 /**

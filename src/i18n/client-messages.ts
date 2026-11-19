@@ -9,6 +9,10 @@ import { FALLBACK_KEY } from "@/i18n/fallback";
  */
 export const CLIENT_NAMESPACES = [
   "nav",
+  // The header's For Business dropdown and the mobile menu's sub-links (not businessNav.label etc.).
+  "businessNav.overview",
+  "businessNav.cuts",
+  "businessNav.knowledge",
   "header",
   "language",
   "bottomBar",

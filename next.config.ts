@@ -15,7 +15,10 @@ const contentSecurityPolicy = [
   "connect-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self'",
+  // Demo phase: no form is ever submitted natively (the preview forms always preventDefault), so
+  // the browser refuses any native submission, with or without JavaScript: form values can never
+  // end up in a URL or a request. Phase 2 (real forms / server actions): change to 'self'.
+  "form-action 'none'",
   "frame-ancestors 'none'",
   // Any stray http:// subresource is fetched over https instead of being blocked as mixed content.
   // Production only: some browsers (Safari) also upgrade http://localhost, which breaks `next dev`.

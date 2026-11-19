@@ -1,10 +1,15 @@
 import { expect, test, type Page } from "@playwright/test";
+import { waitForMotionReady } from "./helpers";
 
-// Farm to Table: the journey (desktop sticky stage vs stacked blocks), the 72-hour dial,
-// navigation away and back, reduced motion and Khmer. Scroll performance: perf.spec.ts.
+// Farm to Table, the section of the About page (#farm-to-table): the journey (desktop sticky
+// stage vs stacked blocks), the 72-hour dial, navigation away and back, reduced motion and Khmer.
+// Scroll performance: perf.spec.ts. The GSAP chunk loads only once the journey is near the screen,
+// so desktop tests open the page at the section and wait for the timeline to start.
 
-const URL_EN = "/en/farm-to-table";
+const URL_EN = "/en/about#farm-to-table";
 const desktop = (page: Page) => page.locator('[data-journey="desktop"]');
+/** The desktop timeline is set up (JourneyPinned marks the track). */
+const waitPinned = (page: Page) => expect(page.locator('[data-journey="desktop"][data-pinned]')).toBeAttached();
 const stacked = (page: Page) => page.locator('[data-journey="stacked"]');
 const stage = (page: Page) => page.locator('[data-journey="desktop"] > div'); // the sticky element
 const activeStep = (page: Page) => page.locator('[data-rail-step][aria-current="step"]').getAttribute("data-rail-step");
@@ -37,6 +42,80 @@ async function noSidewaysScroll(page: Page) {
   return page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
 }
 
+// Deep links (old /farm-to-table redirects to #farm-to-table; the home page links there too).
+// The browser jumps to the anchor on load; nothing afterwards (late images, fonts, deferred
+// sections, the GSAP timeline being set up and re-measured) may move the page or the target.
+test.describe("farm to table: deep links land still, below the header", () => {
+  for (const { width, height } of [
+    { width: 1440, height: 900 },
+    { width: 390, height: 844 },
+  ]) {
+    for (const hash of ["#farm-to-table", "#journey", "#chill"]) {
+      test(`${width}px ${hash}: lands below the header, no movement for 2s, CLS 0`, async ({ page }) => {
+        await page.setViewportSize({ width, height });
+        await page.addInitScript(() => {
+          const w = window as unknown as { __cls: number; __shifts: string[] };
+          w.__cls = 0;
+          w.__shifts = [];
+          new PerformanceObserver((list) => {
+            for (const e of list.getEntries() as (PerformanceEntry & { value: number; hadRecentInput: boolean; sources?: { node?: Node }[] })[]) {
+              if (e.hadRecentInput) continue;
+              w.__cls += e.value;
+              const nodes = (e.sources ?? []).map((s) => (s.node instanceof Element ? `${s.node.tagName}.${s.node.className}`.slice(0, 80) : String(s.node)));
+              w.__shifts.push(`${e.value.toFixed(4)} @${Math.round(e.startTime)}ms ${nodes.join(" | ")}`);
+            }
+          }).observe({ type: "layout-shift", buffered: true });
+        });
+        await page.goto(`/en/about${hash}`, { waitUntil: "load" });
+        const target = page.locator(hash);
+
+        // Sample the target's position and the scroll position every 100ms for 2 seconds.
+        const samples: { top: number; scrollY: number }[] = [];
+        for (let i = 0; i <= 20; i++) {
+          samples.push(await target.evaluate((el) => ({ top: el.getBoundingClientRect().top, scrollY: window.scrollY })));
+          if (i < 20) await page.waitForTimeout(100);
+        }
+        const spread = (k: "top" | "scrollY") => Math.max(...samples.map((s) => s[k])) - Math.min(...samples.map((s) => s[k]));
+        const trace = samples.map((s) => `${Math.round(s.scrollY)}/${Math.round(s.top)}`).join(" ");
+        expect(spread("scrollY"), `scrollY/top over 2s: ${trace}`).toBeLessThan(1);
+        expect(spread("top"), `scrollY/top over 2s: ${trace}`).toBeLessThan(1);
+
+        // The page really scrolled to the target, and the target is on screen.
+        const { top } = samples.at(-1)!;
+        expect(samples.at(-1)!.scrollY).toBeGreaterThan(0);
+        expect(top).toBeLessThan(height / 2);
+
+        // Below the header: under its visible bottom edge (0 if it has slid away).
+        const headerBottom = await page.locator("header.site-header").evaluate((el) => Math.max(0, el.getBoundingClientRect().bottom));
+        expect(top).toBeGreaterThanOrEqual(headerBottom - 0.5);
+
+        const { cls, shifts } = await page.evaluate(() => {
+          const w = window as unknown as { __cls: number; __shifts: string[] };
+          return { cls: w.__cls, shifts: w.__shifts };
+        });
+        expect(cls, shifts.join("\n")).toBe(0);
+      });
+    }
+  }
+
+  test("1440px: GSAP adds no pin-spacer and changes no layout (CSS sticky only)", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(URL_EN);
+    await waitPinned(page);
+    await expect(page.locator(".pin-spacer")).toHaveCount(0);
+    const track = await desktop(page).evaluate((el: HTMLElement) => ({
+      parent: el.parentElement!.className,
+      style: el.getAttribute("style") ?? "",
+      stageStyle: el.firstElementChild?.getAttribute("style") ?? "",
+      stagePosition: getComputedStyle(el.firstElementChild!).position,
+    }));
+    expect(track.parent).not.toContain("pin-spacer");
+    expect(track.style).not.toMatch(/position|padding|height|top/);
+    expect(track.stageStyle).not.toMatch(/position|transform|top|width|height/);
+    expect(track.stagePosition).toBe("sticky");
+  });
+});
+
 test.describe("farm to table: right version per screen", () => {
   const cases = [
     { width: 360, height: 780, version: "stacked" },
@@ -66,6 +145,7 @@ test.describe("farm to table: desktop journey", () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(URL_EN);
+    await waitPinned(page);
   });
 
   test("the stage stays in view for the whole journey, with no jump at the start or end", async ({ page }) => {
@@ -172,6 +252,61 @@ test.describe("farm to table: phones", () => {
   });
 });
 
+// The progress bar's label and segments stay hidden until the web fonts are ready (or 3 s have
+// passed), so a late font swap can't shift them. Only the bar's own elements are checked here:
+// slow fonts also cause tiny shifts elsewhere on the page, a separate known issue.
+test.describe("farm to table: progress bar with slow fonts", () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+  const FONTS = "**/_next/static/media/*.woff2";
+
+  /** Counts layout shifts whose source is the bar or something inside it. */
+  async function watchBarShifts(page: Page) {
+    await page.addInitScript(() => {
+      const w = window as unknown as { __barShifts: number };
+      w.__barShifts = 0;
+      new PerformanceObserver((list) => {
+        for (const entry of list.getEntries() as (PerformanceEntry & { sources?: { node: Node | null }[] })[]) {
+          const bar = document.querySelector(".journey-bar");
+          if (bar && entry.sources?.some((s) => s.node && bar.contains(s.node))) w.__barShifts++;
+        }
+      }).observe({ type: "layout-shift", buffered: true });
+    });
+    return () => page.evaluate(() => (window as unknown as { __barShifts: number }).__barShifts);
+  }
+
+  const barContents = (page: Page) => page.locator(".journey-bar [data-bar-label][data-current]");
+
+  test("fonts delayed by 1.5 s: the bar does not shift and shows once they arrive", async ({ page }) => {
+    const shifts = await watchBarShifts(page);
+    await page.route(FONTS, async (route) => {
+      await new Promise((r) => setTimeout(r, 1500));
+      await route.continue().catch(() => {});
+    });
+    await page.goto("/en/about#journey", { waitUntil: "domcontentloaded" });
+    await expect(barContents(page)).toBeVisible();
+    await expect(page.locator(".journey-bar > *").first()).toHaveCSS("opacity", "1");
+    await page.waitForTimeout(500); // let any late shift be reported
+    expect(await shifts()).toBe(0);
+  });
+
+  test("fonts never arrive: the 3 s fallback shows the bar (within 4.5 s of hydration)", async ({ page }) => {
+    const shifts = await watchBarShifts(page);
+    await page.route(FONTS, () => {
+      /* never answered */
+    });
+    await page.goto("/en/about#journey", { waitUntil: "domcontentloaded" });
+    // Time is measured from hydration (the 3 s timer starts there), not from page load, so a slow
+    // machine can't fail the test just by hydrating late.
+    await waitForMotionReady(page);
+    const hydrated = Date.now();
+    await page.waitForTimeout(2000);
+    await expect(barContents(page)).toBeHidden(); // still hidden: only the 3 s timer can show it
+    await expect(barContents(page)).toBeVisible({ timeout: 4500 - (Date.now() - hydrated) });
+    await expect(page.locator(".journey-bar > *").first()).toHaveCSS("opacity", "1");
+    expect(await shifts()).toBe(0);
+  });
+});
+
 test.describe("farm to table: navigation", () => {
   test("the trigger-count test hook is absent for normal visitors", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
@@ -191,11 +326,16 @@ test.describe("farm to table: navigation", () => {
 
     const nav = page.getByRole("navigation", { name: "Main" });
     for (let round = 0; round < 2; round++) {
-      await nav.getByRole("link", { name: "Beef Cuts" }).click();
-      await expect(page).toHaveURL(/\/en\/beef-cuts$/);
-      await nav.getByRole("link", { name: "Farm to Table" }).click();
-      await expect(page).toHaveURL(/\/en\/farm-to-table$/);
+      // The page is scrolled into the journey, where the header has slid away: back to the top.
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await expect(page.locator('header.site-header:not([data-hidden="true"])')).toBeVisible();
+      await nav.getByRole("link", { name: "For Business" }).click();
+      await expect(page).toHaveURL(/\/en\/business$/);
+      await nav.getByRole("link", { name: "About" }).click();
+      await expect(page).toHaveURL(/\/en\/about$/);
       await page.waitForTimeout(800); // page transition
+      // Back at the top of About: the animation starts once the journey comes near.
+      await page.locator("#journey").evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
       await expect(root.locator("visible=true")).toHaveCount(1);
       await expect(root).toHaveAttribute("data-scroll-triggers", first!);
     }
@@ -239,6 +379,7 @@ test.describe("farm to table: dial and surfaces", () => {
   test("the dial counts to 72 and lights all 72 ticks; the header turns light over it", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(URL_EN);
+    await waitPinned(page);
     const chillTop = await page.locator("#chill").evaluate((el) => el.getBoundingClientRect().top + scrollY);
     await scrollToY(page, chillTop + 200, 100);
     await scrollToY(page, chillTop + 100, 3000); // scrolling up brings the header back
@@ -260,9 +401,12 @@ test.describe("farm to table: Khmer", () => {
   for (const width of [390, 1440]) {
     test(`${width}px: renders, untranslated text is marked English, nothing overflows`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
-      await page.goto("/km/farm-to-table");
+      await page.goto("/km/about#farm-to-table");
       await expect(page.locator("html")).toHaveAttribute("lang", "km");
       await expect(page.locator("h1")).toBeVisible();
+      // The section heading is an h2 now (About's hero holds the page's only h1).
+      await expect(page.locator("h1")).toHaveCount(1);
+      await expect(page.locator("#farm-to-table-heading")).toHaveAttribute("lang", "en");
       // Missing Khmer copy (TODO-KM) falls back to English and says so.
       await expect(page.locator("h3:visible").first()).toHaveAttribute("lang", "en");
       expect(await noSidewaysScroll(page)).toBeLessThanOrEqual(0);
@@ -348,6 +492,21 @@ test.describe("farm to table: GSAP only for the desktop journey", () => {
       expect(hasGsap).toBe(expected);
     });
   }
+
+  test("1440px: not downloaded at the top of About, only once the journey comes near", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    const bodies: Promise<string>[] = [];
+    page.on("response", (r) => {
+      if (r.url().endsWith(".js")) bodies.push(r.text().catch(() => ""));
+    });
+    const hasGsap = async () => (await Promise.all(bodies)).some((b) => b.includes("ScrollTrigger"));
+    await page.goto("/en/about", { waitUntil: "networkidle" });
+    await page.waitForTimeout(500);
+    expect(await hasGsap()).toBe(false);
+    await page.locator("#journey").evaluate((el) => el.scrollIntoView({ behavior: "instant" }));
+    await waitPinned(page);
+    expect(await hasGsap()).toBe(true);
+  });
 });
 
 test.describe("journey photos are labelled as illustrations", () => {

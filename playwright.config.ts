@@ -2,13 +2,13 @@ import { defineConfig, devices } from "@playwright/test";
 
 // Browser checks for the shell and interaction kit. Dev tool only: never imported by app code.
 // Run: npm run build && npm run test:e2e
-// Most specs run against the production build (`next start`, port 3100). The styleguide is
-// development-only (it 404s on every deployment), so styleguide.spec.ts runs against a
-// `next dev` server (port 3101) that Playwright starts as well.
+// Most specs run against the production build (`next start`, port 3100). Two need a `next dev`
+// server (port 3101) that Playwright starts as well: styleguide.spec.ts (the styleguide 404s on
+// every deployment) and hydration.spec.ts (production React does not report hydration mismatches).
 const PORT = 3100;
 const DEV_PORT = 3101;
 const PERF = /perf\.spec\.ts$/;
-const STYLEGUIDE = /styleguide\.spec\.ts$/;
+const DEV_ONLY = /(styleguide|hydration)\.spec\.ts$/;
 
 export default defineConfig({
   testDir: "./e2e",
@@ -19,12 +19,15 @@ export default defineConfig({
     ...devices["Desktop Chrome"],
   },
   projects: [
-    { name: "main", testIgnore: [PERF, STYLEGUIDE] },
-    // Dev server: the first page compile is slow, so allow more time per test.
+    { name: "main", testIgnore: [PERF, DEV_ONLY] },
+    // Dev server (styleguide and hydration specs): the first page compile is slow, so allow more
+    // time per test. One worker: the dev server compiles on demand, and parallel browsers on it
+    // made timing-based checks flaky.
     {
       name: "styleguide",
-      testMatch: STYLEGUIDE,
+      testMatch: DEV_ONLY,
       timeout: 90_000,
+      workers: 1,
       use: { baseURL: `http://localhost:${DEV_PORT}` },
     },
     // Timing-sensitive tests (perf.spec.ts): start only after "main" and "styleguide" have

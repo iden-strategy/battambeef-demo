@@ -1,11 +1,13 @@
 import { expect, test } from "@playwright/test";
+import { waitForMotionReady } from "./helpers";
 
-// The Day 5 pages: About, For Business, Beef Knowledge, Contact, 404, plus page-wide polish.
+// The Day 5 pages: About, For Business, Beef Knowledge (/business/knowledge), Order Inquiry
+// (/contact), 404, plus page-wide polish.
 
 test.describe("beef knowledge", () => {
   test("cooking method tabs: arrow keys switch the guide and its cuts link to the cut map", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-knowledge#cooking-methods");
+    await page.goto("/en/business/knowledge#cooking-methods");
     const tabs = page.getByRole("tablist", { name: "Cooking methods" });
     await expect(tabs.getByRole("tab")).toHaveCount(6);
     await expect(tabs.getByRole("tab", { name: "Grill" })).toHaveAttribute("aria-selected", "true");
@@ -20,15 +22,15 @@ test.describe("beef knowledge", () => {
     await expect(panel).toContainText("simmering");
     // Soup cuts: brisket, shin, heel muscle and soup bones, from cuts.ts.
     const brisket = panel.getByRole("link", { name: "Brisket: see it on the cut map" });
-    await expect(brisket).toHaveAttribute("href", "/en/beef-cuts#brisket");
-    await expect(panel.getByRole("link", { name: "Shin (fore and hind): see it on the cut map" })).toHaveAttribute("href", "/en/beef-cuts#fore-shank");
+    await expect(brisket).toHaveAttribute("href", "/en/business/cuts#brisket");
+    await expect(panel.getByRole("link", { name: "Shin (fore and hind): see it on the cut map" })).toHaveAttribute("href", "/en/business/cuts#fore-shank");
     // Soup bones are not on the map: the link goes to the grid and says so.
-    await expect(panel.getByRole("link", { name: "Soup bones (leg, neck, hip): see it in all cuts" })).toHaveAttribute("href", "/en/beef-cuts#all-cuts");
+    await expect(panel.getByRole("link", { name: "Soup bones (leg, neck, hip): see it in all cuts" })).toHaveAttribute("href", "/en/business/cuts#all-cuts");
   });
 
   test("recipe dialog: opens from the card, shows ingredients and steps, Escape closes, focus returns", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-knowledge#recipes");
+    await page.goto("/en/business/knowledge#recipes");
     const open = page.getByRole("button", { name: "View recipe: Beef lok lak" });
     await open.scrollIntoViewIfNeeded();
     await open.click();
@@ -44,7 +46,7 @@ test.describe("beef knowledge", () => {
 
   test("a side card in the carousel moves to the centre instead of opening", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-knowledge#recipes");
+    await page.goto("/en/business/knowledge#recipes");
     const region = page.getByRole("region", { name: "Recipes", exact: true });
     await region.scrollIntoViewIfNeeded();
     await page.getByRole("button", { name: "View recipe: Pan-seared ribeye" }).click({ force: true });
@@ -54,7 +56,7 @@ test.describe("beef knowledge", () => {
 
   test("FAQ accordion opens one answer at a time", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/en/beef-knowledge#faq");
+    await page.goto("/en/business/knowledge#faq");
     const q1 = page.getByRole("button", { name: "Where does BattamBeef come from?" });
     const q2 = page.getByRole("button", { name: "Do you deliver?" });
     await q1.click();
@@ -67,16 +69,16 @@ test.describe("beef knowledge", () => {
 
   test("quick links go to the sections on the page and to Beef Cuts", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/en/beef-knowledge");
+    await page.goto("/en/business/knowledge");
     const nav = page.getByRole("navigation", { name: "Jump to" });
-    await expect(nav.getByRole("link", { name: /Cut guide/ })).toHaveAttribute("href", "/en/beef-cuts");
+    await expect(nav.getByRole("link", { name: /Cut guide/ })).toHaveAttribute("href", "/en/business/cuts");
     await nav.getByRole("link", { name: /Storage/ }).click();
-    await expect(page).toHaveURL(/\/en\/beef-knowledge#storage$/);
+    await expect(page).toHaveURL(/\/en\/business\/knowledge#storage$/);
     await expect(page.locator("#storage-heading")).toBeInViewport();
   });
 });
 
-const ALL_PAGES = ["", "/about", "/farm-to-table", "/beef-cuts", "/for-business", "/beef-knowledge", "/contact"];
+const ALL_PAGES = ["", "/about", "/business", "/business/cuts", "/business/knowledge", "/contact"];
 
 test.describe("polish", () => {
   test("every page: own title and description, Open Graph image, noindex", async ({ page }) => {
@@ -118,13 +120,13 @@ test.describe("polish", () => {
     const main = page.locator("#main-content");
     await expect(main.getByRole("link", { name: "Back to home" })).toHaveAttribute("href", "/en");
     await main.getByRole("link", { name: "Explore our cuts" }).click();
-    await expect(page).toHaveURL(/\/en\/beef-cuts$/);
+    await expect(page).toHaveURL(/\/en\/business\/cuts$/);
   });
 
   for (const width of [360, 768, 1440, 1920]) {
     test(`${width}px: big placeholder words fit their cards (Home, About, Beef Knowledge)`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
-      for (const path of ["/en", "/en/about", "/en/beef-knowledge"]) {
+      for (const path of ["/en", "/en/about", "/en/business/knowledge"]) {
         await page.goto(path);
         const result = await page.evaluate(() => {
           const words = [...document.querySelectorAll<HTMLElement>(".placeholder-word")];
@@ -151,7 +153,7 @@ test.describe("walkthroughs", () => {
       test.setTimeout(120_000);
       await page.setViewportSize({ width: 1440, height: 900 });
       await page.goto(`/en${path}`);
-      await page.waitForFunction(() => document.documentElement.classList.contains("motion-ready"));
+      await waitForMotionReady(page);
       const problems: string[] = [];
       const seen: string[] = [];
       for (let i = 0; i < 300; i++) {
@@ -161,7 +163,9 @@ test.describe("walkthroughs", () => {
           if (!el || el === document.body) return null;
           const r = el.getBoundingClientRect();
           const ring = (cs: CSSStyleDeclaration) => cs.outlineStyle !== "none" && parseFloat(cs.outlineWidth) > 0;
-          const visibleRing = ring(getComputedStyle(el)) || ring(getComputedStyle(el, "::after"));
+          // The For Business chevron draws its ring on the icon inside its larger tap area.
+          const inner = el.querySelector("[data-chevron-icon]");
+          const visibleRing = ring(getComputedStyle(el)) || ring(getComputedStyle(el, "::after")) || (!!inner && ring(getComputedStyle(inner)));
           const label = `${el.tagName.toLowerCase()} "${(el.getAttribute("aria-label") ?? el.textContent ?? "").trim().slice(0, 40)}"`;
           return {
             label,
@@ -214,7 +218,7 @@ test.describe("walkthroughs", () => {
 });
 
 test.describe("no sideways scroll", () => {
-  for (const path of ["about", "for-business", "beef-knowledge", "contact"]) {
+  for (const path of ["about", "business", "business/knowledge", "contact"]) {
     for (const width of [360, 390, 768, 1440]) {
       test(`/en/${path} at ${width}px has no horizontal page scroll`, async ({ page }) => {
         await page.setViewportSize({ width, height: 844 });

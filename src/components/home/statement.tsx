@@ -74,7 +74,7 @@ export async function Statement() {
             {t("body")}
           </p>
           <Button asChild variant="link" className="body mt-5 h-11">
-            <Link href="/farm-to-table" lang={k("link")}>
+            <Link href="/about#farm-to-table" lang={k("link")}>
               {t("link")}
             </Link>
           </Button>

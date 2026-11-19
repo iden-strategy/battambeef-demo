@@ -38,7 +38,7 @@ export function mergeWithFallback(primary: Tree, fallback: Tree): { messages: Tr
 
 export type FallbackLang = (key: string) => "en" | undefined;
 
-/** Builds the lookup from loaded messages: `lang("nav.home")` is "en" when that text fell back. */
+/** Builds the lookup from loaded messages: `lang("nav.about")` is "en" when that text fell back. */
 export function fallbackLangFrom(messages: unknown): FallbackLang {
   const raw = (messages as Record<string, unknown> | null)?.[FALLBACK_KEY];
   const keys = new Set(typeof raw === "string" && raw ? raw.split(",") : []);

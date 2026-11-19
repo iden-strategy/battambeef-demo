@@ -5,11 +5,10 @@ import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { BrandLogo } from "@/components/brand-logo";
-import { Button } from "@/components/ui/button";
-import { MagneticButton } from "@/components/motion/magnetic-button";
 import { LanguageSwitch } from "@/components/shell/language-switch";
 import { MobileMenu } from "@/components/shell/mobile-menu";
-import { isActivePath } from "@/components/shell/nav-utils";
+import { NavDropdown } from "@/components/shell/nav-dropdown";
+import { isActivePath, navCurrent } from "@/components/shell/nav-utils";
 import { useShell } from "@/components/shell/shell-context";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useFallbackLang } from "@/i18n/use-fallback-lang";
@@ -26,7 +25,12 @@ const SURFACE_SELECTOR =
 // Elements that sit outside the menu and must be unreachable while it is open.
 const OUTSIDE_MENU = ["skip-link", "main-content", "site-footer", "bottom-bar"];
 
-export function SiteHeader({ navItems }: { navItems: NavItem[] }) {
+type SiteHeaderProps = {
+  /** Items with `children` get the desktop dropdown and the mobile menu's indented sub-links. */
+  navItems: NavItem[];
+};
+
+export function SiteHeader({ navItems }: SiteHeaderProps) {
   const t = useTranslations();
   const lang = useFallbackLang();
   const pathname = usePathname();
@@ -218,12 +222,13 @@ export function SiteHeader({ navItems }: { navItems: NavItem[] }) {
       >
         <div className="container-page flex h-[var(--header-h)] items-center justify-between gap-4">
           {/* Logo: 36px tall (44px from 1024px) with at least 14px clear space above and below;
-              the link is the 44px+ tap target. */}
+              the link is the 44px+ tap target. It is the way home (the menu has no Home item). */}
           <Link
             href="/"
             aria-label={t("header.logo")}
+            lang={lang("header.logo")}
             onClick={() => menuOpen && closeMenu(false)}
-            className="-my-1 inline-flex shrink-0 items-center py-1"
+            className="-my-1 inline-flex shrink-0 items-center rounded-md py-1 focus-visible:outline-2 focus-visible:outline-offset-4"
           >
             <BrandLogo variant="current" className="h-9 lg:h-11" />
           </Link>
@@ -232,18 +237,24 @@ export function SiteHeader({ navItems }: { navItems: NavItem[] }) {
           <span id="nav-label" hidden lang={lang("nav.label")}>
             {t("nav.label")}
           </span>
-          <nav aria-labelledby="nav-label" className="hidden lg:block">
-            <ul className="flex items-center xl:gap-2">
+          <nav aria-labelledby="nav-label" className="hidden min-w-0 lg:block">
+            {/* This gap alone sets the visible space between all three items (the links have no side
+                padding, the chevron takes only its drawn width). 32px, so the chevron's 44px tap area
+                fits between "For Business" and "Order Inquiry" without touching either. */}
+            <ul className="flex items-center gap-x-8">
               {navItems.map((item) => {
+                if (item.children) {
+                  return <NavDropdown key={item.key} item={item} pathname={pathname} headerHidden={isHidden} />;
+                }
                 const active = isActivePath(pathname, item.href);
                 return (
                   <li key={item.key}>
                     <Link
                       href={item.href}
-                      aria-current={active ? "page" : undefined}
+                      aria-current={navCurrent(pathname, item.href)}
                       lang={lang(`nav.${item.key}`)}
                       className={cn(
-                        "inline-flex min-h-11 items-center px-2 text-[0.875rem] font-medium whitespace-nowrap underline-offset-[6px]",
+                        "inline-flex min-h-11 items-center text-[0.875rem] font-medium whitespace-nowrap underline-offset-[6px]",
                         active ? "underline decoration-2" : "hover:underline",
                       )}
                     >
@@ -257,14 +268,6 @@ export function SiteHeader({ navItems }: { navItems: NavItem[] }) {
 
           <div className="flex items-center gap-2">
             <LanguageSwitch className="hidden lg:flex" />
-            {/* From 1280px; between 1024 and 1279 the nav's own "Contact" link covers it. */}
-            <MagneticButton className="hidden xl:inline-flex">
-              <Button asChild size="sm">
-                <Link href="/contact" lang={lang("header.contactUs")}>
-                  {t("header.contactUs")}
-                </Link>
-              </Button>
-            </MagneticButton>
             <button
               ref={menuButtonRef}
               type="button"

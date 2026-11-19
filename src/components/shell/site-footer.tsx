@@ -20,7 +20,7 @@ export async function SiteFooter() {
     <footer id="site-footer" data-surface="dark" className="site-footer relative overflow-hidden">
       <div className="container-page pt-20 pb-10 md:pt-28">
         {/* Light logo: the footer is always dark. */}
-        <Link href="/" aria-label={tHeader("logo")} className="inline-block">
+        <Link href="/" aria-label={tHeader("logo")} lang={lang("header.logo")} className="inline-block rounded-md focus-visible:outline-2 focus-visible:outline-offset-4">
           <BrandLogo variant="light" className="h-14 sm:h-16 lg:h-20" />
         </Link>
         <p className="display-xl mt-12 max-w-[14ch] text-balance md:mt-16" lang={f("campaign")}>

@@ -17,7 +17,7 @@ export type ContactFormProps = {
 };
 
 /**
- * Contact form. A "Request a quote" link (/contact?part=…&cut=…) preselects "Order enquiry" and
+ * Contact form. A "Request a quote" link (/contact?part=…&cut=…) preselects "Order inquiry" and
  * the cut or part, but only for IDs in `allow`; any other query value is ignored and never shown.
  * The form itself is rendered once and never re-created. Only a small child reads the query
  * (useSearchParams needs a Suspense boundary so the page stays prerendered); it fills the two

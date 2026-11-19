@@ -1,5 +1,6 @@
 import { ArrowRight, Clock, Users } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
+import { BusinessSubnav } from "@/components/business-subnav";
 import { Icon, IconBadge } from "@/components/icons";
 import { MethodTabs } from "@/components/knowledge/method-tabs";
 import { RecipeDialog } from "@/components/knowledge/recipe-dialog";
@@ -43,7 +44,7 @@ export default async function Page() {
   return (
     <>
       {/* 1. Hero (dark) */}
-      <PageHero label={tx("hero.label")} title={tx("hero.title")} body={tx("hero.body")} titleClassName="max-w-[12ch]" />
+      <PageHero before={<BusinessSubnav active="knowledge" />} label={tx("hero.label")} title={tx("hero.title")} body={tx("hero.body")} titleClassName="max-w-[12ch]" />
 
       {/* 2. Quick links: large tiles */}
       <nav data-surface="dark" aria-labelledby="quick-links-heading" className="pb-16 md:pb-24">

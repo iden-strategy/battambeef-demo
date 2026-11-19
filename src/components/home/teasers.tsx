@@ -25,8 +25,8 @@ function TextLink({ href, children, lang }: { href: string; children: string; la
 }
 
 /**
- * Section 6: Farm to Table preview (dark). Four of the journey stages with the Farm to Table
- * page's own wording; only the 72-hour step states a process fact.
+ * Section 6: Farm to Table preview (dark). Four of the journey stages with the wording of the
+ * About page's Farm to Table section; only the 72-hour step states a process fact.
  */
 export async function FarmPreview() {
   const t = await getTranslations("home.farm");
@@ -53,7 +53,7 @@ export async function FarmPreview() {
               className="title-lg mt-3 max-w-[16ch] text-balance"
             />
           </div>
-          <TextLink href="/farm-to-table" lang={k("link")}>
+          <TextLink href="/about#farm-to-table" lang={k("link")}>
             {t("link")}
           </TextLink>
         </div>
@@ -169,7 +169,7 @@ export async function BusinessTeaser() {
                 </Link>
               </Button>
             </MagneticButton>
-            <TextLink href="/for-business" lang={k("link")}>
+            <TextLink href="/business" lang={k("link")}>
               {t("link")}
             </TextLink>
           </div>
@@ -225,7 +225,7 @@ export async function KnowledgeTeaser() {
               {t("body")}
             </p>
           </div>
-          <TextLink href="/beef-knowledge" lang={k("link")}>
+          <TextLink href="/business/knowledge" lang={k("link")}>
             {t("link")}
           </TextLink>
         </div>
@@ -259,7 +259,7 @@ export async function KnowledgeTeaser() {
                 </p>
                 <h3 className="title-md mt-2 [--fs:clamp(1.25rem,1.1rem+0.5vw,1.5rem)]">
                   <Link
-                    href="/beef-knowledge#recipes"
+                    href="/business/knowledge#recipes"
                     lang={lang(`beefKnowledge.recipes.items.${recipe.id}.title`)}
                     className="after:absolute after:inset-0 after:rounded-2xl focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-ring [@media(hover:hover)]:hover:underline"
                   >

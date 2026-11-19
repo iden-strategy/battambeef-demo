@@ -44,7 +44,7 @@ export default async function NotFound() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="/beef-cuts" lang={k("cuts")}>
+              <Link href="/business/cuts" lang={k("cuts")}>
                 {t("cuts")}
               </Link>
             </Button>

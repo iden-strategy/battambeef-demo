@@ -1,24 +1,26 @@
 // Site structure and contact placeholders.
 // Contact details are PLACEHOLDERS until the team provides real ones (CLAUDE.md section 12).
 
-export type NavKey =
-  | "home"
-  | "about"
-  | "farmToTable"
-  | "beefCuts"
-  | "forBusiness"
-  | "beefKnowledge"
-  | "contact";
+/** Main menu. Home is reached through the logo. "contact" is labelled "Order Inquiry". */
+export type NavKey = "about" | "forBusiness" | "contact";
 
-export type NavItem = { key: NavKey; href: string };
+/** For Business sub-navigation, shown at the top of its three pages. */
+export type BusinessNavKey = "overview" | "cuts" | "knowledge";
+
+export type BusinessNavItem = { key: BusinessNavKey; href: string };
+
+export const BUSINESS_NAV: BusinessNavItem[] = [
+  { key: "overview", href: "/business" },
+  { key: "cuts", href: "/business/cuts" },
+  { key: "knowledge", href: "/business/knowledge" },
+];
+
+/** `children`: sub-pages, shown as a dropdown (desktop) or an indented list (mobile menu). */
+export type NavItem = { key: NavKey; href: string; children?: BusinessNavItem[] };
 
 export const NAV_ITEMS: NavItem[] = [
-  { key: "home", href: "/" },
   { key: "about", href: "/about" },
-  { key: "farmToTable", href: "/farm-to-table" },
-  { key: "beefCuts", href: "/beef-cuts" },
-  { key: "forBusiness", href: "/for-business" },
-  { key: "beefKnowledge", href: "/beef-knowledge" },
+  { key: "forBusiness", href: "/business", children: BUSINESS_NAV },
   { key: "contact", href: "/contact" },
 ];
 
@@ -79,6 +81,6 @@ export function buildQuickActions(): QuickActions {
   const handle = CONTACT_DETAILS.find((c) => c.key === "telegram")?.value?.replace(/^@/, "").trim();
   return {
     contact: handle ? { kind: "telegram", href: `https://t.me/${encodeURIComponent(handle)}` } : { kind: "page", href: "/contact" },
-    quote: "/for-business",
+    quote: "/business#enquiry", // straight to the business inquiry form
   };
 }

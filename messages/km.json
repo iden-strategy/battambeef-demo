@@ -6,7 +6,6 @@
     "titles": {
       "home": "TODO-KM",
       "about": "TODO-KM",
-      "farmToTable": "TODO-KM",
       "beefCuts": "TODO-KM",
       "forBusiness": "TODO-KM",
       "beefKnowledge": "TODO-KM",
@@ -17,7 +16,6 @@
     "descriptions": {
       "home": "TODO-KM",
       "about": "TODO-KM",
-      "farmToTable": "TODO-KM",
       "beefCuts": "TODO-KM",
       "forBusiness": "TODO-KM",
       "beefKnowledge": "TODO-KM",
@@ -33,20 +31,22 @@
   },
   "nav": {
     "label": "TODO-KM",
-    "home": "TODO-KM",
     "about": "TODO-KM",
-    "farmToTable": "TODO-KM",
-    "beefCuts": "TODO-KM",
     "forBusiness": "TODO-KM",
-    "beefKnowledge": "TODO-KM",
     "contact": "TODO-KM",
+    "businessPages": "TODO-KM",
     "openMenu": "TODO-KM",
     "closeMenu": "TODO-KM",
     "menuLabel": "TODO-KM"
   },
+  "businessNav": {
+    "label": "TODO-KM",
+    "overview": "TODO-KM",
+    "cuts": "TODO-KM",
+    "knowledge": "TODO-KM"
+  },
   "header": {
-    "logo": "BattamBeef",
-    "contactUs": "TODO-KM"
+    "logo": "TODO-KM"
   },
   "language": {
     "label": "TODO-KM",

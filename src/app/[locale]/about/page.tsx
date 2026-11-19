@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { FarmToTableSection } from "@/components/farm-to-table/farm-to-table-section";
 import { IconBadge } from "@/components/icons";
 import { MarqueeBand } from "@/components/marquee-band";
 import { ImageReveal } from "@/components/motion/image-reveal";
@@ -14,9 +15,10 @@ import { pageMetadata } from "@/lib/metadata";
 export const generateMetadata = () => pageMetadata("about");
 
 /**
- * About: rooted in Battambang. Surfaces: dark hero and story, kraft mission and vision, light
- * values (the breathing section), then a raised marquee band before the footer.
- * Only verified facts (CLAUDE.md section 12); the landscape is an illustration.
+ * About: rooted in Battambang, with the Farm to Table journey as a chapter (#farm-to-table).
+ * Surfaces: dark hero and story, kraft mission and vision, then Farm to Table (dark intro and
+ * journey, light 72 hours, dark aims), light values, and a raised marquee band before the footer.
+ * Only verified facts (CLAUDE.md section 12); the landscape and journey photos are illustrations.
  */
 export default async function Page() {
   const t = await getTranslations("about");
@@ -102,7 +104,10 @@ export default async function Page() {
         </div>
       </section>
 
-      {/* 4. Values (light: the breathing section). */}
+      {/* 4. Farm to Table (#farm-to-table): intro, the journey, 72 hours (light), our aims. */}
+      <FarmToTableSection />
+
+      {/* 5. Values (light: the page's second breathing section). */}
       <section data-surface="light" aria-labelledby="values-heading" className="section">
         <div className="container-page">
           <SectionHeading id="values-heading" label={tx("values.label")} title={tx("values.title")} />
@@ -122,7 +127,7 @@ export default async function Page() {
         </div>
       </section>
 
-      {/* 5. Campaign marquee (raised charcoal), then the footer. */}
+      {/* 6. Campaign marquee (raised charcoal), then the footer. */}
       <MarqueeBand raised />
     </>
   );

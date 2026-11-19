@@ -12,6 +12,7 @@ import { BRAND_COLORS, type BrandColor } from "@/lib/data/brand";
 import { CHILL_HOURS, CHILL_POINTS, JOURNEY_IMAGE_RATIO, JOURNEY_RESULTS, JOURNEY_STAGES } from "@/lib/data/journey";
 import {
   buildQuickActions,
+  BUSINESS_NAV,
   CONTACT_CARDS,
   CONTACT_DETAILS,
   COPYRIGHT_YEAR,
@@ -22,6 +23,7 @@ import {
 } from "@/lib/data/site";
 
 export const getNavItems = () => NAV_ITEMS;
+export const getBusinessNav = () => BUSINESS_NAV;
 export const getCopyrightYear = () => COPYRIGHT_YEAR;
 export const getContactDetails = () => CONTACT_DETAILS;
 export const getSocialLinks = () => SOCIAL_LINKS;
@@ -73,7 +75,7 @@ export const getRecipes = () => RECIPES;
 export const getFeaturedRecipes = () => FEATURED_RECIPE_IDS.map((id) => RECIPES.find((r) => r.id === id)).filter((r): r is Recipe => !!r);
 export const getFaq = () => FAQ;
 
-export type { NavItem, NavKey, ContactDetail, SocialLink, QuickActions, ContactCardId, ContactIcon, EnquiryType } from "@/lib/data/site";
+export type { NavItem, NavKey, BusinessNavItem, BusinessNavKey, ContactDetail, SocialLink, QuickActions, ContactCardId, ContactIcon, EnquiryType } from "@/lib/data/site";
 export type { Cut, CookingMethod, CutTier } from "@/lib/data/cuts";
 export type { CowPartId, CowPartGeometry } from "@/lib/data/cow-map";
 export type { BrandColor } from "@/lib/data/brand";

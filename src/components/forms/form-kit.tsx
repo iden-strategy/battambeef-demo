@@ -21,8 +21,13 @@ import { cn } from "@/lib/utils";
 // Demo forms (CLAUDE.md section 11): they validate like real forms but send and store nothing.
 // - no network request: submit is always prevented; there is no action URL
 // - no storage: uncontrolled fields, no localStorage/sessionStorage/cookies, no drafts
-// - without JavaScript the submit button stays disabled, so the browser can never submit the
-//   form (with its values in the URL) on its own
+// - without JavaScript, and until hydration, the submit button is disabled (in the server HTML),
+//   so the browser can never submit the form (with its values in the URL) on its own: clicking
+//   does nothing, and Enter in a field does nothing either (implicit submission is blocked when
+//   the form's default button is disabled)
+// - second lock: the CSP has `form-action 'none'` (next.config.ts), so even an enabled native
+//   submission would be refused by the browser
+// e2e: forms.spec.ts "without JavaScript …" for both forms
 // Messages: the "forms" section, sent to the browser only where a form is (ScopedMessages).
 
 /** How long the "Sending…" state shows before "Preview only: not sent". */
@@ -140,6 +145,7 @@ export function PreviewForm({ id, validate, multi = [], submitKey = "submit", ch
       <form
         ref={formRef}
         id={id}
+        method="post"
         noValidate
         onSubmit={onSubmit}
         onChange={onChange}

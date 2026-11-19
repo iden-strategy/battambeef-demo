@@ -7,13 +7,14 @@ import { useEffect, useRef } from "react";
 import { useMotionMode } from "@/components/motion/use-motion-prefs";
 import { EASE_OUT_EXPO, reducedTransition } from "@/components/motion/tokens";
 import { LanguageSwitch } from "@/components/shell/language-switch";
-import { isActivePath } from "@/components/shell/nav-utils";
+import { isActivePath, navCurrent } from "@/components/shell/nav-utils";
 import { Link } from "@/i18n/navigation";
 import { useFallbackLang } from "@/i18n/use-fallback-lang";
 import type { NavItem } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 type MobileMenuProps = {
+  /** Items with `children` list them indented underneath (no extra toggle). */
   navItems: NavItem[];
   pathname: string;
   /** A nav link was chosen: close, then focus the new page's content. */
@@ -27,7 +28,7 @@ type MobileMenuProps = {
  * motion). Focus trap, Escape and scroll lock live in SiteHeader, which owns the open state.
  */
 export function MobileMenu({ navItems, pathname, onNavigate, onClose }: MobileMenuProps) {
-  const t = useTranslations("nav");
+  const t = useTranslations();
   const lang = useFallbackLang();
   const mode = useMotionMode();
   const reduced = mode === "reduced";
@@ -63,7 +64,7 @@ export function MobileMenu({ navItems, pathname, onNavigate, onClose }: MobileMe
       transition={{ duration: reduced ? 0.2 : 0.3 }}
     >
       <span id="site-menu-label" hidden lang={lang("nav.menuLabel")}>
-        {t("menuLabel")}
+        {t("nav.menuLabel")}
       </span>
       <nav aria-labelledby="nav-label" className="container-page flex flex-1 flex-col justify-center py-8">
         <m.ul className="flex flex-col gap-1" variants={list} initial="hidden" animate="visible">
@@ -75,15 +76,38 @@ export function MobileMenu({ navItems, pathname, onNavigate, onClose }: MobileMe
                   ref={i === 0 ? firstLink : undefined}
                   href={nav.href}
                   onClick={() => onNavigate(nav.href)}
-                  aria-current={active ? "page" : undefined}
+                  aria-current={navCurrent(pathname, nav.href)}
                   lang={lang(`nav.${nav.key}`)}
                   className={cn(
                     "title-lg inline-flex min-h-11 items-center py-1 [--fs:clamp(2rem,8.5vw,3.5rem)]",
                     active ? "text-accent-text" : "text-foreground",
                   )}
                 >
-                  {t(nav.key)}
+                  {t(`nav.${nav.key}`)}
                 </Link>
+                {nav.children && (
+                  <ul className="mb-2 ml-1 flex flex-col border-l border-border pl-4">
+                    {nav.children.map((sub) => {
+                      const current = pathname === sub.href;
+                      return (
+                        <li key={sub.key}>
+                          <Link
+                            href={sub.href}
+                            onClick={() => onNavigate(sub.href)}
+                            aria-current={current ? "page" : undefined}
+                            lang={lang(`businessNav.${sub.key}`)}
+                            className={cn(
+                              "body-lg inline-flex min-h-11 items-center font-medium",
+                              current ? "text-accent-text" : "text-muted-foreground",
+                            )}
+                          >
+                            {t(`businessNav.${sub.key}`)}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </m.li>
             );
           })}

@@ -14,6 +14,8 @@ const CLOSED = "inset(100% 0% 0% 0%)";
 const OPEN = "inset(0% 0% 0% 0%)";
 /** Half the length of a stage change, in timeline units (one unit = one stage). */
 const HALF = 0.25;
+/** Quiet time after the last image load / page size change before ScrollTrigger re-measures. */
+const REFRESH_DEBOUNCE = 200;
 
 /**
  * The desktop journey's scroll animation. Renders only a hidden marker; drives the
@@ -42,7 +44,7 @@ export function JourneyPinned() {
         el.dataset.scrollTriggers = String(ScrollTrigger.getAll().length);
       }
 
-      // Re-measure once web fonts, images and the incoming page transition have settled.
+      // Re-measure once web fonts and the incoming page transition have settled (next frame).
       let live = true;
       let frame = 0;
       const refresh = () => {
@@ -51,13 +53,29 @@ export function JourneyPinned() {
         frame = requestAnimationFrame(() => ScrollTrigger.refresh());
       };
       document.fonts?.ready.then(refresh);
-      el.addEventListener("load", refresh, true); // image loads (capture: load does not bubble)
       window.addEventListener(PAGE_SETTLED_EVENT, refresh);
+
+      // The journey sits below other content (on About: hero, story, mission). When anything on
+      // the page changes height (an image arriving, text re-wrapping), the trigger's start and end
+      // move with it. Image loads and size changes come in bursts, so they share one debounce:
+      // refresh once, REFRESH_DEBOUNCE ms after the last event.
+      let timer = 0;
+      const refreshSoon = () => {
+        if (!live) return;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(refresh, REFRESH_DEBOUNCE);
+      };
+      document.addEventListener("load", refreshSoon, true); // image loads (capture: load does not bubble)
+      const main = document.getElementById("main-content");
+      const resize = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(refreshSoon);
+      if (main) resize?.observe(main);
 
       return () => {
         live = false;
         cancelAnimationFrame(frame);
-        el.removeEventListener("load", refresh, true);
+        window.clearTimeout(timer);
+        document.removeEventListener("load", refreshSoon, true);
+        resize?.disconnect();
         window.removeEventListener(PAGE_SETTLED_EVENT, refresh);
         cleanup?.();
         delete el.dataset.scrollTriggers;

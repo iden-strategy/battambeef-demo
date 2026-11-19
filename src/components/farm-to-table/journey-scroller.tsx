@@ -1,13 +1,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { JourneyVersionContext, type JourneyVersion } from "@/components/farm-to-table/journey-version";
 import { useMediaQuery } from "@/components/motion/use-media-query";
 import { useMotionMode } from "@/components/motion/use-motion-prefs";
 
 // The desktop scroll animation (GSAP + ScrollTrigger) is a separate chunk, downloaded only when
-// the desktop journey is shown. Phones never load GSAP. If the chunk fails to load, the journey
+// the desktop journey is shown and comes near the screen. Phones never load GSAP. If the chunk fails to load, the journey
 // falls back to the stacked version instead of reaching the page's error boundary.
 const JourneyPinned = dynamic(
   () =>
@@ -30,6 +30,16 @@ const DESKTOP = "(min-width: 64rem)";
 
 /** How long the desktop animation may take to load and start before the stacked version takes over. */
 const PINNED_TIMEOUT = 10_000;
+
+/**
+ * The GSAP chunk is downloaded once the journey comes within this distance of the screen (1.5
+ * screen heights), not at page load: on the long About page, desktop visitors who never scroll
+ * that far never download it. Before it starts, the server-rendered desktop stage shows stage 1.
+ */
+const NEAR_MARGIN = "150% 0px";
+
+/** The progress bar shows when the web fonts are ready, or after this long, whichever comes first. */
+const BAR_FONT_TIMEOUT = 3_000;
 
 // --- Fallback to the stacked version ---------------------------------------------------------
 // Two classes on <html>, both read by globals.css so the switch also works without React:
@@ -71,27 +81,39 @@ export function JourneyScroller({ children }: { children: ReactNode }) {
   const reduced = mode === "reduced";
   const pinned = ready && wide && !reduced && !fallback;
   const version: JourneyVersion | null = ready ? (pinned ? "desktop" : "stacked") : null;
+  // Once near, stays near: the animation is never unloaded mid-visit.
+  const [near, setNear] = useState(false);
+  const load = pinned && near;
 
   useEffect(() => {
     if (!ready || pinned || !root.current) return;
     return setupStacked(root.current, reduced);
   }, [ready, pinned, reduced]);
 
+  // Desktop: wait until the journey is near the screen before downloading GSAP.
+  useEffect(() => {
+    if (!pinned || near || !root.current) return;
+    const io = new IntersectionObserver(([entry]) => entry.isIntersecting && setNear(true), { rootMargin: NEAR_MARGIN });
+    io.observe(root.current);
+    return () => io.disconnect();
+  }, [pinned, near]);
+
   // The GSAP chunk loaded but hangs, or never got going: take the stacked version.
   // JourneyPinned marks the desktop track with data-pinned once its timeline is set up.
+  // The clock starts when the download starts (the journey came near), not at page load.
   useEffect(() => {
-    if (!pinned) return;
+    if (!load) return;
     const id = window.setTimeout(() => {
       if (!root.current?.querySelector('[data-journey="desktop"][data-pinned]')) markJourneyFallback();
     }, PINNED_TIMEOUT);
     return () => window.clearTimeout(id);
-  }, [pinned]);
+  }, [load]);
 
   return (
     <JourneyVersionContext value={version}>
       <div ref={root}>
         {children}
-        {pinned && <JourneyPinned />}
+        {load && <JourneyPinned />}
       </div>
     </JourneyVersionContext>
   );
@@ -108,6 +130,22 @@ function setupStacked(el: HTMLElement, reduced: boolean) {
   const blocks = Array.from(wrap.querySelectorAll<HTMLElement>("[data-block]"));
   const fills = Array.from(wrap.querySelectorAll<HTMLElement>("[data-seg-fill]"));
   const labels = Array.from(wrap.querySelectorAll<HTMLElement>("[data-bar-label]"));
+
+  // The bar's label and segments show once web fonts are ready (globals.css, .journey-bar). The
+  // label is sized by its font, and the segments beside it share its row, so a late font swap
+  // would shift both (layout shift on a #journey deep link). Hidden content never shifts.
+  // If the fonts never settle (a stalled request), the bar shows after BAR_FONT_TIMEOUT anyway.
+  let live = true;
+  const bar = wrap.querySelector<HTMLElement>(".journey-bar");
+  let barTimer = 0;
+  const showBar = () => {
+    window.clearTimeout(barTimer);
+    if (live && bar) bar.dataset.fontsReady = "";
+  };
+  if (document.fonts) {
+    barTimer = window.setTimeout(showBar, BAR_FONT_TIMEOUT);
+    document.fonts.ready.then(showBar, showBar);
+  } else showBar();
 
   let active = -1;
   const setActive = (i: number) => {
@@ -158,6 +196,8 @@ function setupStacked(el: HTMLElement, reduced: boolean) {
   update();
 
   return () => {
+    live = false;
+    window.clearTimeout(barTimer);
     near.disconnect();
     window.removeEventListener("scroll", onScroll);
     window.removeEventListener("resize", onScroll);

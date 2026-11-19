@@ -67,7 +67,7 @@ export function CutPanel({ part, total, cuts, compact = false }: CutPanelProps) 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             {compact ? (
               <Button asChild variant="link" size="sm" className="px-0">
-                <Link href={`/beef-cuts#${part.id}`} lang={lang("cutMap.exploreAll")}>
+                <Link href={`/business/cuts#${part.id}`} lang={lang("cutMap.exploreAll")}>
                   {t("exploreAll")}
                 </Link>
               </Button>

@@ -177,13 +177,13 @@ async function watchLeaks(page: Page) {
   };
 }
 
-test.describe("business enquiry form", () => {
+test.describe("business inquiry form", () => {
   test("empty submit: error summary gets focus, fields are marked, errors clear when fixed", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/for-business#enquiry");
+    await page.goto("/en/business#enquiry");
     const form = page.locator("#business-form");
-    await expect(form.getByRole("button", { name: "Send enquiry" })).toBeEnabled();
-    await form.getByRole("button", { name: "Send enquiry" }).click();
+    await expect(form.getByRole("button", { name: "Send inquiry" })).toBeEnabled();
+    await form.getByRole("button", { name: "Send inquiry" }).click();
 
     const summary = form.locator("div[tabindex=\"-1\"]");
     await expect(summary).toBeFocused();
@@ -207,7 +207,7 @@ test.describe("business enquiry form", () => {
   test("valid submit: loading, then 'Preview only: not sent'; nothing sent or stored", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     const leaks = await watchLeaks(page);
-    await page.goto("/en/for-business");
+    await page.goto("/en/business");
     const form = page.locator("#business-form");
     await form.scrollIntoViewIfNeeded();
     const before = leaks.requests.length;
@@ -222,7 +222,7 @@ test.describe("business enquiry form", () => {
     await form.getByText("Brisket", { exact: true }).click();
     await form.getByLabel("Delivery area").fill(`Battambang ${SECRET}`);
     await form.getByLabel("Message").fill(`Hello ${SECRET}`);
-    await form.getByRole("button", { name: "Send enquiry" }).click();
+    await form.getByRole("button", { name: "Send inquiry" }).click();
 
     await expect(form.getByRole("button", { name: "Sending…" })).toBeVisible();
     await expect(form.getByRole("button", { name: "Preview only: not sent" })).toBeVisible();
@@ -235,25 +235,14 @@ test.describe("business enquiry form", () => {
     expect((await leaks.writes()).filter((w) => w.includes(SECRET) || w.includes("Sophea"))).toEqual([]);
     expect(page.url()).not.toContain(SECRET);
 
-    // Editing again returns the button to "Send enquiry".
+    // Editing again returns the button to "Send inquiry".
     await form.getByLabel("Message").fill("Changed");
-    await expect(form.getByRole("button", { name: "Send enquiry" })).toBeVisible();
-  });
-
-  test("without JavaScript the form cannot be submitted", async ({ browser }) => {
-    const context = await browser.newContext({ javaScriptEnabled: false });
-    const page = await context.newPage();
-    await page.goto("/en/for-business");
-    await expect(page.locator("#business-form").getByRole("button", { name: "Send enquiry" })).toBeDisabled();
-    await page.locator("#business-form-businessName").fill("x");
-    await page.locator("#business-form-businessName").press("Enter");
-    await expect(page).toHaveURL(/\/en\/for-business$/);
-    await context.close();
+    await expect(form.getByRole("button", { name: "Send inquiry" })).toBeVisible();
   });
 
   test("hero 'Request a quote' jumps to the form; autocomplete hints are set", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/for-business");
+    await page.goto("/en/business");
     await page.locator("#main-content").getByRole("link", { name: "Request a quote" }).click();
     await expect(page).toHaveURL(/#enquiry$/);
     await expect(page.locator("#enquiry-heading")).toBeInViewport();
@@ -265,15 +254,114 @@ test.describe("business enquiry form", () => {
   });
 });
 
+// Privacy: a form submitted natively (JavaScript off, or before hydration) would be a GET to the
+// same page with every value in the address bar and history. The submit button is disabled in the
+// server HTML, Enter is blocked with it, and the CSP's form-action 'none' refuses any submission.
+test.describe("without JavaScript the forms send nothing and never put data in the URL", () => {
+  const FORMS = [
+    {
+      path: "/en/business",
+      id: "business-form",
+      submit: "Send inquiry",
+      fields: { businessName: "Leak Test Grill", contactName: "Leak Tester", phone: "012345678", email: "leak@example.com", message: "leak-message-text" },
+    },
+    {
+      path: "/en/contact",
+      id: "contact-form",
+      submit: "Send message",
+      fields: { name: "Leak Tester", phone: "012345678", email: "leak@example.com", message: "leak-message-text" },
+    },
+  ];
+
+  for (const { path, id, submit, fields } of FORMS) {
+    test(`${path}: Enter and submit do nothing; URL unchanged, no query string`, async ({ browser, baseURL }) => {
+      const context = await browser.newContext({ javaScriptEnabled: false });
+      const page = await context.newPage();
+      await page.goto(path);
+      const start = page.url();
+      expect(start).toBe(`${baseURL}${path}`);
+      const button = page.locator(`#${id}`).getByRole("button", { name: submit });
+      await expect(button).toBeDisabled();
+
+      for (const [name, value] of Object.entries(fields)) await page.locator(`#${id}-${name}`).fill(value);
+
+      // From here on: any navigation, or any request carrying a typed value, is a leak.
+      const values = Object.values(fields).map((v) => encodeURIComponent(v));
+      const leaks: string[] = [];
+      page.on("request", (req) => {
+        const body = req.postData() ?? "";
+        if (req.isNavigationRequest() || req.method() !== "GET" || values.some((v) => req.url().includes(v) || body.includes(v))) {
+          leaks.push(`${req.method()} ${req.url()}`);
+        }
+      });
+      // Watch for a navigation for a fixed window after both attempts (none must come).
+      const navigated = page.waitForEvent("framenavigated", { timeout: 1500 }).then(
+        () => true,
+        () => false,
+      );
+      await page.locator(`#${id}-${Object.keys(fields)[0]}`).press("Enter");
+      await page.locator(`#${id}-phone`).press("Enter");
+      await button.click({ force: true }); // force: it is disabled; the click must change nothing
+
+      expect(await navigated).toBe(false);
+      expect(page.url()).toBe(start);
+      expect(new URL(page.url()).search).toBe("");
+      expect(leaks).toEqual([]);
+      // The typed values are still in the fields (nothing was reset by a reload).
+      await expect(page.locator(`#${id}-email`)).toHaveValue("leak@example.com");
+      await context.close();
+    });
+  }
+
+  test("with JavaScript on: a forced native submission is refused by the CSP; nothing is sent", async ({ page }) => {
+    await page.goto("/en/contact");
+    const form = page.locator("#contact-form");
+    const button = form.getByRole("button", { name: "Send message" });
+    await expect(button).toBeEnabled(); // hydrated
+    const start = page.url();
+    expect(start).toMatch(/\/en\/contact$/);
+
+    const fields = { name: "Leak Tester", phone: "012345678", email: "leak@example.com", message: "leak-message-text" };
+    for (const [name, value] of Object.entries(fields)) await page.locator(`#contact-form-${name}`).fill(value);
+
+    const values = Object.values(fields).map((v) => encodeURIComponent(v));
+    const leaks: string[] = [];
+    page.on("request", (req) => {
+      const body = req.postData() ?? "";
+      if (req.isNavigationRequest() || values.some((v) => req.url().includes(v) || body.includes(v))) leaks.push(`${req.method()} ${req.url()}`);
+    });
+    const navigated = page.waitForEvent("framenavigated", { timeout: 1500 }).then(
+      () => true,
+      () => false,
+    );
+    // Remove `disabled` and submit natively. HTMLFormElement.submit() skips the page's own submit
+    // handler, so only the browser's CSP (form-action 'none') stands in the way.
+    await button.evaluate((el) => {
+      (el as HTMLButtonElement).removeAttribute("disabled");
+      (el as HTMLButtonElement).form!.submit();
+    });
+
+    expect(await navigated).toBe(false);
+    expect(page.url()).toBe(start);
+    expect(new URL(page.url()).search).toBe("");
+    expect(leaks).toEqual([]);
+  });
+
+  test("the CSP refuses native form submission (form-action 'none')", async ({ request }) => {
+    const res = await request.get("/en/contact");
+    expect(res.headers()["content-security-policy"]).toContain("form-action 'none'");
+  });
+});
+
 test.describe("contact form", () => {
   const enquiry = (page: Page) => page.locator("#contact-form-enquiryType");
   const interest = (page: Page) => page.locator("#contact-form-interest");
 
-  test("a quote link with a known cut preselects 'Order enquiry' and the cut", async ({ page }) => {
+  test("a quote link with a known cut preselects 'Order inquiry' and the cut", async ({ page }) => {
     await page.goto("/en/contact?part=loin&cut=striploin");
     await expect(enquiry(page)).toHaveValue("order");
     await expect(interest(page)).toHaveValue("cut:striploin");
-    await expect(enquiry(page).locator("option:checked")).toHaveText("Order enquiry");
+    await expect(enquiry(page).locator("option:checked")).toHaveText("Order inquiry");
     await expect(page.getByText("We have filled in the cut from your quote request.")).toBeVisible();
 
     await page.goto("/en/contact?part=rib");
@@ -294,7 +382,7 @@ test.describe("contact form", () => {
 
   test("arriving from the cut map's quote button (client navigation) preselects the part", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-cuts#loin");
+    await page.goto("/en/business/cuts#loin");
     await page.getByRole("link", { name: "Request a quote for Loin cuts" }).click();
     await expect(page).toHaveURL(/\/en\/contact\?part=loin$/);
     await expect(interest(page)).toHaveValue("part:loin");
@@ -362,7 +450,7 @@ test.describe("contact form", () => {
     await form.getByLabel("Company").fill(`Cafe ${SECRET}`);
     await form.getByLabel("Phone").fill("097 123 4567");
     await form.getByLabel("Email").fill("dara@example.com");
-    await form.getByLabel("Enquiry type").selectOption("general");
+    await form.getByLabel("Inquiry type").selectOption("general");
     await form.getByLabel("Message").fill(`Hello there ${SECRET}`);
     await expect(form.locator("div[tabindex=\"-1\"]")).toHaveCount(0);
     await form.getByRole("button", { name: "Send message" }).click();

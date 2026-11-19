@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { waitForMotionReady } from "./helpers";
 
 // Home page: the "HOLY COW." hero and the sections below it.
 
@@ -125,7 +126,7 @@ test.describe("home hero", () => {
   test("desktop: pointer depth moves the scene and the title", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/en", { waitUntil: "networkidle" });
-    await page.waitForFunction(() => document.documentElement.classList.contains("motion-ready"));
+    await waitForMotionReady(page);
     await page.mouse.move(720, 450);
     await page.mouse.move(1300, 200, { steps: 8 });
     await page.waitForTimeout(800);
@@ -159,7 +160,7 @@ test.describe("home hero", () => {
   test("scrolling melts the hero into charcoal", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/en", { waitUntil: "networkidle" });
-    await page.waitForFunction(() => document.documentElement.classList.contains("motion-ready"));
+    await waitForMotionReady(page);
     await page.waitForTimeout(300);
     await page.evaluate(() => window.scrollTo({ top: window.innerHeight * 0.6, behavior: "instant" }));
     await page.waitForTimeout(400);
@@ -201,12 +202,12 @@ test.describe("home sections", () => {
     await page.goto("/en");
     await expect(page.locator("#cut-map img").first()).toBeAttached();
     await expect(page.getByRole("region", { name: "Featured cuts" })).toBeAttached();
-    await expect(page.getByRole("link", { name: "See Ribeye (cube roll) on the cut map" })).toHaveAttribute("href", "/en/beef-cuts#rib");
+    await expect(page.getByRole("link", { name: "See Ribeye (cube roll) on the cut map" })).toHaveAttribute("href", "/en/business/cuts#rib");
     // Featured cards show the cut photo (decorative: the card's name labels it).
     const featuredImgs = page.getByRole("region", { name: "Featured cuts" }).locator("img");
     await expect(featuredImgs).toHaveCount(6);
     await expect(featuredImgs.first()).toHaveAttribute("alt", "");
-    await expect(page.getByRole("link", { name: "See Ribs with meat (short rib) on the cut map" })).toHaveAttribute("href", "/en/beef-cuts#rib");
+    await expect(page.getByRole("link", { name: "See Ribs with meat (short rib) on the cut map" })).toHaveAttribute("href", "/en/business/cuts#rib");
     await expect(page.locator('[data-surface="light"]').filter({ has: page.locator("#business-heading") })).toBeAttached();
     await expect(page.locator('[data-surface="kraft"]').filter({ has: page.locator("#knowledge-heading") })).toBeAttached();
   });

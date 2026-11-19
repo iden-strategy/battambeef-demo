@@ -6,12 +6,9 @@ import { MagneticButton } from "@/components/motion/magnetic-button";
 import { Reveal, RevealItem } from "@/components/motion/reveal";
 import { SplitTextReveal } from "@/components/motion/split-text-reveal";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import { getFallbackLang } from "@/i18n/get-fallback-lang";
-import { pageMetadata } from "@/lib/metadata";
+import { Link } from "@/i18n/navigation";
 import { getChillHours, getChillPoints, getJourneyResults, type JourneyResultId } from "@/lib/data";
-
-export const generateMetadata = () => pageMetadata("farmToTable");
 
 const RESULT_ICONS: Record<JourneyResultId, LucideIcon> = {
   consistentCuts: Beef,
@@ -20,39 +17,37 @@ const RESULT_ICONS: Record<JourneyResultId, LucideIcon> = {
   homeKitchens: House,
 };
 
-export default async function Page() {
+/**
+ * Farm to Table, a chapter of the About page (/about#farm-to-table; the old /farm-to-table URL
+ * redirects here). Intro, the journey (GSAP sticky stage on desktop, stacked on phones), the
+ * 72-hour dial and our aims. Below the fold, so everything reveals in view (not on mount).
+ * Surfaces: dark intro and journey, light 72 hours, dark aims.
+ */
+export async function FarmToTableSection() {
   const t = await getTranslations("farmToTable");
   const lang = await getFallbackLang();
   const k = (key: string) => lang(`farmToTable.${key}`);
   const hours = getChillHours();
 
   return (
-    <>
-      {/* 1. Intro (dark). Above the fold: reveals with CSS, visible without JavaScript. */}
-      <section
-        data-surface="dark"
-        className="flex min-h-[88svh] flex-col justify-end pt-[calc(var(--header-h)+env(safe-area-inset-top)+3rem)] pb-10 md:pb-14"
-      >
+    <div id="farm-to-table">
+      {/* 1. Intro (dark) */}
+      <section data-surface="dark" aria-labelledby="farm-to-table-heading" className="section-sm border-t border-border">
         <div className="container-page">
-          <Reveal trigger="mount">
-            <p className="label text-label" lang={k("intro.label")}>
-              {t("intro.label")}
-            </p>
-          </Reveal>
+          <p className="label text-label" lang={k("intro.label")}>
+            {t("intro.label")}
+          </p>
           <SplitTextReveal
-            as="h1"
+            as="h2"
+            id="farm-to-table-heading"
             text={t("intro.title")}
             lang={k("intro.title")}
-            trigger="mount"
-            delay={0.1}
             className="display-xl mt-5 max-w-[13ch] text-balance"
           />
-          <Reveal trigger="mount" delay={0.35}>
+          <Reveal>
             <p className="body-lg mt-6 max-w-2xl text-muted-foreground" lang={k("intro.body")}>
               {t("intro.body")}
             </p>
-          </Reveal>
-          <Reveal trigger="mount" delay={0.5}>
             <a href="#journey" className="group mt-10 inline-flex min-h-11 items-center gap-3 md:mt-14">
               <span className="grid size-11 place-items-center rounded-full border-[1.5px] border-border transition-colors group-hover:border-foreground">
                 <ArrowDown aria-hidden className="scroll-cue size-4" />
@@ -68,13 +63,8 @@ export default async function Page() {
       {/* 2. The journey (dark): pinned on desktop, stacked on phones and with reduced motion. */}
       <Journey />
 
-      {/* 3. 72 hours (light: the page's one bright moment). */}
-      <section
-        id="chill"
-        data-surface="light"
-        aria-labelledby="chill-heading"
-        className="section flex min-h-[100svh] items-center"
-      >
+      {/* 3. 72 hours (light) */}
+      <section id="chill" data-surface="light" aria-labelledby="chill-heading" className="section flex min-h-[100svh] items-center">
         <div className="container-page grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <ChillDial hours={hours} unit={t("chill.unit")} unitLang={k("chill.unit")} />
           <div>
@@ -112,7 +102,7 @@ export default async function Page() {
         </div>
       </section>
 
-      {/* 4. The result (dark) */}
+      {/* 4. Our aims (dark) */}
       <section data-surface="dark" aria-labelledby="result-heading" className="section">
         <div className="container-page">
           <p className="label text-label" lang={k("result.label")}>
@@ -143,7 +133,7 @@ export default async function Page() {
           <Reveal className="mt-10 flex flex-wrap gap-3 md:mt-14">
             <MagneticButton>
               <Button asChild size="lg">
-                <Link href="/beef-cuts" lang={k("result.ctaCuts")}>
+                <Link href="/business/cuts" lang={k("result.ctaCuts")}>
                   {t("result.ctaCuts")}
                 </Link>
               </Button>
@@ -156,6 +146,6 @@ export default async function Page() {
           </Reveal>
         </div>
       </section>
-    </>
+    </div>
   );
 }

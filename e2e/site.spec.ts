@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
 const WIDTHS = [360, 390, 768, 1024, 1280, 1440, 1920];
-const PAGES = ["", "/about", "/farm-to-table", "/beef-cuts", "/for-business", "/beef-knowledge", "/contact"];
+const PAGES = ["", "/about", "/business", "/business/cuts", "/business/knowledge", "/contact"];
 
 const headerTheme = (page: Page) => page.locator("header.site-header").getAttribute("data-theme");
 
@@ -52,7 +52,12 @@ test.describe("layout", () => {
             .filter((el) => el.offsetParent !== null)
             .filter((el) => {
               const r = el.getBoundingClientRect();
-              return r.left < 0 || r.right > vw || el.scrollWidth > el.clientWidth + 1;
+              // An invisible tap area wider than the box (the For Business chevron's ::before) must stay on screen too.
+              const tapRight = r.left + Math.max(r.width, parseFloat(getComputedStyle(el, "::before").width) || 0);
+              // Overflowing content only matters for labels (clipped text). Icon-only controls may
+              // overflow on purpose (the chevron's hover circle and tap area).
+              const clipped = !!el.textContent?.trim() && el.scrollWidth > el.clientWidth + 1;
+              return r.left < 0 || r.right > vw || tapRight > vw || clipped;
             })
             .map((el) => el.textContent?.trim() || el.getAttribute("aria-label"));
         }, width);
@@ -74,6 +79,16 @@ test.describe("layout", () => {
     const contact = bar.getByRole("link", { name: "Contact us" });
     await expect(contact).toHaveAttribute("href", "/en/contact");
     await expect(bar.getByRole("link", { name: "Contact on Telegram" })).toHaveCount(0);
+  });
+
+  test("bottom bar: Request a quote goes straight to the business inquiry form", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/en/about");
+    const quote = page.locator("#bottom-bar").getByRole("link", { name: "Request a quote" });
+    await expect(quote).toHaveAttribute("href", "/en/business#enquiry");
+    await quote.click();
+    await expect(page).toHaveURL(/\/en\/business#enquiry$/);
+    await expect(page.locator("#enquiry-heading")).toBeInViewport();
   });
 
   test("bottom bar never covers the end of the page (every page, 360 and 390px)", async ({ page }) => {
@@ -108,27 +123,18 @@ test.describe("header", () => {
   test("keyboard: skip link first, then header controls in order", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/en/about");
+    // The chevron is invisible (and skipped by Tab) until the page has hydrated.
+    await expect(page.getByRole("button", { name: "For Business pages" })).toBeVisible();
     await page.keyboard.press("Tab");
     await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
     await expect(page.getByRole("link", { name: "Skip to content" })).toBeInViewport();
     const names: string[] = [];
-    for (let i = 0; i < 11; i++) {
+    for (let i = 0; i < 7; i++) {
       await page.keyboard.press("Tab");
       names.push(await page.evaluate(() => (document.activeElement?.getAttribute("aria-label") || document.activeElement?.textContent || "").trim()));
     }
-    expect(names).toEqual([
-      "BattamBeef",
-      "Home",
-      "About",
-      "Farm to Table",
-      "Beef Cuts",
-      "For Business",
-      "Beef Knowledge",
-      "Contact",
-      "English",
-      "ភាសាខ្មែរ",
-      "Contact us",
-    ]);
+    // The For Business dropdown's chevron follows its link; its closed panel is skipped.
+    expect(names).toEqual(["BattamBeef home", "About", "For Business", "For Business pages", "Order Inquiry", "English", "ភាសាខ្មែរ"]);
   });
 });
 
@@ -143,7 +149,7 @@ test.describe("mobile menu", () => {
     // Not aria-modal: the close button lives in the header, outside the panel.
     await expect(dialog).not.toHaveAttribute("aria-modal", /.*/);
     await expect(page.getByRole("button", { name: "Close menu" })).toBeVisible();
-    await expect(dialog.getByRole("link", { name: "Home" })).toBeFocused();
+    await expect(dialog.getByRole("link", { name: "About" })).toBeFocused();
     await expect(page.locator("#bottom-bar")).toHaveCount(0);
     expect(await page.evaluate(() => getComputedStyle(document.documentElement).overflow)).toBe("hidden");
     expect(await page.evaluate(() => document.getElementById("main-content")!.inert)).toBe(true);
@@ -172,8 +178,8 @@ test.describe("mobile menu", () => {
     await page.setViewportSize({ width: 360, height: 740 });
     await page.goto("/en/about");
     await page.getByRole("button", { name: "Open menu" }).click();
-    await page.getByRole("dialog").getByRole("link", { name: "Beef Cuts" }).click();
-    await expect(page).toHaveURL(/\/en\/beef-cuts$/);
+    await page.getByRole("dialog").getByRole("link", { name: "For Business" }).click();
+    await expect(page).toHaveURL(/\/en\/business$/);
     await expect(page.getByRole("dialog")).toHaveCount(0);
     // Focus moves to the new page's content, not left on <body>.
     await expect(page.locator("#main-content")).toBeFocused();
@@ -252,9 +258,9 @@ test.describe("interaction kit", () => {
   test("page transition: new page rises in on navigation", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/en/about");
-    await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Contact" }).click();
+    await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Order Inquiry" }).click();
     await expect(page).toHaveURL(/\/en\/contact$/);
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("Let's talk beef.");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Let's talk about your order.");
   });
 });
 
@@ -290,7 +296,7 @@ test.describe("without JavaScript: every section fully visible", () => {
   // Server HTML is always visible; elements are hidden only once the head script has added
   // html.js-motion (globals.css, "Reveal kit"). With JavaScript off, nothing may stay hidden,
   // on any real page, above or below the fold.
-  const ALL_PAGES = ["", "/about", "/farm-to-table", "/beef-cuts", "/for-business", "/beef-knowledge", "/contact"];
+  const ALL_PAGES = PAGES;
 
   for (const locale of ["en", "km"]) {
     test(`${locale}: no reveal stays hidden on any page (390px)`, async ({ browser }) => {
@@ -318,10 +324,10 @@ test.describe("without JavaScript: every section fully visible", () => {
     });
   }
 
-  test("Home, Beef Cuts and Farm to Table: sections have content and are not hidden", async ({ browser }) => {
+  test("Home, Beef Cuts and About (with Farm to Table): sections have content and are not hidden", async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
-    for (const path of ["/en", "/en/beef-cuts", "/en/farm-to-table"]) {
+    for (const path of ["/en", "/en/business/cuts", "/en/about"]) {
       await page.goto(path);
       await page.evaluate(() => Promise.all(document.getAnimations().filter((a) => Number.isFinite(a.effect?.getComputedTiming().endTime)).map((a) => a.finished.catch(() => null))));
       const bad = await page.evaluate(() =>
@@ -371,7 +377,7 @@ test.describe("privacy and security", () => {
       await page.goto(`/en${path}`);
       await page.goto(`/km${path}`);
     }
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
     await page.waitForTimeout(800);
     expect(external).toEqual([]);
@@ -400,10 +406,10 @@ test.describe("logo and icons", () => {
     });
 
   for (const width of [360, 1440]) {
-    test(`${width}px: header logo follows the surface; named "BattamBeef", links home`, async ({ page }) => {
+    test(`${width}px: header logo follows the surface; named "BattamBeef home", links home`, async ({ page }) => {
       await page.setViewportSize({ width, height: 800 });
       await page.goto("/en/about");
-      const link = page.locator("header.site-header").getByRole("link", { name: "BattamBeef", exact: true });
+      const link = page.locator("header.site-header").getByRole("link", { name: "BattamBeef home", exact: true });
       await expect(link).toHaveAttribute("href", "/en");
       const box = (await link.locator("svg").first().boundingBox())!;
       expect(box.height).toBe(width >= 1024 ? 44 : 36);
@@ -428,7 +434,7 @@ test.describe("logo and icons", () => {
 
   test("footer shows the white logo, linked home", async ({ page }) => {
     await page.goto("/en/contact");
-    const link = page.locator("#site-footer").getByRole("link", { name: "BattamBeef", exact: true });
+    const link = page.locator("#site-footer").getByRole("link", { name: "BattamBeef home", exact: true });
     await expect(link).toHaveAttribute("href", "/en");
     // One inline SVG: white wordmark, fixed red parts, no image request.
     await expect(link.locator("img")).toHaveCount(0);

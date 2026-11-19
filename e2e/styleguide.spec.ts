@@ -1,10 +1,22 @@
 import { expect, test, type Page } from "@playwright/test";
+import { nextFrames, waitForMotionReady } from "./helpers";
 
 // The styleguide is development-only (404 on every deployment), so these checks run against a
-// `next dev` server (playwright.config.ts, project "styleguide"). They use the styleguide's demo
-// surfaces and interaction kit; the production build is covered by the other specs.
+// `next dev` server (playwright.config.ts, project "styleguide", one worker). They use the
+// styleguide's demo surfaces and interaction kit; the production build is covered by the other
+// specs. No fixed sleeps: every test waits for the page's ready signal (motion-ready), then polls
+// the condition it checks. Only the "nothing moves" checks keep an explicit observation window.
 
 const headerTheme = (page: Page) => page.locator("header.site-header").getAttribute("data-theme");
+const headerY = async (page: Page) => (await page.locator("header.site-header").boundingBox())!.y;
+
+/** How long a "nothing moves" check watches an element (reduced motion: marquee, parallax). */
+const OBSERVE_STILL_MS = 800;
+
+async function open(page: Page, url = "/en/styleguide") {
+  await page.goto(url);
+  await waitForMotionReady(page);
+}
 
 async function scrollToSelector(page: Page, selector: string, offset = 120) {
   await page.evaluate(
@@ -14,13 +26,13 @@ async function scrollToSelector(page: Page, selector: string, offset = 120) {
     },
     [selector, offset],
   );
-  await page.waitForTimeout(350);
+  await nextFrames(page); // scroll handlers and IntersectionObserver callbacks have run
 }
 
 test.describe("header", () => {
   test("switches colours with the surface underneath (styleguide)", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/styleguide");
+    await open(page);
     await expect.poll(() => headerTheme(page)).toBe("dark");
     await scrollToSelector(page, "#colors", 10);
     await page.mouse.wheel(0, -1); // keep header visible
@@ -37,25 +49,22 @@ test.describe("header", () => {
 
   test("hides on scroll down, returns on scroll up", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/styleguide");
-    const header = page.locator("header.site-header");
+    await open(page);
+    const height = (await page.locator("header.site-header").boundingBox())!.height;
     await page.mouse.wheel(0, 1200);
-    await page.waitForTimeout(600);
-    const hiddenBox = await header.boundingBox();
-    expect(hiddenBox!.y).toBeLessThan(-hiddenBox!.height + 2);
+    await expect.poll(() => headerY(page)).toBeLessThan(-height + 2);
     await page.mouse.wheel(0, -300);
-    await page.waitForTimeout(600);
-    expect((await header.boundingBox())!.y).toBeGreaterThanOrEqual(-1);
+    await expect.poll(() => headerY(page)).toBeGreaterThanOrEqual(-1);
   });
 });
 
 test.describe("language", () => {
   test("switch keeps page and scroll position; Khmer uses Noto Sans Khmer", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/styleguide");
+    await open(page);
     await scrollToSelector(page, "#type", 0);
     await page.mouse.wheel(0, -60); // scroll up a little: header comes back
-    await page.waitForTimeout(400);
+    await expect.poll(() => headerY(page)).toBeGreaterThanOrEqual(-1);
     const before = await page.evaluate(() => window.scrollY);
     await page.getByRole("link", { name: "ភាសាខ្មែរ" }).first().click();
     await expect(page).toHaveURL(/\/km\/styleguide$/);
@@ -70,7 +79,7 @@ test.describe("language", () => {
 
   test("Khmer type: no clipping, open line-height, no uppercase", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/en/styleguide");
+    await open(page);
     const rows = await page.locator('#type [lang="km"] > p:last-child').evaluateAll((els) =>
       els.map((el) => {
         const cs = getComputedStyle(el);
@@ -100,9 +109,9 @@ test.describe("language", () => {
     // The page opened mid-way down. Once hydrated, the header hides itself (it saw a jump down),
     // and it can only react to a scroll up after hydration. So wait for hydration (the page marks
     // <html> "motion-ready"), scroll up a little, then wait until the header is back on screen.
-    await page.waitForFunction(() => document.documentElement.classList.contains("motion-ready"));
+    await waitForMotionReady(page);
     await page.mouse.wheel(0, -60);
-    await expect.poll(async () => (await page.locator("header.site-header").boundingBox())!.y).toBeGreaterThanOrEqual(-1);
+    await expect.poll(() => headerY(page)).toBeGreaterThanOrEqual(-1);
     await page.getByRole("link", { name: "ភាសាខ្មែរ" }).first().click();
     await expect(page).toHaveURL(/\/km\/styleguide\?ref=demo#buttons$/);
   });
@@ -111,7 +120,7 @@ test.describe("language", () => {
 test.describe("interaction kit", () => {
   test("carousel works with arrow keys and buttons", async ({ page }) => {
     await page.setViewportSize({ width: 1024, height: 800 });
-    await page.goto("/en/styleguide");
+    await open(page);
     const region = page.getByRole("region", { name: "Carousel" });
     await region.scrollIntoViewIfNeeded();
     await region.focus();
@@ -133,7 +142,7 @@ test.describe("interaction kit", () => {
   test("parallax image never shows an edge while scrolling", async ({ page }) => {
     for (const [width, height] of [[390, 844], [1440, 900]]) {
       await page.setViewportSize({ width, height });
-      await page.goto("/en/styleguide");
+      await open(page);
       const layer = page.locator("#kit ~ section .absolute.inset-x-0").first();
       const frame = layer.locator("..");
       await frame.scrollIntoViewIfNeeded();
@@ -141,7 +150,7 @@ test.describe("interaction kit", () => {
       // Walk the frame from just below the viewport to just above it.
       for (let s = top - height; s <= top + 400; s += 120) {
         await page.evaluate((y) => window.scrollTo({ top: y, behavior: "instant" }), s);
-        await page.waitForTimeout(40);
+        await nextFrames(page); // the scroll-linked transform has been applied
         const gap = await layer.evaluate((el) => {
           const l = el.getBoundingClientRect();
           const f = el.parentElement!.getBoundingClientRect();
@@ -155,7 +164,7 @@ test.describe("interaction kit", () => {
 
   test("Tab into an off-screen slide scrolls the carousel to it", async ({ page }) => {
     await page.setViewportSize({ width: 1024, height: 800 });
-    await page.goto("/en/styleguide");
+    await open(page);
     const region = page.getByRole("region", { name: "Carousel" });
     await region.scrollIntoViewIfNeeded();
     await region.focus();
@@ -181,7 +190,7 @@ test.describe("interaction kit", () => {
 
   test("desktop: cursor follower shows labels, tilt and magnetic move", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/styleguide");
+    await open(page);
     const target = page.locator('[data-cursor="explore"]').first();
     await target.scrollIntoViewIfNeeded();
     await target.hover();
@@ -191,15 +200,13 @@ test.describe("interaction kit", () => {
     await tilt.scrollIntoViewIfNeeded();
     const box = (await tilt.boundingBox())!;
     await page.mouse.move(box.x + box.width * 0.9, box.y + box.height * 0.1, { steps: 5 });
-    await page.waitForTimeout(400);
-    expect(await tilt.evaluate((el) => getComputedStyle(el).transform)).not.toBe("none");
+    await expect.poll(() => tilt.evaluate((el) => getComputedStyle(el).transform)).not.toBe("none");
   });
 
   test("reduced motion: no follower, no marquee/parallax movement, text not shifted", async ({ browser }) => {
     const context = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1440, height: 900 } });
     const page = await context.newPage();
-    await page.goto("/en/styleguide");
-    await page.waitForTimeout(300);
+    await open(page);
     await page.mouse.move(400, 400);
     await page.mouse.move(420, 420);
     await expect(page.locator(".pointer-events-none.fixed.z-\\[100\\]")).toHaveCount(0);
@@ -208,7 +215,7 @@ test.describe("interaction kit", () => {
     const strip = page.locator("[data-surface=kraft] .w-max").first();
     await strip.scrollIntoViewIfNeeded();
     const t1 = await strip.evaluate((el) => getComputedStyle(el).transform);
-    await page.waitForTimeout(800);
+    await page.waitForTimeout(OBSERVE_STILL_MS); // observation window: it must not move meanwhile
     const t2 = await strip.evaluate((el) => getComputedStyle(el).transform);
     expect(t1).toBe(t2);
 
@@ -217,20 +224,27 @@ test.describe("interaction kit", () => {
     await parallax.scrollIntoViewIfNeeded();
     const p1 = await parallax.evaluate((el) => getComputedStyle(el).transform);
     await page.mouse.wheel(0, 200);
-    await page.waitForTimeout(300);
+    await page.waitForTimeout(OBSERVE_STILL_MS); // observation window: it must not drift meanwhile
     const p2 = await parallax.evaluate((el) => getComputedStyle(el).transform);
     expect(p1).toBe(p2);
 
     // Split text: letters end without any transform; CountUp shows 72 straight away.
+    // Not an expect.poll that waits for the letters to settle: with reduced motion they must never
+    // have moved. Check right after motion-ready, and again after an observation window.
     await scrollToSelector(page, "#kit");
-    await page.waitForTimeout(600);
-    const shifted = await page.locator("#kit p.display-xl span.inline-block").evaluateAll((els) =>
-      els.some((el) => {
-        const tr = getComputedStyle(el).transform;
-        return tr !== "none" && tr !== "matrix(1, 0, 0, 1, 0, 0)";
-      }),
-    );
-    expect(shifted).toBe(false);
+    await waitForMotionReady(page);
+    const letters = page.locator("#kit p.display-xl span.inline-block");
+    expect(await letters.count()).toBeGreaterThan(0);
+    const moved = () =>
+      letters.evaluateAll((els) =>
+        els.some((el) => {
+          const tr = getComputedStyle(el).transform;
+          return tr !== "none" && tr !== "matrix(1, 0, 0, 1, 0, 0)";
+        }),
+      );
+    expect(await moved()).toBe(false);
+    await page.waitForTimeout(OBSERVE_STILL_MS);
+    expect(await moved()).toBe(false);
     await scrollToSelector(page, "[data-surface=kraft]");
     await expect(page.locator("[data-surface=kraft] .display-hero [aria-hidden]")).toHaveText("72");
     await context.close();
@@ -239,8 +253,7 @@ test.describe("interaction kit", () => {
   test("touch: no follower, tilt or magnet; carousel swipes", async ({ browser }) => {
     const context = await browser.newContext({ hasTouch: true, isMobile: true, viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
     const page = await context.newPage();
-    await page.goto("/en/styleguide");
-    await page.waitForTimeout(300);
+    await open(page);
     await expect(page.locator(".pointer-events-none.fixed.z-\\[100\\]")).toHaveCount(0);
     const fine = await page.evaluate(() => matchMedia("(hover: hover) and (pointer: fine)").matches);
     expect(fine).toBe(false);
@@ -284,22 +297,25 @@ test.describe("reveals", () => {
 
   test("with JavaScript, in-view reveals end visible after scrolling", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/styleguide");
+    await open(page);
     for (let y = 0; y < 30; y++) {
       await page.mouse.wheel(0, 600);
-      await page.waitForTimeout(60);
+      await nextFrames(page); // let each screenful's IntersectionObserver callbacks run
     }
-    await page.waitForTimeout(1600);
-    const hidden = await page.evaluate(() =>
-      [...document.querySelectorAll("[data-reveal='fade'], [data-reveal-group] > [data-reveal-item], [data-reveal='clip'], [data-reveal='pop']")]
-        .filter((el) => {
-          const cs = getComputedStyle(el);
-          const scaledAway = cs.transform.startsWith("matrix(0,") || cs.transform.startsWith("matrix(0.");
-          return cs.opacity !== "1" || cs.clipPath.startsWith("inset(100%") || scaledAway;
-        })
-        .map((el) => el.className),
-    );
-    expect(hidden).toEqual([]);
+    // Every reveal ends fully visible (reveals take up to ~1.2s, plus stagger).
+    await expect
+      .poll(() =>
+        page.evaluate(() =>
+          [...document.querySelectorAll("[data-reveal='fade'], [data-reveal-group] > [data-reveal-item], [data-reveal='clip'], [data-reveal='pop']")]
+            .filter((el) => {
+              const cs = getComputedStyle(el);
+              const scaledAway = cs.transform.startsWith("matrix(0,") || cs.transform.startsWith("matrix(0.");
+              return cs.opacity !== "1" || cs.clipPath.startsWith("inset(100%") || scaledAway;
+            })
+            .map((el) => el.className),
+        ),
+      )
+      .toEqual([]);
   });
 });
 
@@ -308,7 +324,7 @@ test.describe("reduced motion", () => {
 
   test("header hides instantly (no slide)", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/styleguide", { waitUntil: "networkidle" });
+    await open(page);
     const header = page.locator("header.site-header");
     expect(await header.evaluate((el) => getComputedStyle(el).transition)).not.toContain("transform");
     await page.mouse.wheel(0, 1200);

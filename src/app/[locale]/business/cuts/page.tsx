@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { BusinessSubnav } from "@/components/business-subnav";
 import { CutMap } from "@/components/cut-map/cut-map";
 import { CutsGrid } from "@/components/cuts-grid/cuts-grid";
 import { MagneticButton } from "@/components/motion/magnetic-button";
@@ -31,6 +32,7 @@ export default async function Page() {
         className="pt-[calc(var(--header-h)+env(safe-area-inset-top)+3rem)] pb-12 md:pb-16"
       >
         <div className="container-page">
+          <BusinessSubnav active="cuts" />
           <Reveal trigger="mount">
             <p className="label text-label" lang={k("intro.label")}>
               {t("intro.label")}

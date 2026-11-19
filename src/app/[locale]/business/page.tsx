@@ -1,4 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server";
+import { BusinessSubnav } from "@/components/business-subnav";
 import { BusinessForm } from "@/components/forms/business-form";
 import { IconBadge } from "@/components/icons";
 import { CountUp } from "@/components/motion/count-up";
@@ -20,7 +21,7 @@ export const generateMetadata = () => pageMetadata("forBusiness");
 const SMALL_TITLE = "title-md [--fs:clamp(1.25rem,1.1rem+0.5vw,1.5rem)]";
 
 /**
- * For Business: a reliable partner for professional kitchens. Surfaces: dark hero and offers,
+ * For Business overview (/business; sub-pages: /business/cuts, /business/knowledge): a reliable partner for professional kitchens. Surfaces: dark hero and offers,
  * light steps (breathing section), kraft reasons, light enquiry form (easier to read and fill in).
  * Only the 72-hour chilling point is stated as fact; the rest says "Details being confirmed".
  */
@@ -36,6 +37,7 @@ export default async function Page() {
     <>
       {/* 1. Hero (dark). "Request a quote" jumps to the enquiry form on this page. */}
       <PageHero
+        before={<BusinessSubnav active="overview" />}
         label={tx("hero.label")}
         title={tx("hero.title")}
         body={tx("hero.body")}
@@ -49,7 +51,7 @@ export default async function Page() {
               </Button>
             </MagneticButton>
             <Button asChild size="lg" variant="outline">
-              <Link href="/beef-cuts" lang={lang("forBusiness.hero.cuts")}>
+              <Link href="/business/cuts" lang={lang("forBusiness.hero.cuts")}>
                 {t("hero.cuts")}
               </Link>
             </Button>

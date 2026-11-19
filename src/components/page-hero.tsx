@@ -10,6 +10,8 @@ type PageHeroProps = {
   label: Text;
   title: Text;
   body?: Text;
+  /** Above the label, not animated (e.g. the For Business sub-navigation). */
+  before?: ReactNode;
   /** Buttons under the intro. */
   actions?: ReactNode;
   /** Full-width content after the text, inside the same band (e.g. the About landscape). */
@@ -23,13 +25,14 @@ type PageHeroProps = {
  * intro. Above the fold, so everything reveals with CSS from the first paint and is readable
  * without JavaScript (CLAUDE.md section 8).
  */
-export function PageHero({ label, title, body, actions, after, titleClassName, className }: PageHeroProps) {
+export function PageHero({ label, title, body, before, actions, after, titleClassName, className }: PageHeroProps) {
   return (
     <section
       data-surface="dark"
       className={cn("pt-[calc(var(--header-h)+env(safe-area-inset-top)+3rem)] pb-14 md:pb-20", className)}
     >
       <div className="container-page">
+        {before}
         <Reveal trigger="mount">
           <p className="label text-label" lang={label.lang}>
             {label.text}

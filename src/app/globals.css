@@ -703,12 +703,31 @@ html.app-stalled:not(.app-ready) .journey-bar {
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* The bar itself (background, border) is there at once; its label and segments appear when
+   JourneyScroller has seen the web fonts arrive (data-fonts-ready), so a late font swap can
+   never shift them on screen (a #journey deep link lands with the bar in view). */
+.journey-bar > * {
+  transition: opacity 0.2s ease-out;
+}
+
+.journey-bar:not([data-fonts-ready]) > * {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Hide the label itself too, not only through the parent: the label sets its own `visibility`
+   (data-current), which would override a hidden parent, so the parent rule alone is not enough. */
+.journey-bar:not([data-fonts-ready]) [data-bar-label] {
+  display: none;
+}
+
 html[data-header-hidden] .journey-bar {
   transform: translateY(calc(-1 * var(--header-h)));
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .journey-bar {
+  .journey-bar,
+  .journey-bar > * {
     transition: none;
   }
 }

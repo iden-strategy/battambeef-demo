@@ -1,4 +1,4 @@
-// For Business page: offers, steps, reasons and the enquiry form's choices.
+// For Business page (/business): offers, steps, reasons and the inquiry form's choices.
 // Wording lives in messages (forBusiness.*, forms.*). CLAUDE.md section 12: only the 72-hour
 // chilling point is stated as fact here; everything else is neutral or marked TODO-VERIFY, and
 // its copy carries "Details being confirmed".

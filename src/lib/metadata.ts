@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getOgImage } from "@/lib/data";
 
-export type PageKey = "home" | "about" | "farmToTable" | "beefCuts" | "forBusiness" | "beefKnowledge" | "contact" | "styleguide" | "notFound";
+export type PageKey = "home" | "about" | "beefCuts" | "forBusiness" | "beefKnowledge" | "contact" | "styleguide" | "notFound";
 
 /**
  * Title, description and link preview (Open Graph) for a page, from meta.titles /

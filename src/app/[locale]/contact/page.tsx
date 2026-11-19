@@ -14,7 +14,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const generateMetadata = () => pageMetadata("contact");
 
 /**
- * Contact: who to contact, the contact form and social placeholders. Surfaces: dark hero and
+ * Order Inquiry (menu label; the URL stays /contact): who to contact, the inquiry form and social placeholders. Surfaces: dark hero and
  * cards, light form (easier to read and fill in), dark social band.
  * Contact details are placeholders until the team provides them (CLAUDE.md section 12).
  */

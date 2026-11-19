@@ -1,4 +1,4 @@
-// Beef Knowledge page: quick links, cooking methods, storage, recipes and FAQ.
+// Beef Knowledge page (/business/knowledge): quick links, cooking methods, storage, recipes and FAQ.
 // Wording lives in messages (beefKnowledge.*). Recipes reference cuts by id (cuts.ts).
 // Storage: general food-safety basics only. Nothing here states shelf life or handling of
 // BattamBeef products (TODO-VERIFY).
@@ -11,7 +11,7 @@ export type QuickLinkId = "cutGuide" | "methods" | "storage" | "recipes" | "faq"
 
 /** href: another page, or a section on this page (#id). */
 export const QUICK_LINKS: { id: QuickLinkId; href: string; icon: KnowledgeIcon }[] = [
-  { id: "cutGuide", href: "/beef-cuts", icon: "map" },
+  { id: "cutGuide", href: "/business/cuts", icon: "map" },
   { id: "methods", href: "#cooking-methods", icon: "flame" },
   { id: "storage", href: "#storage", icon: "snowflake" },
   { id: "recipes", href: "#recipes", icon: "book-open" },

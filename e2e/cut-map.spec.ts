@@ -6,23 +6,23 @@ const cards = (page: Page) => page.locator("#all-cuts ul.grid > li");
 
 test.describe("cut map", () => {
   test("a hash link preselects a part, the default is Rib", async ({ page }) => {
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     await expect(selectedChip(page)).toContainText("Rib");
-    await page.goto("/en/beef-cuts#loin");
+    await page.goto("/en/business/cuts#loin");
     await expect(selectedChip(page)).toContainText("Loin");
     await expect(page.locator("#cut-map h3")).toHaveText("Loin");
   });
 
   test("switching language keeps the selected part in the hash", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     await page.locator("#cut-map [aria-pressed]", { hasText: "Brisket" }).click();
     await expect(page).toHaveURL(/#brisket$/);
-    await expect(page.getByRole("link", { name: "ភាសាខ្មែរ" }).first()).toHaveAttribute("href", "/km/beef-cuts#brisket");
+    await expect(page.getByRole("link", { name: "ភាសាខ្មែរ" }).first()).toHaveAttribute("href", "/km/business/cuts#brisket");
   });
 
   test("the chip row is the keyboard interface: every part can be selected", async ({ page }) => {
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     await selectedChip(page).focus();
     await page.keyboard.press("Home");
     for (const name of PARTS) {
@@ -39,7 +39,9 @@ test.describe("cut map", () => {
 
   test("clicking the map selects a part and updates the hash", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
+    // The sub-navigation above the intro puts the map partly below the fold at 900px tall.
+    await page.locator("#cut-map svg").evaluate((el) => el.scrollIntoView({ block: "center", behavior: "instant" }));
     const box = (await page.locator("#cut-map svg").boundingBox())!;
     const s = box.width / 1420;
     await page.mouse.click(box.x + 1200 * s, box.y + 500 * s); // round
@@ -48,7 +50,7 @@ test.describe("cut map", () => {
   });
 
   test("all 20 cuts are in the grid and in their own cow part(s)", async ({ page }) => {
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     await expect(cards(page)).toHaveCount(20);
     // Shin is in both shanks; trimmings and soup bones are in no part (grid only).
     const expected: Record<string, number> = { Neck: 1, Chuck: 3, Rib: 2, Loin: 2, Rump: 1, Round: 4, Brisket: 1, Plate: 1, Flank: 1, "Fore shank": 1, "Hind shank": 2 };
@@ -71,7 +73,7 @@ test.describe("cut map", () => {
 
   test("cut photos: 4:3 WebP in cards and dialog; card photos decorative, the dialog's described", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     const ratio = (box: { width: number; height: number } | null) => box!.width / box!.height;
     const card = page.locator("#all-cuts ul.grid > li button", { hasText: "Ribeye" });
     await card.scrollIntoViewIfNeeded();
@@ -90,7 +92,7 @@ test.describe("cut map", () => {
 
   test("cut detail for a two-part cut and for a cut that is not on the map", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     const dialog = page.getByRole("dialog");
 
     // Shin: both parts named; "Show on the cow" selects the first.
@@ -115,7 +117,7 @@ test.describe("cut map", () => {
   });
 
   test("filters combine", async ({ page }) => {
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     await page.getByRole("group", { name: "Tier" }).getByRole("button", { name: "Premium" }).click();
     await page.getByRole("group", { name: "Cooking method" }).getByRole("button", { name: "Roast" }).click();
     await expect(page.locator("#all-cuts [role=status]")).toHaveText("Showing 2 of 20 cuts");
@@ -125,7 +127,7 @@ test.describe("cut map", () => {
 
   test("cut detail: opens, traps focus, closes with Escape / close / backdrop, focus returns", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     const card = page.locator("#all-cuts ul.grid > li button", { hasText: "Ribeye" });
     await card.scrollIntoViewIfNeeded();
     // The card → detail morph needs the grid's layout features (loaded as it nears the screen).
@@ -153,7 +155,7 @@ test.describe("cut map", () => {
 
   test("below-the-fold sections render on approach; links, scrolling and card animations still work", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/en/beef-cuts#all-cuts");
+    await page.goto("/en/business/cuts#all-cuts");
     // The grid, by-products and quote sections are deferred; the intro and map are not.
     const cv = await page.locator("main section").evaluateAll((els) => els.map((e) => getComputedStyle(e).contentVisibility));
     expect(cv).toEqual(["visible", "visible", "auto", "auto", "auto"]);
@@ -196,7 +198,7 @@ test.describe("cut map", () => {
     }
 
     // "See all [part] cuts" from the map: the grid comes into view.
-    await page.goto("/en/beef-cuts#loin");
+    await page.goto("/en/business/cuts#loin");
     await page.getByRole("button", { name: "See all Loin cuts" }).click();
     await expect(page.locator("#all-cuts-heading")).toBeFocused();
     await expect(page.locator("#all-cuts-heading")).toBeInViewport();
@@ -204,7 +206,7 @@ test.describe("cut map", () => {
 
     // The header still follows the surface under it over the deferred kraft section. Fresh page,
     // so no smooth scroll or exit animation from the steps above is still moving things.
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     // Put the kraft section under the header's middle line; sections above may still settle to
     // their real size as they render, so each attempt re-aims before reading the header.
     const themeOverKraft = async () => {
@@ -220,7 +222,7 @@ test.describe("cut map", () => {
 
   test("cut detail: a failed load shows a note with Try again, never the error page", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     const card = page.locator("#all-cuts ul.grid > li button", { hasText: "Ribeye" });
     await card.scrollIntoViewIfNeeded();
     await page.waitForLoadState("networkidle"); // the grid's own on-demand chunks are in
@@ -271,7 +273,7 @@ test.describe("cut map", () => {
 
   test("'Show on the cow' selects the part and scrolls to the map", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     const card = page.locator("#all-cuts ul.grid > li button", { hasText: "Tenderloin" });
     await card.scrollIntoViewIfNeeded();
     await card.click();
@@ -283,7 +285,7 @@ test.describe("cut map", () => {
 
   test("'See all' filters the grid; quote link carries only the part id", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.goto("/en/beef-cuts#loin");
+    await page.goto("/en/business/cuts#loin");
     await expect(page.getByRole("link", { name: "Request a quote for Loin cuts" })).toHaveAttribute("href", "/en/contact?part=loin");
     await page.getByRole("button", { name: "See all Loin cuts" }).click();
     await expect(page.locator("#all-cuts [role=status]")).toHaveText("Showing 2 of 20 cuts");
@@ -294,7 +296,7 @@ test.describe("cut map", () => {
   test("touch: tapping the small shank regions selects them; chips scroll inside their row", async ({ browser }) => {
     const ctx = await browser.newContext({ viewport: { width: 360, height: 800 }, hasTouch: true, isMobile: true });
     const page = await ctx.newPage();
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     await page.locator("#cut-map svg").scrollIntoViewIfNeeded();
     const box = (await page.locator("#cut-map svg").boundingBox())!;
     const s = box.width / 1420;
@@ -311,7 +313,7 @@ test.describe("cut map", () => {
   test("badge tap targets are at least 44px at 360px; a tapped far chip is fully visible", async ({ browser }) => {
     const ctx = await browser.newContext({ viewport: { width: 360, height: 800 }, hasTouch: true, isMobile: true });
     const page = await ctx.newPage();
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     await page.locator("#cut-map svg").scrollIntoViewIfNeeded();
     const sizes = await page.locator("#cut-map circle[data-hit]").evaluateAll((els) => els.map((e) => Math.min(e.getBoundingClientRect().width, e.getBoundingClientRect().height)));
     expect(sizes).toHaveLength(11);
@@ -337,7 +339,7 @@ test.describe("cut map", () => {
       const u = new URL(r.url());
       if (u.pathname === "/_next/image" && (u.searchParams.get("url") ?? "").includes("cow-cutmap")) widths.push(Number(u.searchParams.get("w")));
     });
-    await page.goto("/en/beef-cuts", { waitUntil: "networkidle" });
+    await page.goto("/en/business/cuts", { waitUntil: "networkidle" });
     expect(widths.length).toBeGreaterThan(0);
     for (const w of widths) expect(w).toBeLessThanOrEqual(384); // 320 CSS px at 1x; the photo itself is 1420px wide
     await ctx.close();
@@ -346,7 +348,7 @@ test.describe("cut map", () => {
   test("badges stay aligned with the photo at every width", async ({ page }) => {
     for (const width of [360, 390, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 900 });
-      await page.goto("/en/beef-cuts");
+      await page.goto("/en/business/cuts");
       const off = await page.evaluate(() => {
         const svg = document.querySelector("#cut-map svg")!;
         const r = svg.getBoundingClientRect();
@@ -361,7 +363,7 @@ test.describe("cut map", () => {
   test("reduced motion: dialog still opens and closes", async ({ browser }) => {
     const ctx = await browser.newContext({ reducedMotion: "reduce" });
     const page = await ctx.newPage();
-    await page.goto("/en/beef-cuts");
+    await page.goto("/en/business/cuts");
     const card = page.locator("#all-cuts ul.grid > li button").first();
     await card.scrollIntoViewIfNeeded();
     await card.click();
@@ -373,7 +375,7 @@ test.describe("cut map", () => {
 
   test("Khmer page: cut names are Khmer, no sideways scroll", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 800 });
-    await page.goto("/km/beef-cuts#round");
+    await page.goto("/km/business/cuts#round");
     await expect(page.locator("#cut-map [lang=km]").first()).toBeVisible();
     const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(over).toBeLessThanOrEqual(0);

@@ -336,7 +336,7 @@ export default async function StyleguidePage() {
                   <p className="title-md">{t("kit.card", { n: i + 1 })}</p>
                   <p className="body-sm mt-2 text-muted-foreground">{t("kit.cardBody")}</p>
                   <Button asChild variant="link" size="sm" className="mt-3">
-                    <Link href="/beef-cuts">{t("kit.cardCta")}</Link>
+                    <Link href="/business/cuts">{t("kit.cardCta")}</Link>
                   </Button>
                 </div>
               </article>
@@ -416,7 +416,7 @@ export default async function StyleguidePage() {
                 <Link href="/about">/about</Link>
               </Button>
               <Button asChild variant="outline" size="sm">
-                <Link href="/beef-cuts">/beef-cuts</Link>
+                <Link href="/business/cuts">/business/cuts</Link>
               </Button>
             </div>
           </DemoBlock>

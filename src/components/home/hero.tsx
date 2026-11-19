@@ -150,12 +150,12 @@ export async function Hero() {
         </span>
         <div role="group" aria-labelledby="hero-actions-label" data-surface="light" className="hero-actions">
           <Button asChild size="sm">
-            <Link href="/beef-cuts" lang={k("exploreCuts")}>
+            <Link href="/business/cuts" lang={k("exploreCuts")}>
               {t("exploreCuts")}
             </Link>
           </Button>
           <Button asChild size="sm" variant="ghost">
-            <Link href="/for-business" lang={k("forRestaurants")}>
+            <Link href="/business" lang={k("forRestaurants")}>
               {t("forRestaurants")}
             </Link>
           </Button>

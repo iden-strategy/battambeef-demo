@@ -37,7 +37,7 @@ export async function CutMapTeaser() {
             </p>
           </div>
           <Button asChild variant="outline" className="justify-self-start">
-            <Link href="/beef-cuts" lang={k("link")}>
+            <Link href="/business/cuts" lang={k("link")}>
               {t("link")}
             </Link>
           </Button>

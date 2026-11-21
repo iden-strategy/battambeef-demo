@@ -10,16 +10,15 @@ const MELT_AT = 0.6;
 /**
  * The hero <section>, with its two effects. Everything inside is server-rendered (hero.tsx);
  * this only finds the layers by their data attributes:
- * - [data-depth="scene"]: the photo and the cow, which always move together (both photos contain
- *   the cow, so any difference between them would show a ghost outline)
- * - [data-depth="title"]: the title, which moves against them
+ * - [data-depth="scene"]: the floating steak (one per slide, so they all move together)
+ * - [data-depth="title"]: the title, which moves against it: a subtle parallax
  * - [data-hero-stage], [data-hero-title-scroll], [data-hero-melt], for scrolling
  *
  * Pointer depth: desktop with a fine pointer only (pointer-effects.ts is never downloaded on
  * touch or with reduced motion).
  * Scroll: the stage drifts down at 0.3× the scroll and the title rises a little faster than the
- * cow, so it slides further behind it; a charcoal gradient rises from the bottom, complete at 60%
- * of a viewport. Reduced motion: only the gradient fades in, nothing moves.
+ * steak, so it slides further behind it; a charcoal gradient rises from the bottom, complete at
+ * 60% of a viewport. Reduced motion: only the gradient fades in, nothing moves.
  */
 export function HeroEffects(props: ComponentProps<"section">) {
   const ref = useRef<HTMLElement>(null);

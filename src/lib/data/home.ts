@@ -6,44 +6,7 @@
 
 import type { JourneyStageId } from "@/lib/data/journey";
 
-export type HeroImage = {
-  /** The full photo (opaque WebP). */
-  photo: string;
-  /**
-   * The cow cut out of the same photo, trimmed to the cow (2px margin) with transparency around
-   * it. `cowBox` is where it sits on the photo, in photo pixels. Trimmed so the cutout is always
-   * smaller than the photo: the photo then stays the page's LCP element whichever loads first.
-   */
-  cow: string;
-  cowBox: { x: number; y: number; width: number; height: number };
-  width: number;
-  height: number;
-};
-
-/**
- * Wide images for landscape screens (aspect ratio ≥ 1), tall images for portrait screens.
- * Measured cow positions (percent of the photo), used to place the title and the action pill:
- * - wide: cow left 18.8%–79.7%, top of head 28.3%, hooves 99%
- * - tall: cow left 8.1%–94.4%, top of head 51.3%, hooves 87.6%
- * If a photo is replaced, re-measure, re-trim the cutout (and update cowBox) and re-tune
- * --hero-title-* in globals.css.
- */
-export const HERO_IMAGES: { wide: HeroImage; tall: HeroImage } = {
-  wide: {
-    photo: "/images/hero/hero-wide.webp",
-    cow: "/images/hero/hero-wide-cutout.webp",
-    cowBox: { x: 542, y: 459, width: 1786, height: 1169 },
-    width: 2912,
-    height: 1638,
-  },
-  tall: {
-    photo: "/images/hero/hero-tall.webp",
-    cow: "/images/hero/hero-tall-cutout.webp",
-    cowBox: { x: 127, y: 1489, width: 1427, height: 1067 },
-    width: 1638,
-    height: 2912,
-  },
-};
+// The hero steak slider has its own file: hero.ts.
 
 /**
  * Round photos inside the statement line (illustrations). cow and field: crops of the hero photo.

@@ -15,8 +15,7 @@ import { useFallbackLang } from "@/i18n/use-fallback-lang";
 import type { NavItem } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
-/** "photo": over the Home hero photo (transparent, charcoal text until scrolled). */
-type HeaderTheme = "light" | "dark" | "photo";
+type HeaderTheme = "light" | "dark";
 
 // Top-level surfaces only (nested demo panels don't count).
 const SURFACE_SELECTOR =
@@ -43,14 +42,13 @@ export function SiteHeader({ navItems }: SiteHeaderProps) {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   // --- Surface detection: a 1px line through the middle of the header ----------------------
-  // Light and kraft sections turn the header light; the hero photo (data-header="photo") gives
-  // charcoal text on a transparent bar; everything else (the dark default) keeps it dark. Sections added after load (client navigation, streamed content) are picked up too.
+  // Light and kraft sections turn the header light; everything else (the dark default) keeps it
+  // dark. Sections added after load (client navigation, streamed content) are picked up too.
   useLayoutEffect(() => {
     const bar = barRef.current;
     const main = document.getElementById("main-content");
     if (!bar) return;
     const toTheme = (el: Element): HeaderTheme => {
-      if (el.getAttribute("data-header") === "photo") return "photo";
       const s = el.getAttribute("data-surface");
       return s === "light" || s === "kraft" ? "light" : "dark";
     };

@@ -458,10 +458,11 @@ test.describe("logo and icons", () => {
       await expect.poll(() => headerTheme(page)).toBe("light");
       await expect.poll(() => shownLogo(page)).toBe("dark");
 
-      // Home: over the pale hero sky (charcoal text) the charcoal wordmark; once scrolled onto
-      // the charcoal header background, the white one.
+      // Home: the hero is a dark stage, so the white wordmark from the start, and still white once
+      // scrolled onto the charcoal header background.
       await page.goto("/en");
-      await expect.poll(() => shownLogo(page)).toBe("dark");
+      await expect.poll(() => headerTheme(page)).toBe("dark");
+      await expect.poll(() => shownLogo(page)).toBe("light");
       await scrollToSelector(page, "#statement-heading", 300);
       await expect.poll(() => shownLogo(page)).toBe("light");
     });

@@ -5,7 +5,8 @@ import type { CowPartId } from "@/lib/data/cow-map";
 import { COW_PARTS, COW_SILHOUETTE, CUT_MAP_IMAGE } from "@/lib/data/cow-map";
 import { COOKING_METHODS, CUT_TIERS, CUTS, type Cut } from "@/lib/data/cuts";
 import { CUT_PRICING } from "@/lib/data/cut-prices";
-import { BUSINESS_POINTS, FEATURED_CUT_IDS, HERO_IMAGES, HOME_JOURNEY_STAGE_IDS, STATEMENT_PILLS } from "@/lib/data/home";
+import { BUSINESS_POINTS, FEATURED_CUT_IDS, HOME_JOURNEY_STAGE_IDS, STATEMENT_PILLS } from "@/lib/data/home";
+import { HERO_SLIDES, HERO_STEAK_IMAGE } from "@/lib/data/hero";
 import { ABOUT_IMAGES, VALUES } from "@/lib/data/about";
 import { BUSINESS_TYPES, OFFERS, STEPS, WEEKLY_VOLUMES, WHY_POINTS } from "@/lib/data/business";
 import { FAQ, FEATURED_RECIPE_IDS, GUIDE_METHODS, QUICK_LINKS, RECIPES, STORAGE_CARDS, type Recipe } from "@/lib/data/knowledge";
@@ -60,7 +61,15 @@ export const getChillHours = () => CHILL_HOURS;
 export const getChillPoints = () => CHILL_POINTS;
 export const getJourneyResults = () => JOURNEY_RESULTS;
 
-export const getHeroImages = () => HERO_IMAGES;
+/** The hero slides, each with its cut (a slide whose cut is missing fails the build). */
+export const getHeroSlides = () =>
+  HERO_SLIDES.map((slide) => {
+    const cut = CUTS.find((c) => c.id === slide.cutId);
+    if (!cut) throw new Error(`Hero slide: no cut "${slide.cutId}" in cuts.ts`);
+    return { ...slide, cut };
+  });
+/** The one pixel size every hero steak image has. */
+export const getHeroSteakImageSize = () => HERO_STEAK_IMAGE;
 export const getStatementPills = () => STATEMENT_PILLS;
 export const getFeaturedCuts = () => FEATURED_CUT_IDS.map((id) => CUTS.find((c) => c.id === id)).filter((c): c is Cut => !!c);
 export const getHomeJourneyStages = () => JOURNEY_STAGES.filter((s) => HOME_JOURNEY_STAGE_IDS.includes(s.id));
@@ -88,7 +97,8 @@ export type { PriceOption, PriceStatus, PriceUnit } from "@/lib/data/cut-prices"
 export type { CowPartId, CowPartGeometry } from "@/lib/data/cow-map";
 export type { BrandColor } from "@/lib/data/brand";
 export type { JourneyStage, JourneyStageId, ChillPointId, JourneyResultId } from "@/lib/data/journey";
-export type { HeroImage, BusinessPointId } from "@/lib/data/home";
+export type { BusinessPointId } from "@/lib/data/home";
+export type { HeroSlide, HeroSteakCutId, HeroImageStatus } from "@/lib/data/hero";
 export type { AboutIcon, ValueId } from "@/lib/data/about";
 export type { BusinessIcon, OfferId, StepId, WhyId, BusinessType, WeeklyVolume } from "@/lib/data/business";
 export type { KnowledgeIcon, QuickLinkId, StorageId, Recipe, RecipeId, FaqId } from "@/lib/data/knowledge";

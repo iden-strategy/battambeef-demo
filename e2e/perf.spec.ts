@@ -12,7 +12,7 @@ test.describe("home: LCP element", () => {
     { width: 390, height: 844 },
     { width: 1440, height: 900 },
   ]) {
-    test(`${width}px: the LCP element is the hero photo`, async ({ page }) => {
+    test(`${width}px: the LCP element is the first hero steak`, async ({ page }) => {
       await page.setViewportSize({ width, height });
       await page.addInitScript(() => {
         const w = window as unknown as { __lcp: string };
@@ -25,7 +25,7 @@ test.describe("home: LCP element", () => {
       await page.goto("/en", { waitUntil: "networkidle" });
       await page.waitForTimeout(500);
       const lcp = await page.evaluate(() => (window as unknown as { __lcp: string }).__lcp);
-      expect(lcp).toMatch(/^IMG .*hero-(tall|wide)\.webp/);
+      expect(lcp).toMatch(/^IMG .*steak-ribeye\.webp/);
     });
   }
 });

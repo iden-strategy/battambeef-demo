@@ -91,10 +91,30 @@
     "hero": {
       "eyebrow": "Cambodian Premium Beef · Battambang",
       "title": "Holy Cow.",
-      "imageAlt": "Illustration: a white cow standing in a green rice field with sugar palms and hills behind",
       "actionsLabel": "Get started",
       "exploreCuts": "Explore our cuts",
-      "forRestaurants": "For restaurants"
+      "forRestaurants": "For restaurants",
+      "sliderLabel": "Featured steaks",
+      "showSlide": "Show {cut}",
+      "pause": "Pause slideshow",
+      "play": "Play slideshow",
+      "seeCut": "See this cut",
+      "seeCutAria": "See this cut: {cut}",
+      "illustrationNote": "Images are illustrations.",
+      "steaks": {
+        "ribeye": {
+          "name": "Ribeye Steak",
+          "alt": "Illustration: a seared ribeye steak, partly sliced, pink inside"
+        },
+        "striploin": {
+          "name": "Striploin Steak",
+          "alt": "Illustration: a seared beef steak, partly sliced, pink inside"
+        },
+        "rump": {
+          "name": "Rump Steak",
+          "alt": "Illustration: a seared beef steak, partly sliced, pink inside"
+        }
+      }
     },
     "statement": {
       "label": "From Battambang",

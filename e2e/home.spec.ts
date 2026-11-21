@@ -2,14 +2,13 @@ import { expect, test, type Page } from "@playwright/test";
 import { getFeaturedCuts } from "@/lib/data";
 import { effectiveLang, waitForMotionReady } from "./helpers";
 
-// Home page: the "HOLY COW." hero and the sections below it.
+// Home page: the "HOLY COW." hero and the sections below it. The steak slider's behaviour has
+// its own file (hero-slider.spec.ts).
 
-const PORTRAIT = [
+const SIZES = [
   { width: 360, height: 740 },
   { width: 390, height: 844 },
   { width: 768, height: 1024 },
-];
-const LANDSCAPE = [
   { width: 1024, height: 768 },
   { width: 1280, height: 800 },
   { width: 1440, height: 900 },
@@ -18,97 +17,112 @@ const LANDSCAPE = [
 
 const headerTheme = (page: Page) => page.locator("header.site-header").getAttribute("data-theme");
 
-/** Where the hero images and the cow's measured edges sit on screen. */
+type Box = { left: number; top: number; right: number; bottom: number };
+
+/** Where the hero's parts sit on screen (the active slide's steak and caption). */
 async function heroGeometry(page: Page) {
   return page.evaluate(() => {
-    const imgs = Array.from(document.querySelectorAll<HTMLImageElement>(".hero img"));
-    const stage = document.querySelector(".hero-stage")!.getBoundingClientRect();
-    const wide = imgs[0].currentSrc.includes("hero-wide");
+    const box = (sel: string) => {
+      const el = document.querySelector(sel);
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return { left: r.left, top: r.top, right: r.right, bottom: r.bottom };
+    };
     const pieces = Array.from(document.querySelectorAll(".hero-title [data-piece]"));
-    // Measured cow edges, percent of the photo (src/lib/data/home.ts).
-    const [l, r] = wide ? [0.188, 0.797] : [0.081, 0.944];
+    const steakImg = document.querySelector<HTMLImageElement>('.hero-slide[data-active="true"] img')!;
+    const steakBox = steakImg.getBoundingClientRect();
     return {
-      photo: imgs[0].currentSrc,
-      cow: imgs[1].currentSrc,
-      fetchPriority: imgs[0].getAttribute("fetchpriority"),
-      viewport: document.querySelector<HTMLElement>(".hero")!.clientWidth,
-      stageLeft: stage.left,
-      stageWidth: stage.width,
-      cowLeft: stage.left + stage.width * l,
-      cowRight: stage.left + stage.width * r,
-      // The cutout file must fill its box undistorted (a wrong or stale file would not).
-      cowAspectError: (() => {
-        const c = imgs[1];
-        const box = c.getBoundingClientRect();
-        return Math.abs(c.naturalWidth / c.naturalHeight - box.width / box.height) / (box.width / box.height);
-      })(),
+      viewport: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+      title: box(".hero-title")!,
       titleLeft: pieces[0].getBoundingClientRect().left,
       titleRight: pieces[pieces.length - 1].getBoundingClientRect().right,
+      steak: box('.hero-slide[data-active="true"] .hero-steak')!,
+      // The image file must fill its box undistorted (a wrong-sized replacement would not).
+      steakAspectError:
+        Math.abs(steakImg.naturalWidth / steakImg.naturalHeight - steakBox.width / steakBox.height) / (steakBox.width / steakBox.height),
+      caption: box('.hero-slide[data-active="true"] .hero-steak-caption')!,
+      controls: box(".hero-slider-controls")!,
+      pill: box(".hero-actions")!,
+      note: box(".hero-note")!,
+      bottomBar: box("#bottom-bar"),
     };
   });
 }
 
-test.describe("home hero", () => {
-  for (const size of PORTRAIT) {
-    test(`${size.width}×${size.height}: tall images, full width, cow never cropped`, async ({ page }) => {
-      await page.setViewportSize(size);
-      await page.goto("/en", { waitUntil: "networkidle" });
-      const g = await heroGeometry(page);
-      expect(g.photo).toContain("hero-tall.webp");
-      expect(g.cow).toContain("hero-tall-cutout.webp");
-      expect(Math.round(g.stageLeft)).toBe(0);
-      expect(Math.round(g.stageWidth)).toBe(g.viewport);
-      expect(g.cowLeft).toBeGreaterThanOrEqual(0);
-      expect(g.cowRight).toBeLessThanOrEqual(g.viewport);
-      expect(g.cowAspectError).toBeLessThan(0.01);
-      expect(g.titleLeft).toBeGreaterThanOrEqual(0);
-      expect(g.titleRight).toBeLessThanOrEqual(g.viewport);
-    });
-  }
+const intersects = (a: Box, b: Box) => a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
 
-  for (const size of LANDSCAPE) {
-    test(`${size.width}×${size.height}: wide images cover the screen, cow fully in view`, async ({ page }) => {
-      await page.setViewportSize(size);
-      await page.goto("/en", { waitUntil: "networkidle" });
-      const g = await heroGeometry(page);
-      expect(g.photo).toContain("hero-wide.webp");
-      expect(g.cow).toContain("hero-wide-cutout.webp");
-      expect(g.stageLeft).toBeLessThanOrEqual(0);
-      expect(g.stageLeft + g.stageWidth).toBeGreaterThanOrEqual(g.viewport);
-      expect(g.cowLeft).toBeGreaterThanOrEqual(0);
-      expect(g.cowRight).toBeLessThanOrEqual(g.viewport);
-      expect(g.cowAspectError).toBeLessThan(0.01);
-      expect(g.titleLeft).toBeGreaterThanOrEqual(0);
-      expect(g.titleRight).toBeLessThanOrEqual(g.viewport);
-    });
+test.describe("home hero", () => {
+  for (const locale of ["en", "km"]) {
+    for (const size of SIZES) {
+      if (locale === "km" && ![360, 390, 1440].includes(size.width)) continue;
+      test(`${locale} ${size.width}×${size.height}: everything in view, nothing overlaps, no sideways scroll`, async ({ page }) => {
+        await page.setViewportSize(size);
+        await page.goto(`/${locale}`, { waitUntil: "networkidle" });
+        await waitForMotionReady(page);
+        // The pill rises in last (1.1s delay + 0.9s): measure where everything settles.
+        await expect(page.locator(".hero-actions")).toHaveCSS("opacity", "1");
+        const g = await heroGeometry(page);
+        expect(g.scrollWidth).toBeLessThanOrEqual(g.viewport);
+        expect(g.titleLeft).toBeGreaterThanOrEqual(0);
+        expect(g.titleRight).toBeLessThanOrEqual(g.viewport);
+        for (const [name, b] of Object.entries({ steak: g.steak, caption: g.caption, controls: g.controls, pill: g.pill, note: g.note })) {
+          expect(b.left, name).toBeGreaterThanOrEqual(0);
+          expect(b.right, name).toBeLessThanOrEqual(g.viewport);
+        }
+        expect(g.steakAspectError).toBeLessThan(0.01);
+        // The steak overlaps the title on purpose (depth); everything else stacks without overlap.
+        expect(intersects(g.steak, g.title)).toBe(true);
+        const parts = [g.caption, g.controls, g.pill, g.note];
+        for (let i = 0; i < parts.length; i++) {
+          for (let j = i + 1; j < parts.length; j++) expect(intersects(parts[i], parts[j]), `parts ${i} and ${j}`).toBe(false);
+        }
+        expect(g.caption.top).toBeGreaterThanOrEqual(g.steak.bottom - 1);
+        // Phones: the action pill is fully above the sticky bottom bar on first view.
+        if (size.width < 768) {
+          expect(g.bottomBar).not.toBeNull();
+          expect(g.pill.bottom).toBeLessThanOrEqual(g.bottomBar!.top);
+        } else {
+          expect(g.pill.bottom).toBeLessThanOrEqual(size.height);
+        }
+      });
+    }
   }
 
   // The LCP element check is timing-sensitive: it lives in perf.spec.ts (runs alone).
-  test("the hero photo is fetched at high priority, the cow is not", async ({ page }) => {
+  test("the first steak is fetched eagerly at high priority", async ({ page }) => {
     await page.goto("/en");
-    const imgs = page.locator(".hero img");
-    await expect(imgs.nth(0)).toHaveAttribute("fetchpriority", "high");
-    await expect(imgs.nth(0)).toHaveAttribute("loading", "eager");
-    await expect(imgs.nth(1)).not.toHaveAttribute("fetchpriority", "high");
+    const first = page.locator('.hero-slide[data-slide="ribeye"] img');
+    await expect(first).toHaveAttribute("fetchpriority", "high");
+    await expect(first).toHaveAttribute("loading", "eager");
   });
 
-  test("title: real text with a crimson full stop, behind the cow", async ({ page }) => {
+  test("title: real white text with a signature red full stop, behind the steak", async ({ page }) => {
     await page.goto("/en");
     const h1 = page.getByRole("heading", { level: 1 });
     await expect(h1).toHaveText(/Holy Cow\./);
     const info = await page.evaluate(() => {
       const accent = document.querySelector(".hero-title .split-accent")!;
-      const z = (sel: string) => Array.from(document.querySelectorAll(".hero-stage > *")).findIndex((el) => el.matches(sel) || !!el.querySelector(sel));
+      const titleBlock = document.querySelector(".hero-title-block")!;
+      const slider = document.querySelector(".hero-slider")!;
       return {
         accent: accent.textContent,
         color: getComputedStyle(accent).color,
-        titleLayer: z(".hero-title"),
-        cowLayer: z('img[src*="cutout"], img[srcset*="cutout"]'),
+        titleColor: getComputedStyle(document.querySelector(".hero-title")!).color,
+        // Same parent, no z-index on either: the slider paints above the title because it comes
+        // after it.
+        sameParent: titleBlock.parentElement === slider.parentElement,
+        sliderAfterTitle: !!(titleBlock.compareDocumentPosition(slider) & Node.DOCUMENT_POSITION_FOLLOWING),
+        zIndexes: [getComputedStyle(titleBlock).zIndex, getComputedStyle(slider).zIndex],
       };
     });
     expect(info.accent).toBe(".");
-    expect(info.color).toBe("rgb(123, 30, 43)");
-    expect(info.cowLayer).toBeGreaterThan(info.titleLayer);
+    // --brand-red-on-dark (#E85A50): at least 3:1 against the charcoal and glow behind it.
+    expect(info.color).toBe("rgb(232, 90, 80)");
+    expect(info.titleColor).toBe("rgb(245, 243, 239)");
+    expect(info.sameParent).toBe(true);
+    expect(info.sliderAfterTitle).toBe(true);
+    expect(info.zIndexes).toEqual(["auto", "auto"]);
   });
 
   test("title is visible without JavaScript", async ({ browser }) => {
@@ -171,12 +185,13 @@ test.describe("home hero", () => {
 });
 
 test.describe("home header", () => {
-  test("photo over the hero, dark over dark sections, light over light and kraft", async ({ page }) => {
+  test("dark over the hero and dark sections, light over light and kraft", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/en", { waitUntil: "networkidle" });
-    await expect.poll(() => headerTheme(page)).toBe("photo");
+    await expect.poll(() => headerTheme(page)).toBe("dark");
+    // Over the dark hero, before scrolling: transparent with white text.
     const header = page.locator("header.site-header");
-    await expect(header).toHaveCSS("color", "rgb(41, 43, 45)");
+    await expect(header).toHaveCSS("color", "rgb(245, 243, 239)");
     await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
 
     const scrollTo = async (sel: string) => {
@@ -202,8 +217,10 @@ test.describe("home sections", () => {
   test("cut map, featured cuts and teasers are on the page", async ({ page }) => {
     await page.goto("/en");
     await expect(page.locator("#cut-map img").first()).toBeAttached();
-    await expect(page.getByRole("region", { name: "Featured cuts" })).toBeAttached();
-    await expect(page.getByRole("link", { name: "See Ribeye (cube roll) on the cut map" })).toHaveAttribute("href", "/en/business/cuts#rib");
+    const featured = page.getByRole("region", { name: "Featured cuts" });
+    await expect(featured).toBeAttached();
+    // Scoped: the hero's "See this cut" link has the same accessible name.
+    await expect(featured.getByRole("link", { name: "See Ribeye (cube roll) on the cut map" })).toHaveAttribute("href", "/en/business/cuts#rib");
     // Featured cards show the cut photo (decorative: the card's name labels it).
     const featuredImgs = page.getByRole("region", { name: "Featured cuts" }).locator("img");
     await expect(featuredImgs).toHaveCount(6);

@@ -292,6 +292,15 @@ html.js-motion [data-reveal="clip"] {
   clip-path: inset(100% 0 0 0);
 }
 
+/* Split-text letters never take clicks. They start their rise 0.6em below their place, nearly
+   invisible, and would otherwise catch a click meant for a link just under the heading (the
+   Beef Cuts "Business pricing" link, the Home "Follow the full journey" link). They hold text
+   only (no links or buttons), and the real text sits in the heading's sr-only span, so clicks
+   pass through to the word and heading boxes behind them, or to whatever is underneath. */
+[data-piece] {
+  pointer-events: none;
+}
+
 html.js-motion [data-reveal="pop"] {
   transform: scale(0);
 }

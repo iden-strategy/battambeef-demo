@@ -1,4 +1,8 @@
+import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
+import { getKhmerTranslationStatus } from "@/lib/data";
+import { showKhmerDraftNotice } from "@/lib/khmer-status";
+import { effectiveLang, escapeRegExp } from "./helpers";
 
 const WIDTHS = [360, 390, 768, 1024, 1280, 1440, 1920];
 const PAGES = ["", "/about", "/business", "/business/cuts", "/business/knowledge", "/contact"];
@@ -208,13 +212,44 @@ test.describe("language", () => {
       });
       expect(found, `/km${path}`).toEqual([]);
     }
+    // Translated text carries the page language (no lang="en").
+    const km = JSON.parse(readFileSync("messages/km.json", "utf8"));
     await page.goto("/km/about");
-    await expect(page.getByRole("navigation", { name: "Main" }).first().getByRole("link", { name: "About" })).toHaveAttribute("lang", "en");
-    await expect(page.locator("h1")).toHaveAttribute("lang", "en");
+    const about = page.getByRole("navigation", { name: km.nav.label }).first().getByRole("link", { name: km.nav.about });
+    expect(await effectiveLang(about)).toBe("km");
+    expect(await effectiveLang(page.locator("h1"))).toBe("km");
     await expect(page.locator("html")).toHaveAttribute("lang", "km");
+    // Brand lines kept in English (still TODO-KM on purpose) fall back and are marked lang="en".
+    await page.goto("/km");
+    expect(km.home.hero.title).toContain("TODO-KM");
+    await expect(page.locator("h1")).toHaveAttribute("lang", "en");
+    await expect(page.locator("h1")).toContainText(/holy cow/i);
     // The language switch stays visible and keeps its own languages.
     await expect(page.getByRole("link", { name: "English" }).first()).toBeVisible();
     await expect(page.getByRole("link", { name: "ភាសាខ្មែរ" }).first()).toHaveAttribute("lang", "km");
+  });
+
+  test("Khmer draft notice: footer of Khmer pages only, while the status is draft", async ({ page }) => {
+    const km = JSON.parse(readFileSync("messages/km.json", "utf8"));
+    const en = JSON.parse(readFileSync("messages/en.json", "utf8"));
+    await page.goto("/km");
+    const notice = page.locator("#site-footer [data-khmer-draft]");
+    await expect(notice).toHaveCount(1);
+    await expect(notice).toHaveText(km.footer.khmerDraft);
+    // Real Khmer text is read as Khmer (only a TODO-KM fallback would be lang="en").
+    expect(await effectiveLang(notice)).toBe("km");
+    await page.goto("/en");
+    await expect(page.locator("#site-footer [data-khmer-draft]")).toHaveCount(0);
+    await expect(page.locator("#site-footer")).not.toContainText(en.footer.khmerDraft);
+  });
+
+  test("Khmer draft notice logic: gone once the status is reviewed", () => {
+    expect(showKhmerDraftNotice("km", "draft")).toBe(true);
+    expect(showKhmerDraftNotice("km", "reviewed")).toBe(false);
+    expect(showKhmerDraftNotice("en", "draft")).toBe(false);
+    expect(showKhmerDraftNotice("en", "reviewed")).toBe(false);
+    // The shipped flag is the one the notice test above relies on.
+    expect(getKhmerTranslationStatus()).toBe("draft");
   });
 
   test("site loads and the language switch works when sessionStorage throws", async ({ browser }) => {
@@ -247,9 +282,9 @@ test.describe("language", () => {
     for (const path of PAGES) {
       await page.goto(`/en${path}`);
       await page.getByRole("link", { name: "ភាសាខ្មែរ" }).first().click();
-      await expect(page).toHaveURL(new RegExp(`/km${path}$`));
+      await expect(page).toHaveURL(new RegExp(`/km${escapeRegExp(path)}$`));
       await page.getByRole("link", { name: "English" }).first().click();
-      await expect(page).toHaveURL(new RegExp(`/en${path}$`));
+      await expect(page).toHaveURL(new RegExp(`/en${escapeRegExp(path)}$`));
     }
   });
 });

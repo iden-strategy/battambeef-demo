@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import {
@@ -109,8 +109,12 @@ export default async function StyleguidePage() {
 
   const t = await getTranslations("styleguide");
   const fallback = await getFallbackLang();
-  // The styleguide is untranslated: in /km its sections are English (Khmer samples say so too).
+  // In /km the styleguide's own text is Khmer (until a string falls back to English). The English
+  // type specimens stay English on purpose, so they carry their own lang.
   const lang = fallback("styleguide.title");
+  const en = (key: string) => fallback(`styleguide.${key}`);
+  // The label above each Khmer specimen sits in a lang="km" column but is in the page's language.
+  const khmerLabelLang = (await getLocale()) === "km" ? en("type.khmer") : "en";
   const colors = getBrandColors();
   const cuts = getCuts();
   const { image } = getCowMap();
@@ -173,15 +177,15 @@ export default async function StyleguidePage() {
     },
   ];
 
-  const typeRows: { cls: string; en: string; km: string }[] = [
-    { cls: "display-hero", en: t("type.sampleHero"), km: km("ribeye") },
-    { cls: "display-xl", en: t("type.sampleXl"), km: km("tenderloin") },
-    { cls: "title-lg", en: t("type.sampleTitle"), km: `${km("striploin")} ${km("rump")}` },
-    { cls: "title-md", en: t("type.sampleTitle"), km: `${km("brisket")} ${km("topside")} ${km("thin-flank")}` },
-    { cls: "label", en: t("type.sampleLabel"), km: `2243 · ${km("ribeye")}` },
-    { cls: "body-lg", en: t("type.sampleBody"), km: kmList },
-    { cls: "body", en: t("type.sampleBody"), km: kmList },
-    { cls: "body-sm", en: t("type.sampleBody"), km: kmList },
+  const typeRows: { cls: string; en: string; enLang?: string; km: string }[] = [
+    { cls: "display-hero", en: t("type.sampleHero"), enLang: en("type.sampleHero"), km: km("ribeye") },
+    { cls: "display-xl", en: t("type.sampleXl"), enLang: en("type.sampleXl"), km: km("tenderloin") },
+    { cls: "title-lg", en: t("type.sampleTitle"), enLang: en("type.sampleTitle"), km: `${km("striploin")} ${km("rump")}` },
+    { cls: "title-md", en: t("type.sampleTitle"), enLang: en("type.sampleTitle"), km: `${km("brisket")} ${km("topside")} ${km("thin-flank")}` },
+    { cls: "label", en: t("type.sampleLabel"), enLang: en("type.sampleLabel"), km: `2243 · ${km("ribeye")}` },
+    { cls: "body-lg", en: t("type.sampleBody"), enLang: en("type.sampleBody"), km: kmList },
+    { cls: "body", en: t("type.sampleBody"), enLang: en("type.sampleBody"), km: kmList },
+    { cls: "body-sm", en: t("type.sampleBody"), enLang: en("type.sampleBody"), km: kmList },
   ];
 
   const matrix = {
@@ -276,10 +280,12 @@ export default async function StyleguidePage() {
                   <p className="label mb-3 text-muted-foreground">
                     .{row.cls} · {t("type.english")}
                   </p>
-                  <p className={cn(row.cls, "break-words")}>{row.en}</p>
+                  <p className={cn(row.cls, "break-words")} lang={row.enLang}>
+                    {row.en}
+                  </p>
                 </div>
                 <div className="min-w-0" lang="km">
-                  <p className="label mb-3 text-muted-foreground" lang="en">
+                  <p className="label mb-3 text-muted-foreground" lang={khmerLabelLang}>
                     .{row.cls} · {t("type.khmer")}
                   </p>
                   <p className={cn(row.cls, "break-words")}>{row.km}</p>
@@ -318,7 +324,7 @@ export default async function StyleguidePage() {
         <div className="container-page">
           <SectionTitle eyebrow={t("sections.kit")} title={t("kit.splitTitle")} />
           <SplitDemo replayLabel={t("kit.replay")}>
-            <SplitTextReveal as="p" text={t("kit.splitEn")} className="display-xl" />
+            <SplitTextReveal as="p" text={t("kit.splitEn")} lang={en("kit.splitEn")} className="display-xl" />
             <SplitTextReveal as="p" text={`${km("ribeye")} ${km("striploin")} ${km("tenderloin")}`} lang="km" className="display-xl" />
           </SplitDemo>
         </div>
@@ -428,7 +434,9 @@ export default async function StyleguidePage() {
         <div className="container-page">
           <h3 className="label text-label">{t("kit.marqueeTitle")}</h3>
         </div>
-        <Marquee items={t("kit.marqueeItems").split("|")} className="mt-6 py-2" itemClassName="title-lg" />
+        <div lang={en("kit.marqueeItems")}>
+          <Marquee items={t("kit.marqueeItems").split("|")} className="mt-6 py-2" itemClassName="title-lg" />
+        </div>
         <div className="container-page mt-16">
           <h3 className="label text-label">{t("kit.countTitle")}</h3>
           <p className="mt-4 flex items-baseline gap-4">

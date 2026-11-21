@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { CutMap } from "@/components/cut-map/cut-map";
 import { DragCarousel } from "@/components/motion/drag-carousel";
 import { SplitTextReveal } from "@/components/motion/split-text-reveal";
@@ -55,6 +55,7 @@ export async function FeaturedCuts() {
   const lang = await getFallbackLang();
   const k = (key: string) => lang(`home.featured.${key}`);
   const cuts = getFeaturedCuts();
+  const khmer = (await getLocale()) === "km";
 
   return (
     <section data-surface="dark" aria-labelledby="featured-heading" className="pt-8 pb-20 md:pt-12 md:pb-28">
@@ -80,8 +81,11 @@ export async function FeaturedCuts() {
             methodsLabel={t("methods")}
             methodsLang={k("methods")}
             methods={cut.methods.map((m) => ({ id: m, label: tm(m), lang: lang(`cutOptions.methods.${m}`) }))}
-            viewLabel={t("view", { cut: cut.nameEn })}
+            // On Khmer pages the Khmer sentence names the cut in Khmer. A cut without a Khmer name
+            // gets no sentence at all (its link is named by its visible English text instead).
+            viewLabel={khmer ? (cut.nameKm ? t("view", { cut: cut.nameKm }) : undefined) : t("view", { cut: cut.nameEn })}
             viewLang={k("view")}
+            englishName={khmer}
           />
         ))}
       </DragCarousel>
@@ -106,8 +110,11 @@ type FeaturedCutCardProps = {
   methodsLabel: string;
   methodsLang?: string;
   methods: { id: string; label: string; lang?: string }[];
-  viewLabel: string;
+  /** Accessible name of the card link; undefined = named by its visible text. */
+  viewLabel?: string;
   viewLang?: string;
+  /** The English cut name sits inside Khmer page text: mark it lang="en". */
+  englishName?: boolean;
 };
 
 /**
@@ -115,7 +122,7 @@ type FeaturedCutCardProps = {
  * without one. The photo is decorative (alt=""): the card's visible name labels it.
  * The whole card links to its part on the Beef Cuts cut map.
  */
-function FeaturedCutCard({ cut, code, codeLang, methodsLabel, methodsLang, methods, viewLabel, viewLang }: FeaturedCutCardProps) {
+function FeaturedCutCard({ cut, code, codeLang, methodsLabel, methodsLang, methods, viewLabel, viewLang, englishName }: FeaturedCutCardProps) {
   return (
     <TiltCard className="h-full rounded-2xl bg-card">
       <article className="flex h-full flex-col">
@@ -137,10 +144,10 @@ function FeaturedCutCard({ cut, code, codeLang, methodsLabel, methodsLang, metho
               <Link
                 href={cutMapHref(cut)}
                 aria-label={viewLabel}
-                lang={viewLang}
+                lang={viewLabel ? viewLang : undefined}
                 className="after:absolute after:inset-0 after:z-20 after:rounded-2xl focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-[-2px] focus-visible:after:outline-ring"
               >
-                {cut.nameEn}
+                {englishName ? <span lang="en">{cut.nameEn}</span> : cut.nameEn}
               </Link>
             </h3>
             {cut.nameKm && (

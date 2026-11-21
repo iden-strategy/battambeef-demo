@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useFallbackLang } from "@/i18n/use-fallback-lang";
 import type { CowPartGeometry, CowPartId } from "@/lib/data/cow-map";
 import type { CookingMethod, Cut, CutTier } from "@/lib/data/cuts";
+import type { CutPriceView } from "@/lib/prices";
 
 const ALL = "all";
 type Filters = { part: CowPartId | typeof ALL; method: CookingMethod | typeof ALL; tier: CutTier | typeof ALL };
@@ -23,12 +24,16 @@ const NO_FILTERS: Filters = { part: ALL, method: ALL, tier: ALL };
 
 type CutsGridClientProps = {
   cuts: Cut[];
+  /** Retail price per cut id, formatted on the server. */
+  prices: Record<string, CutPriceView>;
+  /** True while the prices are samples: each card's price block carries a small "Sample" tag. */
+  showSampleTag: boolean;
   parts: CowPartGeometry[];
   methods: CookingMethod[];
   tiers: CutTier[];
 };
 
-export function CutsGridClient({ cuts, parts, methods, tiers }: CutsGridClientProps) {
+export function CutsGridClient({ cuts, prices, showSampleTag, parts, methods, tiers }: CutsGridClientProps) {
   const t = useTranslations("beefCuts.grid");
   const tp = useTranslations("cutMap.parts");
   const tm = useTranslations("cutOptions.methods");
@@ -178,6 +183,8 @@ export function CutsGridClient({ cuts, parts, methods, tiers }: CutsGridClientPr
                   else cardRefs.current.delete(cut.id);
                 }}
                 cut={cut}
+                price={prices[cut.id]}
+                showSampleTag={showSampleTag}
                 label={cardLabel(cut)}
                 imageLayoutId={reduced ? undefined : `cut-image-${cut.id}`}
                 onOpen={() => setOpenId(cut.id)}

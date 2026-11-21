@@ -8,9 +8,14 @@ import { CutImage } from "@/components/cuts-grid/cut-image";
 import { TiltCard } from "@/components/motion/tilt-card";
 import { useFallbackLang } from "@/i18n/use-fallback-lang";
 import type { Cut } from "@/lib/data/cuts";
+import type { CutPriceView } from "@/lib/prices";
 
 type CutCardProps = {
   cut: Cut;
+  /** Retail price (B2C, Beef Cuts cards only), formatted on the server. */
+  price?: CutPriceView;
+  /** Show the small "Sample" tag in the price block (the prices are still samples). */
+  showSampleTag?: boolean;
   /** Small label above the name: the code, else the part(s), else the tier. */
   label: { text: string; lang?: string };
   /** Shared-element id for the image, or undefined when motion is reduced. */
@@ -20,10 +25,11 @@ type CutCardProps = {
 
 /** One cut in the grid. The whole card is a button that opens the detail dialog. */
 export const CutCard = forwardRef<HTMLButtonElement, CutCardProps>(function CutCard(
-  { cut, label, imageLayoutId, onOpen },
+  { cut, price, showSampleTag, label, imageLayoutId, onOpen },
   ref,
 ) {
   const t = useTranslations("beefCuts.grid");
+  const tPrice = useTranslations("beefCuts.grid.price");
   const tm = useTranslations("cutOptions.methods");
   const lang = useFallbackLang();
 
@@ -72,6 +78,45 @@ export const CutCard = forwardRef<HTMLButtonElement, CutCardProps>(function CutC
               </span>
             ))}
           </span>
+          {price && (
+            // Pinned to the bottom of the card, so the prices line up across a grid row.
+            <span data-cut-price="" className="mt-auto block pt-5">
+              <span className="flex flex-col gap-1 border-t border-border pt-4">
+                <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <span className="label text-label" lang={lang("beefCuts.grid.price.label")}>
+                    {tPrice("label")}
+                  </span>
+                  {showSampleTag && (
+                    <span
+                      data-sample-tag=""
+                      className="rounded-full border border-border px-2 py-px text-xs font-medium text-muted-foreground"
+                      lang={lang("beefCuts.grid.price.sampleTag")}
+                    >
+                      {tPrice("sampleTag")}
+                    </span>
+                  )}
+                </span>
+                <span className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+                  <span data-price-amount="" className="tabular font-display text-2xl leading-tight font-extrabold text-foreground">
+                    {price.amount}
+                  </span>
+                  <span data-price-unit="" className="body-sm text-muted-foreground" lang={lang(`beefCuts.grid.price.units.${price.unit}`)}>
+                    {tPrice(`units.${price.unit}`, { size: price.size ?? 0 })}
+                  </span>
+                  {price.more > 0 && (
+                    <span data-price-more="" className="body-sm text-muted-foreground">
+                      <span data-price-more-visible="" aria-hidden="true" lang={lang("beefCuts.grid.price.more")}>
+                        {tPrice("more", { count: price.more })}
+                      </span>
+                      <span data-price-more-sr="" className="sr-only" lang={lang("beefCuts.grid.price.moreAria")}>
+                        {tPrice("moreAria", { count: price.more })}
+                      </span>
+                    </span>
+                  )}
+                </span>
+              </span>
+            </span>
+          )}
         </span>
       </button>
     </TiltCard>

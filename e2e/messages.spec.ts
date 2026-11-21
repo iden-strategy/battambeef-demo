@@ -6,6 +6,75 @@ import { expect, test } from "@playwright/test";
 
 const read = (path: string) => JSON.parse(readFileSync(path, "utf8"));
 
+// ---- km.json: every value is real Khmer, except what is agreed to stay English ----------------
+
+type Tree = { [key: string]: string | Tree };
+const leaves = (tree: Tree, prefix = ""): [string, string][] =>
+  Object.entries(tree).flatMap(([key, value]) =>
+    typeof value === "string" ? [[`${prefix}${key}`, value] as [string, string]] : leaves(value, `${prefix}${key}.`),
+  );
+
+const KHMER_SCRIPT = /[ក-៿]/; // U+1780 to U+17FF
+
+/** Brand lines still waiting for the team's Khmer (CLAUDE.md section 12: TODO-KM, never invented). */
+const TODO_KM_KEYS = [
+  "meta.titles.home",
+  "footer.campaign",
+  "home.hero.title",
+  "home.marquee",
+  "styleguide.type.sampleHero",
+  "styleguide.type.sampleXl",
+  "styleguide.type.sampleTitle",
+  "styleguide.type.sampleLabel",
+  "styleguide.type.sampleBody",
+  "styleguide.kit.splitEn",
+  "styleguide.kit.marqueeItems",
+];
+/** Proper names and code identifiers that are the same in every language (agreed English). */
+const PROPER_NAME_KEYS = [
+  "language.en", // "EN", the English switch label
+  "language.enFull", // "English", the language's own name
+  "footer.telegram", // the product name
+  "styleguide.kit.splitTitle", // internal styleguide: component names
+  "styleguide.kit.revealTitle",
+  "styleguide.kit.imageRevealTitle",
+  "styleguide.kit.pillTitle",
+  "styleguide.kit.parallaxTitle",
+  "styleguide.kit.magneticTitle",
+  "styleguide.kit.cursorTitle",
+  "styleguide.kit.carouselTitle",
+  "styleguide.kit.marqueeTitle",
+  "styleguide.kit.countTitle",
+  "styleguide.kit.tiltTitle",
+  "styleguide.kit.transitionTitle",
+];
+const ALLOWED_ENGLISH = new Set([...TODO_KM_KEYS, ...PROPER_NAME_KEYS]);
+
+/** Only placeholders ({year}, %s), numbers, punctuation or the brand name: nothing to translate. */
+const nothingToTranslate = (value: string) => value.replace(/\{[^}]*\}|%s|BattamBeef|[\d\s\p{P}\p{S}]/gu, "") === "";
+
+test("km.json: every value contains Khmer script, outside the agreed English allow-list", () => {
+  const km = leaves(read("messages/km.json"));
+  const en = new Map(leaves(read("messages/en.json")));
+  const problems: string[] = [];
+  for (const [key, value] of km) {
+    if (!en.has(key)) problems.push(`${key}: not in en.json`);
+    if (ALLOWED_ENGLISH.has(key)) continue;
+    if (value.trim() === "") problems.push(`${key}: blank`);
+    else if (!KHMER_SCRIPT.test(value) && !nothingToTranslate(value)) problems.push(`${key}: no Khmer (${JSON.stringify(value)})`);
+  }
+  for (const key of en.keys()) if (!km.some(([k]) => k === key)) problems.push(`${key}: missing in km.json`);
+  expect(problems).toEqual([]);
+});
+
+test("km.json: the allow-list has no stale entries and TODO-KM stays in the TODO list", () => {
+  const km = new Map(leaves(read("messages/km.json")));
+  for (const key of ALLOWED_ENGLISH) expect(km.has(key), `${key} is not in km.json (remove it from the allow-list)`).toBe(true);
+  // Once a TODO-KM line is translated it must leave the list; no marker may hide outside it.
+  for (const key of TODO_KM_KEYS) expect(km.get(key), key).toContain("TODO-KM");
+  for (const [key, value] of km) if (value.includes("TODO-KM")) expect(TODO_KM_KEYS, key).toContain(key);
+});
+
 test("global-error.json matches the site's error messages", () => {
   const en = read("messages/en.json");
   const km = read("messages/km.json");

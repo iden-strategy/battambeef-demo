@@ -21,7 +21,25 @@ export const CLIENT_NAMESPACES = [
   "errors",
   "cutMap",
   "cutOptions",
-  "beefCuts.grid",
+  // The cut grid, key by key: the cards need only these price strings. The sample note and the
+  // business pricing link (beefCuts.grid.price.sampleNote / businessLink) are server-rendered.
+  "beefCuts.grid.label",
+  "beefCuts.grid.title",
+  "beefCuts.grid.filtersLabel",
+  "beefCuts.grid.byPart",
+  "beefCuts.grid.byMethod",
+  "beefCuts.grid.byTier",
+  "beefCuts.grid.all",
+  "beefCuts.grid.count",
+  "beefCuts.grid.empty",
+  "beefCuts.grid.clear",
+  "beefCuts.grid.photoSoon",
+  "beefCuts.grid.illustrationNote",
+  "beefCuts.grid.price.label",
+  "beefCuts.grid.price.units",
+  "beefCuts.grid.price.more",
+  "beefCuts.grid.price.moreAria",
+  "beefCuts.grid.price.sampleTag",
   "beefCuts.detail",
 ] as const;
 

@@ -1,7 +1,9 @@
+import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
 import { isCambodianPhone, isEmail, validateBusiness, validateContact } from "@/components/forms/validation";
 import { getCowMap, getCuts } from "@/lib/data";
 import { parseQuoteParams, type QuoteAllowList } from "@/lib/quote-link";
+import { effectiveLang } from "./helpers";
 
 // Rules (no browser): the quote-link parser and the form validators.
 
@@ -467,12 +469,13 @@ test.describe("contact form", () => {
     expect(await ac("email")).toBe("email");
   });
 
-  test("Khmer page: form errors fall back to English, marked lang=en", async ({ page }) => {
+  test("Khmer page: form errors are Khmer, not marked English", async ({ page }) => {
+    const km = JSON.parse(readFileSync("messages/km.json", "utf8"));
     await page.goto("/km/contact");
     const form = page.locator("#contact-form");
     await form.locator("button[type=submit]").click();
     const error = form.locator("#contact-form-name-error");
-    await expect(error).toHaveText("Enter your name.");
-    await expect(error).toHaveAttribute("lang", "en");
+    await expect(error).toHaveText(km.forms.fields.name.errorRequired);
+    expect(await effectiveLang(error)).toBe("km");
   });
 });

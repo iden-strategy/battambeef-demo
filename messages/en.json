@@ -75,6 +75,7 @@
     "socialSoon": "Coming soon",
     "preview": "Preview",
     "previewNote": "Investor preview. Content and images are placeholders.",
+    "khmerDraft": "Khmer translation is a draft and is being reviewed.",
     "rights": "© {year} BattamBeef"
   },
   "pages": {
@@ -349,7 +350,20 @@
       "empty": "No cuts match these filters.",
       "clear": "Clear filters",
       "photoSoon": "Photo coming soon",
-      "illustrationNote": "Images are illustrations."
+      "illustrationNote": "Images are illustrations.",
+      "price": {
+        "label": "Retail price",
+        "units": {
+          "kg": "per kg",
+          "piece": "per ~{size} g piece",
+          "pack": "per {size} g pack"
+        },
+        "more": "+{count} more",
+        "moreAria": "+{count} more price options",
+        "sampleTag": "Sample",
+        "sampleNote": "Sample prices, for illustration only.",
+        "businessLink": "Business pricing on request"
+      }
     },
     "detail": {
       "close": "Close",

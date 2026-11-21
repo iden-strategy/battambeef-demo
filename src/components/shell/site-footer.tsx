@@ -1,8 +1,9 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { BrandLogo } from "@/components/brand-logo";
 import { getFallbackLang } from "@/i18n/get-fallback-lang";
 import { Link } from "@/i18n/navigation";
-import { getContactDetails, getCopyrightYear, getNavItems, getSocialLinks } from "@/lib/data";
+import { getContactDetails, getCopyrightYear, getKhmerTranslationStatus, getNavItems, getSocialLinks } from "@/lib/data";
+import { showKhmerDraftNotice } from "@/lib/khmer-status";
 
 /** Dark like the page, but one step deeper with a hairline on top (.site-footer in globals.css). */
 export async function SiteFooter() {
@@ -11,7 +12,8 @@ export async function SiteFooter() {
   const tHeader = await getTranslations("header");
   const tNewTab = await getTranslations("a11y");
   const lang = await getFallbackLang();
-  const f = (key: string) => lang(`footer.${key}`);
+  const khmerDraft = showKhmerDraftNotice(await getLocale(), getKhmerTranslationStatus());
+  const f =(key: string) => lang(`footer.${key}`);
   const navItems = getNavItems();
   const contacts = getContactDetails();
   const socials = getSocialLinks();
@@ -103,6 +105,11 @@ export async function SiteFooter() {
             <p className="body-sm text-muted-foreground" lang={f("previewNote")}>
               {t("previewNote")}
             </p>
+            {khmerDraft && (
+              <p data-khmer-draft="" className="body-sm text-muted-foreground" lang={f("khmerDraft") ?? "km"}>
+                {t("khmerDraft")}
+              </p>
+            )}
           </div>
         </div>
 

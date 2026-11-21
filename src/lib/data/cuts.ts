@@ -1,7 +1,7 @@
 // BattamBeef cuts: public-safe data only.
 // Contains names, Khmer names, codes, cow parts and cooking uses.
 // The list, English names and Khmer names were confirmed by the team; codes are standard industry
-// cut codes. Deliberately contains no prices, costs or yield figures.
+// cut codes. No prices here: the sample retail prices live in cut-prices.ts. Never costs or yields.
 // Order: front to back along the cow (as on the cut map), cuts that are not on the map last.
 
 import type { CowPartId } from "@/lib/data/cow-map";

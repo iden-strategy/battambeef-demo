@@ -4,6 +4,7 @@
 import type { CowPartId } from "@/lib/data/cow-map";
 import { COW_PARTS, COW_SILHOUETTE, CUT_MAP_IMAGE } from "@/lib/data/cow-map";
 import { COOKING_METHODS, CUT_TIERS, CUTS, type Cut } from "@/lib/data/cuts";
+import { CUT_PRICING } from "@/lib/data/cut-prices";
 import { BUSINESS_POINTS, FEATURED_CUT_IDS, HERO_IMAGES, HOME_JOURNEY_STAGE_IDS, STATEMENT_PILLS } from "@/lib/data/home";
 import { ABOUT_IMAGES, VALUES } from "@/lib/data/about";
 import { BUSINESS_TYPES, OFFERS, STEPS, WEEKLY_VOLUMES, WHY_POINTS } from "@/lib/data/business";
@@ -17,6 +18,7 @@ import {
   CONTACT_DETAILS,
   COPYRIGHT_YEAR,
   ENQUIRY_TYPES,
+  KHMER_TRANSLATION_STATUS,
   NAV_ITEMS,
   OG_IMAGE,
   SOCIAL_LINKS,
@@ -25,6 +27,7 @@ import {
 export const getNavItems = () => NAV_ITEMS;
 export const getBusinessNav = () => BUSINESS_NAV;
 export const getCopyrightYear = () => COPYRIGHT_YEAR;
+export const getKhmerTranslationStatus = () => KHMER_TRANSLATION_STATUS;
 export const getContactDetails = () => CONTACT_DETAILS;
 export const getSocialLinks = () => SOCIAL_LINKS;
 export const getQuickActions = () => buildQuickActions();
@@ -42,6 +45,10 @@ export const getCutsByMethod = (method: Cut["methods"][number]) => CUTS.filter((
 export const getCookingMethods = () => COOKING_METHODS;
 export const getCutTiers = () => CUT_TIERS;
 export const getCowMap = () => ({ image: CUT_MAP_IMAGE, silhouette: COW_SILHOUETTE, parts: COW_PARTS });
+/** "sample" (TODO-VERIFY, labelled on the page) or "verified". */
+export const getCutPricingStatus = () => CUT_PRICING.status;
+/** A cut's retail price options (Beef Cuts cut cards only), first option first. */
+export const getCutPrices = (id: string) => CUT_PRICING.prices[id];
 
 export const getBrandColors = () => BRAND_COLORS;
 /** One brand colour's hex by key (manifest, theme colour). */
@@ -77,6 +84,7 @@ export const getFaq = () => FAQ;
 
 export type { NavItem, NavKey, BusinessNavItem, BusinessNavKey, ContactDetail, SocialLink, QuickActions, ContactCardId, ContactIcon, EnquiryType } from "@/lib/data/site";
 export type { Cut, CookingMethod, CutTier } from "@/lib/data/cuts";
+export type { PriceOption, PriceStatus, PriceUnit } from "@/lib/data/cut-prices";
 export type { CowPartId, CowPartGeometry } from "@/lib/data/cow-map";
 export type { BrandColor } from "@/lib/data/brand";
 export type { JourneyStage, JourneyStageId, ChillPointId, JourneyResultId } from "@/lib/data/journey";

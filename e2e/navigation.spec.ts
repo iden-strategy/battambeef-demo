@@ -1,4 +1,6 @@
+import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
+import { escapeRegExp } from "./helpers";
 
 // Site structure after the navigation restructure: the menu (About · For Business · Order
 // Inquiry, no Home), the logo as the way home, active states, the For Business sub-navigation,
@@ -7,7 +9,10 @@ import { expect, test, type Page } from "@playwright/test";
 
 const MENU = ["About", "For Business", "Order Inquiry"];
 
-const mainNav = (page: Page) => page.locator("header.site-header").getByRole("navigation", { name: "Main" });
+// Khmer accessible names come from the message file, so the tests follow the team's wording.
+const KM = JSON.parse(readFileSync("messages/km.json", "utf8"));
+
+const mainNav = (page: Page, name = "Main") => page.locator("header.site-header").getByRole("navigation", { name });
 const linkNames = (scope: ReturnType<Page["locator"]>) =>
   scope.getByRole("link").evaluateAll((els) => els.map((e) => (e.textContent ?? "").trim()));
 
@@ -51,7 +56,7 @@ test.describe("menu", () => {
   test("Khmer pages: same three links, locale kept", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/km/about");
-    expect(await mainNav(page).getByRole("link").evaluateAll((els) => els.map((e) => new URL((e as HTMLAnchorElement).href).pathname))).toEqual([
+    expect(await mainNav(page, KM.nav.label).getByRole("link").evaluateAll((els) => els.map((e) => new URL((e as HTMLAnchorElement).href).pathname))).toEqual([
       "/km/about",
       "/km/business",
       "/km/contact",
@@ -64,9 +69,10 @@ test.describe("logo", () => {
     test(`${locale}: links home, named "BattamBeef home", reachable with Tab and a visible focus ring`, async ({ page }) => {
       await page.setViewportSize({ width: 1440, height: 900 });
       await page.goto(`/${locale}/business`);
-      const logo = page.locator("header.site-header").getByRole("link", { name: "BattamBeef home", exact: true });
+      const name = locale === "km" ? KM.header.logo : "BattamBeef home";
+      const logo = page.locator("header.site-header").getByRole("link", { name, exact: true });
       await expect(logo).toHaveAttribute("href", `/${locale}`);
-      if (locale === "km") await expect(logo).toHaveAttribute("lang", "en"); // English until translated
+      if (locale === "km") expect(await logo.getAttribute("lang")).toBeNull(); // translated, so not marked English
       await page.keyboard.press("Tab"); // skip link
       await page.keyboard.press("Tab");
       await expect(logo).toBeFocused();
@@ -77,7 +83,7 @@ test.describe("logo", () => {
       expect(ring.style).not.toBe("none");
       expect(ring.width).toBeGreaterThan(0);
       await page.keyboard.press("Enter");
-      await expect(page).toHaveURL(new RegExp(`/${locale}$`));
+      await expect(page).toHaveURL(new RegExp(`/${escapeRegExp(locale)}$`));
     });
   }
 });
@@ -155,9 +161,10 @@ test.describe("For Business sub-navigation", () => {
   test("360px Khmer: still one row inside the screen", async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 800 });
     await page.goto("/km/business/cuts");
-    // The labels are TODO-KM, so they fall back to English (marked lang="en").
-    const boxes = await page
-      .getByRole("navigation", { name: "For Business sections" })
+    // Real Khmer labels (from messages/km.json), not the English fallback.
+    const sub = page.getByRole("navigation", { name: KM.businessNav.label });
+    expect(await linkNames(sub)).toEqual([KM.businessNav.overview, KM.businessNav.cuts, KM.businessNav.knowledge]);
+    const boxes = await sub
       .getByRole("link")
       .evaluateAll((els) => els.map((e) => e.getBoundingClientRect().toJSON()));
     expect(boxes.length).toBe(3);

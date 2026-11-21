@@ -1,5 +1,6 @@
+import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
-import { waitForMotionReady } from "./helpers";
+import { escapeRegExp, waitForMotionReady } from "./helpers";
 
 // The For Business dropdown in the desktop header (1024px and up): the label stays a link to
 // /business, a chevron button next to it shows and hides a panel with Overview · Beef Cuts ·
@@ -9,9 +10,13 @@ import { waitForMotionReady } from "./helpers";
 const SUB = ["Overview", "Beef Cuts", "Beef Knowledge"];
 const SUB_PATHS = ["/business", "/business/cuts", "/business/knowledge"];
 
-const nav = (page: Page) => page.locator("header.site-header").getByRole("navigation", { name: "Main" });
-const topLink = (page: Page) => nav(page).getByRole("link", { name: "For Business", exact: true });
-const chevron = (page: Page) => nav(page).getByRole("button", { name: "For Business pages" });
+// Accessible names follow the page language (Khmer names from messages/km.json).
+const KM = JSON.parse(readFileSync("messages/km.json", "utf8"));
+const isKm = (page: Page) => new URL(page.url()).pathname.startsWith("/km");
+const nav = (page: Page) =>
+  page.locator("header.site-header").getByRole("navigation", { name: isKm(page) ? KM.nav.label : "Main" });
+const topLink = (page: Page) => nav(page).getByRole("link", { name: isKm(page) ? KM.nav.forBusiness : "For Business", exact: true });
+const chevron = (page: Page) => nav(page).getByRole("button", { name: isKm(page) ? KM.nav.businessPages : "For Business pages" });
 const panel = (page: Page) => page.locator("#forBusiness-menu");
 const item = (page: Page) => page.locator("#forBusiness-menu").locator("xpath=..");
 const iconWrapper = (page: Page) => page.locator("header.site-header [data-chevron-icon]");
@@ -215,7 +220,7 @@ test.describe("desktop dropdown", () => {
       await chevron(page).click();
       await expectOpen(page);
       await panel(page).getByRole("link", { name }).click();
-      await expect(page).toHaveURL(new RegExp(`/en${SUB_PATHS[i]}$`));
+      await expect(page).toHaveURL(new RegExp(`/en${escapeRegExp(SUB_PATHS[i])}$`));
       await expectClosed(page);
     }
   });

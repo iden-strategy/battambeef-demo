@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { waitForMotionReady } from "./helpers";
+import { nextFrames, waitForMotionReady } from "./helpers";
 
 // The Day 5 pages: About, For Business, Beef Knowledge (/business/knowledge), Order Inquiry
 // (/contact), 404, plus page-wide polish.
@@ -190,26 +190,33 @@ test.describe("walkthroughs", () => {
       const context = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 390, height: 844 } });
       const page = await context.newPage();
       await page.goto(`/en${path}`);
+      // Reveals play only once the page is hydrated. Scrolling earlier passes sections before
+      // they can see the screen, and they (rightly) wait until scrolled back into view.
+      await waitForMotionReady(page);
       const height = await page.evaluate(() => document.documentElement.scrollHeight);
       for (let y = 0; y < height; y += 500) {
         await page.evaluate((top) => window.scrollTo(0, top), y);
-        await page.waitForTimeout(80);
+        await nextFrames(page); // in-view checks for this position have run
       }
-      await page.waitForTimeout(800);
-      const hidden = await page.evaluate(() =>
-        [...document.querySelectorAll("[data-reveal], [data-reveal-group] > [data-reveal-item], [data-piece]")]
-          .filter((el) => {
-            const cs = getComputedStyle(el);
-            return cs.opacity !== "1" || cs.clipPath.startsWith("inset(100%") || (cs.transform !== "none" && !cs.transform.startsWith("matrix(1, 0, 0, 1, 0, 0)"));
-          })
-          .map((el) => el.className.toString().slice(0, 60)),
-      );
-      expect(hidden).toEqual([]);
-      // Marquee strips stay still.
+      // Every reveal on the way has started its short fade; wait until none is left hidden.
+      await expect
+        .poll(() =>
+          page.evaluate(() =>
+            [...document.querySelectorAll("[data-reveal], [data-reveal-group] > [data-reveal-item], [data-piece]")]
+              .filter((el) => {
+                const cs = getComputedStyle(el);
+                return cs.opacity !== "1" || cs.clipPath.startsWith("inset(100%") || (cs.transform !== "none" && !cs.transform.startsWith("matrix(1, 0, 0, 1, 0, 0)"));
+              })
+              .map((el) => el.className.toString().slice(0, 60)),
+          ),
+        )
+        .toEqual([]);
+      // Marquee strips stay still: the same position across 10 painted frames (a moving strip
+      // shifts every frame).
       const strips = page.locator('[aria-hidden="true"].flex.w-max');
       for (const strip of await strips.all()) {
         const a = await strip.evaluate((el) => getComputedStyle(el).transform);
-        await page.waitForTimeout(300);
+        await nextFrames(page, 10);
         expect(await strip.evaluate((el) => getComputedStyle(el).transform)).toBe(a);
       }
       await context.close();

@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { waitForMotionReady } from "./helpers";
+import { effectiveLang, waitForMotionReady } from "./helpers";
 
 // Farm to Table, the section of the About page (#farm-to-table): the journey (desktop sticky
 // stage vs stacked blocks), the 72-hour dial, navigation away and back, reduced motion and Khmer.
@@ -399,16 +399,20 @@ test.describe("farm to table: dial and surfaces", () => {
 
 test.describe("farm to table: Khmer", () => {
   for (const width of [390, 1440]) {
-    test(`${width}px: renders, untranslated text is marked English, nothing overflows`, async ({ page }) => {
+    test(`${width}px: renders in Khmer (not marked English), nothing overflows`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
       await page.goto("/km/about#farm-to-table");
       await expect(page.locator("html")).toHaveAttribute("lang", "km");
       await expect(page.locator("h1")).toBeVisible();
       // The section heading is an h2 now (About's hero holds the page's only h1).
       await expect(page.locator("h1")).toHaveCount(1);
-      await expect(page.locator("#farm-to-table-heading")).toHaveAttribute("lang", "en");
-      // Missing Khmer copy (TODO-KM) falls back to English and says so.
-      await expect(page.locator("h3:visible").first()).toHaveAttribute("lang", "en");
+      // The section is translated: its heading and stage titles are Khmer, not English fallback.
+      const heading = page.locator("#farm-to-table-heading");
+      await expect(heading).toContainText(/[ក-៿]/);
+      expect(await effectiveLang(heading)).toBe("km");
+      const h3 = page.locator("h3:visible").first();
+      await expect(h3).toContainText(/[ក-៿]/);
+      expect(await effectiveLang(h3)).toBe("km");
       expect(await noSidewaysScroll(page)).toBeLessThanOrEqual(0);
       const clipped = await page.locator(":is(h1, h2, h3, [data-panel] p, [data-block] p):not(.sr-only)").evaluateAll((els) =>
         els.filter((e) => (e as HTMLElement).offsetParent && e.scrollWidth > e.clientWidth + 1).map((e) => e.textContent),

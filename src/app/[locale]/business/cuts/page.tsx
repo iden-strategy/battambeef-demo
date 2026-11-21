@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { BusinessSubnav } from "@/components/business-subnav";
 import { CutMap } from "@/components/cut-map/cut-map";
+import { CutPriceNote } from "@/components/cuts-grid/cut-price-note";
 import { CutsGrid } from "@/components/cuts-grid/cuts-grid";
 import { MagneticButton } from "@/components/motion/magnetic-button";
 import { MotionPageProvider } from "@/components/motion/motion-page-provider";
@@ -67,12 +68,13 @@ export default async function Page() {
       {/* 3. All cuts (dark). Below the fold from here on: each section is laid out only as it
           comes near the screen (.defer-render, globals.css). The heights are only estimates for the
           first render (contain-intrinsic-block-size: auto <estimate>); the browser remembers the real
-          height afterwards. Measured with 20 cuts, English and Khmer within ~1%: the grid is
-          1 column ~8750px, 2 ~4300–5050, 3 ~3650, 4 ~2700–2810. */}
+          height afterwards. Measured with 20 cuts and their prices, English and Khmer within ~1%:
+          1 column ~10600–12300px (360–479px wide), 2 ~5360–5830 (xs), ~6000–6900 (md),
+          3 ~4330–4580, 4 ~3200–3350. */}
       <section
         id="all-cuts"
         data-surface="dark"
-        className={`${SECTION} defer-render border-t border-border [contain-intrinsic-block-size:auto_8750px] xs:[contain-intrinsic-block-size:auto_4300px] md:[contain-intrinsic-block-size:auto_5050px] lg:[contain-intrinsic-block-size:auto_3650px] xl:[contain-intrinsic-block-size:auto_2700px] min-[1400px]:[contain-intrinsic-block-size:auto_2810px]`}
+        className={`${SECTION} defer-render border-t border-border [contain-intrinsic-block-size:auto_11000px] xs:[contain-intrinsic-block-size:auto_5450px] md:[contain-intrinsic-block-size:auto_6050px] lg:[contain-intrinsic-block-size:auto_4350px] xl:[contain-intrinsic-block-size:auto_3200px] min-[1400px]:[contain-intrinsic-block-size:auto_3330px]`}
         aria-labelledby="all-cuts-heading"
       >
         <div className="container-page">
@@ -85,8 +87,9 @@ export default async function Page() {
             tabIndex={-1}
             text={t("grid.title")}
             lang={k("grid.title")}
-            className="title-lg mt-3 mb-8 max-w-[18ch] text-balance focus:outline-none md:mb-10"
+            className="title-lg mt-3 mb-3 max-w-[18ch] text-balance focus:outline-none md:mb-4"
           />
+          <CutPriceNote />
           <CutsGrid />
           <p data-illustration-note="" className="label mt-8 text-muted-foreground" lang={k("grid.illustrationNote")}>
             {t("grid.illustrationNote")}

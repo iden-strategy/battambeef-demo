@@ -148,3 +148,19 @@ test.describe("motion kit: reduced motion", () => {
   });
 
 });
+
+test.describe("motion kit: entrance animations never catch clicks", () => {
+  // Split-text letters start their rise below their place and can hang over a link under the
+  // heading (Beef Cuts "Business pricing", Home "Follow the full journey"); they ignore pointer
+  // events so the click reaches the link. Hero letters (CSS, at first paint) included.
+  test("every split-text letter ignores pointer events, on every page (en + km)", async ({ page }) => {
+    for (const locale of ["en", "km"]) {
+      for (const path of ["", "/about", "/business", "/business/cuts", "/business/knowledge", "/contact"]) {
+        await page.goto(`/${locale}${path}`);
+        const values = await page.locator("[data-piece]").evaluateAll((els) => els.map((el) => getComputedStyle(el).pointerEvents));
+        expect(values.length, `/${locale}${path} has split text`).toBeGreaterThan(0);
+        expect(new Set(values), `/${locale}${path}`).toEqual(new Set(["none"]));
+      }
+    }
+  });
+});

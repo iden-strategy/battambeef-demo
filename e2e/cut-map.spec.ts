@@ -1,4 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
+import { getCuts } from "@/lib/data";
+import { escapeRegExp } from "./helpers";
 
 const PARTS = ["Neck", "Chuck", "Rib", "Loin", "Rump", "Round", "Brisket", "Plate", "Flank", "Fore shank", "Hind shank"];
 const selectedChip = (page: Page) => page.locator("#cut-map [aria-pressed='true']");
@@ -108,7 +110,10 @@ test.describe("cut map", () => {
     // Soup bones: no part line, no "Show on the cow", quote link carries only the cut.
     const bones = page.locator("#all-cuts ul.grid > li button", { hasText: "Soup bones" });
     await bones.scrollIntoViewIfNeeded();
-    await expect(bones.locator(".label.text-label")).toHaveText("Slow-cook");
+    // The card's small top label: exactly one, leaving out the price block ("Retail price" shares the style).
+    const topLabel = bones.locator(".label.text-label:not([data-cut-price] *)");
+    await expect(topLabel).toHaveCount(1);
+    await expect(topLabel).toHaveText("Slow-cook");
     await bones.click();
     await expect(dialog.getByRole("heading", { name: "Soup bones (leg, neck, hip)" })).toBeVisible();
     await expect(dialog.getByText(/^Part/)).toHaveCount(0);
@@ -376,7 +381,10 @@ test.describe("cut map", () => {
   test("Khmer page: cut names are Khmer, no sideways scroll", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 800 });
     await page.goto("/km/business/cuts#round");
-    await expect(page.locator("#cut-map [lang=km]").first()).toBeVisible();
+    // The whole page is Khmer now, so look for a visible Khmer cut name of the Round part.
+    const roundNames = getCuts().filter((c) => c.parts.includes("round")).map((c) => c.nameKm!);
+    const name = page.locator("#cut-map [lang=km]:visible", { hasText: new RegExp(roundNames.map(escapeRegExp).join("|")) }).first();
+    await expect(name).toBeVisible();
     const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(over).toBeLessThanOrEqual(0);
   });

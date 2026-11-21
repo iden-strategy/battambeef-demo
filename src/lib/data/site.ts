@@ -53,6 +53,13 @@ export const SOCIAL_LINKS: SocialLink[] = [
 
 export const COPYRIGHT_YEAR = 2026;
 
+/**
+ * Status of the Khmer translation. While "draft", Khmer pages show a small notice in the footer.
+ * Set to "reviewed" once the team has checked the Khmer copy (the notice then disappears).
+ */
+export type KhmerTranslationStatus = "draft" | "reviewed";
+export const KHMER_TRANSLATION_STATUS: KhmerTranslationStatus = "draft";
+
 /** Link preview image (Open Graph). A crop of the hero illustration until a real one exists. */
 export const OG_IMAGE = { src: "/images/og/og-placeholder.jpg", width: 1200, height: 630 };
 

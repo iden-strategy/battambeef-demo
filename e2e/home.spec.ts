@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
-import { waitForMotionReady } from "./helpers";
+import { getFeaturedCuts } from "@/lib/data";
+import { effectiveLang, waitForMotionReady } from "./helpers";
 
 // Home page: the "HOLY COW." hero and the sections below it.
 
@@ -217,5 +218,40 @@ test.describe("home sections", () => {
     const h1 = page.getByRole("heading", { level: 1 });
     await expect(h1).toHaveText(/Holy Cow\./);
     await expect(h1).toHaveAttribute("lang", "en");
+  });
+
+  test("Khmer featured cut cards name each cut in Khmer; English names sit in lang=en", async ({ page }) => {
+    await page.goto("/km");
+    const featured = page.locator("section[aria-labelledby=featured-heading]");
+    const cards = featured.locator("article");
+    const cuts = getFeaturedCuts();
+    await expect(cards).toHaveCount(cuts.length);
+    for (const [i, cut] of cuts.entries()) {
+      const link = cards.nth(i).getByRole("heading", { level: 3 }).getByRole("link");
+      const label = await link.getAttribute("aria-label");
+      if (cut.nameKm) {
+        // The Khmer sentence names the cut in Khmer, never in English.
+        expect(label, cut.id).toContain(cut.nameKm);
+        expect(label, cut.id).not.toContain(cut.nameEn);
+        expect(await effectiveLang(link), cut.id).toBe("km");
+      } else {
+        // No Khmer name: no Khmer sentence; the link is named by its visible English text.
+        expect(label, cut.id).toBeNull();
+      }
+      // The visible English name is marked as English.
+      await expect(link.locator("span[lang=en]"), cut.id).toHaveText(cut.nameEn);
+    }
+    // Anywhere else in the cards, English cut names must be inside a lang=en element.
+    const strays = await cards.evaluateAll((els, names) => {
+      const out: string[] = [];
+      for (const el of els) {
+        for (const node of el.querySelectorAll("*")) {
+          const own = Array.from(node.childNodes).filter((n) => n.nodeType === 3).map((n) => n.textContent ?? "").join("");
+          if (names.some((n) => own.includes(n)) && node.closest("[lang]")?.getAttribute("lang") !== "en") out.push(own.trim());
+        }
+      }
+      return out;
+    }, cuts.map((c) => c.nameEn));
+    expect(strays).toEqual([]);
   });
 });

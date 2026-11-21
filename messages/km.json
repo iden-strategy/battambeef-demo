@@ -2,227 +2,228 @@
   "meta": {
     "siteName": "BattamBeef",
     "titleTemplate": "%s · BattamBeef",
-    "description": "TODO-KM",
+    "description": "មកពីបាត់ដំបង ជាមួយស្តង់ដារសាច់គោដែលប្រសើរជាងមុន។",
     "titles": {
       "home": "TODO-KM",
-      "about": "TODO-KM",
-      "beefCuts": "TODO-KM",
-      "forBusiness": "TODO-KM",
-      "beefKnowledge": "TODO-KM",
-      "contact": "TODO-KM",
-      "styleguide": "TODO-KM",
-      "notFound": "TODO-KM"
+      "about": "អំពីយើង",
+      "beefCuts": "ប្រភេទសាច់គោ",
+      "forBusiness": "សម្រាប់អាជីវកម្ម",
+      "beefKnowledge": "ចំណេះដឹងអំពីសាច់គោ",
+      "contact": "សាកសួរការបញ្ជាទិញ",
+      "styleguide": "មគ្គុទ្ទេសក៍រចនាប័ទ្ម",
+      "notFound": "រកមិនឃើញទំព័រ"
     },
     "descriptions": {
-      "home": "TODO-KM",
-      "about": "TODO-KM",
-      "beefCuts": "TODO-KM",
-      "forBusiness": "TODO-KM",
-      "beefKnowledge": "TODO-KM",
-      "contact": "TODO-KM",
-      "styleguide": "TODO-KM",
-      "notFound": "TODO-KM"
+      "home": "សាច់គោខ្មែរលំដាប់ខ្ពស់ពីខេត្តបាត់ដំបង ទុកឲ្យត្រជាក់រយៈពេល 72 ម៉ោងក្រោយពេលសម្លាប់។ សម្រាប់ភោជនីយដ្ឋាន អាជីវកម្មម្ហូបអាហារ និងអ្នកចម្អិននៅផ្ទះ។",
+      "about": "BattamBeef គឺជាម៉ាកសាច់គោខ្មែរពីខេត្តបាត់ដំបង។ រឿងរ៉ាវរបស់យើង ដំណើរពីបាត់ដំបងមកដល់តុអាហាររបស់អ្នក បេសកកម្ម ចក្ខុវិស័យ និងគុណតម្លៃរបស់យើង។",
+      "beefCuts": "ស្វែងយល់ពីប្រភេទសាច់គោនីមួយៗរបស់ BattamBeef លើផែនទីគោអន្តរកម្ម ព្រមទាំងវិធីចម្អិនសម្រាប់ប្រភេទសាច់នីមួយៗ។",
+      "forBusiness": "សាច់គោសម្រាប់ភោជនីយដ្ឋាន សណ្ឋាគារ និងអាជីវកម្មម្ហូបអាហារ។ ការផ្គត់ផ្គង់លក់ដុំ ការកាត់សាច់តាមតម្រូវការ និងភាពជាដៃគូ។ ផ្ញើការសាកសួរសម្រាប់អាជីវកម្ម។",
+      "beefKnowledge": "វិធីចម្អិន មូលដ្ឋានគ្រឹះនៃការរក្សាទុក រូបមន្តម្ហូប និងចម្លើយចំពោះសំណួរទូទៅអំពីសាច់គោ។",
+      "contact": "ផ្ញើការសាកសួរការបញ្ជាទិញទៅ BattamBeef ឬសួរអំពីភាពជាដៃគូអាជីវកម្ម និងសំណួរទូទៅ។",
+      "styleguide": "មគ្គុទ្ទេសក៍រចនាប័ទ្មផ្ទៃក្នុង។",
+      "notFound": "រកមិនឃើញទំព័រនេះទេ។"
     },
-    "ogAlt": "TODO-KM"
+    "ogAlt": "រូបភាពឧទាហរណ៍៖ គោពណ៌សមួយក្បាលឈរនៅវាលស្រែពណ៌បៃតង មានដើមត្នោត និងភ្នំនៅខាងក្រោយ"
   },
   "a11y": {
-    "skipToContent": "TODO-KM",
-    "newTab": "TODO-KM"
+    "skipToContent": "រំលងទៅមាតិកា",
+    "newTab": "(បើកក្នុងផ្ទាំងថ្មី)"
   },
   "nav": {
-    "label": "TODO-KM",
-    "about": "TODO-KM",
-    "forBusiness": "TODO-KM",
-    "contact": "TODO-KM",
-    "businessPages": "TODO-KM",
-    "openMenu": "TODO-KM",
-    "closeMenu": "TODO-KM",
-    "menuLabel": "TODO-KM"
+    "label": "ម៉ឺនុយមេ",
+    "about": "អំពីយើង",
+    "forBusiness": "សម្រាប់អាជីវកម្ម",
+    "contact": "សាកសួរការបញ្ជាទិញ",
+    "businessPages": "ទំព័រសម្រាប់អាជីវកម្ម",
+    "openMenu": "បើកម៉ឺនុយ",
+    "closeMenu": "បិទម៉ឺនុយ",
+    "menuLabel": "ម៉ឺនុយគេហទំព័រ"
   },
   "businessNav": {
-    "label": "TODO-KM",
-    "overview": "TODO-KM",
-    "cuts": "TODO-KM",
-    "knowledge": "TODO-KM"
+    "label": "ផ្នែកសម្រាប់អាជីវកម្ម",
+    "overview": "ទូទៅ",
+    "cuts": "ប្រភេទសាច់គោ",
+    "knowledge": "ចំណេះដឹងសាច់គោ"
   },
   "header": {
-    "logo": "TODO-KM"
+    "logo": "ទំព័រដើម BattamBeef"
   },
   "language": {
-    "label": "TODO-KM",
+    "label": "ភាសា",
     "en": "EN",
     "km": "ខ្មែរ",
     "enFull": "English",
     "kmFull": "ភាសាខ្មែរ"
   },
   "bottomBar": {
-    "label": "TODO-KM",
-    "telegram": "TODO-KM",
-    "quote": "TODO-KM",
-    "contactUs": "TODO-KM"
+    "label": "សកម្មភាពរហ័ស",
+    "telegram": "ទាក់ទងតាម Telegram",
+    "quote": "ស្នើសុំតម្លៃ",
+    "contactUs": "ទាក់ទងយើង"
   },
   "footer": {
     "campaign": "TODO-KM",
-    "tagline": "TODO-KM",
-    "navTitle": "TODO-KM",
-    "contactTitle": "TODO-KM",
-    "socialTitle": "TODO-KM",
-    "phone": "TODO-KM",
-    "email": "TODO-KM",
-    "telegram": "TODO-KM",
-    "address": "TODO-KM",
-    "placeholder": "TODO-KM",
-    "socialSoon": "TODO-KM",
-    "preview": "TODO-KM",
-    "previewNote": "TODO-KM",
-    "rights": "TODO-KM"
+    "tagline": "មកពីបាត់ដំបង ជាមួយស្តង់ដារសាច់គោដែលប្រសើរជាងមុន។",
+    "navTitle": "ស្វែងយល់",
+    "contactTitle": "ទំនាក់ទំនង",
+    "socialTitle": "តាមដានយើង",
+    "phone": "ទូរស័ព្ទ",
+    "email": "អ៊ីមែល",
+    "telegram": "Telegram",
+    "address": "អាសយដ្ឋាន",
+    "placeholder": "ព័ត៌មានបណ្ដោះអាសន្ន៖ ព័ត៌មានលម្អិតនឹងមកដល់ឆាប់ៗ",
+    "socialSoon": "មកដល់ឆាប់ៗ",
+    "preview": "កំណែសាកល្បង",
+    "previewNote": "កំណែសាកល្បងសម្រាប់វិនិយោគិន។ មាតិកា និងរូបភាពជាគំរូបណ្ដោះអាសន្ន។",
+    "khmerDraft": "ការបកប្រែជាភាសាខ្មែរនេះជាសេចក្ដីព្រាង ហើយកំពុងត្រូវបានត្រួតពិនិត្យ។",
+    "rights": "© {year} BattamBeef"
   },
   "pages": {
     "notFound": {
-      "title": "TODO-KM",
-      "line": "TODO-KM",
-      "back": "TODO-KM",
-      "label": "TODO-KM",
-      "cuts": "TODO-KM"
+      "title": "អូយ! រកមិនឃើញទំព័រនេះទេ។",
+      "line": "ទំព័រនេះប្រហែលជាត្រូវបានផ្លាស់ទី ឬតំណភ្ជាប់អាចមិនត្រឹមត្រូវ។ សូមសាកល្បងតំណមួយខាងក្រោមនេះជំនួសវិញ។",
+      "back": "ត្រឡប់ទៅទំព័រដើម",
+      "label": "កំហុស 404",
+      "cuts": "ស្វែងយល់ពីប្រភេទសាច់របស់យើង"
     }
   },
   "home": {
     "hero": {
-      "eyebrow": "TODO-KM",
+      "eyebrow": "សាច់គោខ្មែរលំដាប់ខ្ពស់ · បាត់ដំបង",
       "title": "TODO-KM",
-      "imageAlt": "TODO-KM",
-      "actionsLabel": "TODO-KM",
-      "exploreCuts": "TODO-KM",
-      "forRestaurants": "TODO-KM"
+      "imageAlt": "រូបភាពឧទាហរណ៍៖ គោពណ៌សមួយក្បាលឈរនៅវាលស្រែពណ៌បៃតង មានដើមត្នោត និងភ្នំនៅខាងក្រោយ",
+      "actionsLabel": "ចាប់ផ្ដើម",
+      "exploreCuts": "ស្វែងយល់ពីប្រភេទសាច់របស់យើង",
+      "forRestaurants": "សម្រាប់ភោជនីយដ្ឋាន"
     },
     "statement": {
-      "label": "TODO-KM",
-      "a": "TODO-KM",
-      "b": "TODO-KM",
-      "c": "TODO-KM",
-      "d": "TODO-KM",
-      "e": "TODO-KM",
-      "body": "TODO-KM",
-      "link": "TODO-KM"
+      "label": "មកពីបាត់ដំបង",
+      "a": "សាច់គោក្នុងស្រុក",
+      "b": "មកពី",
+      "c": "បាត់ដំបង",
+      "d": "ទុកឲ្យត្រជាក់",
+      "e": "72 ម៉ោង",
+      "body": "គោចិញ្ចឹមនៅខេត្តបាត់ដំបង កែច្នៃជាមួយដៃគូរោងសត្តឃាតនៅបាត់ដំបង ហើយទុកឲ្យត្រជាក់រយៈពេល 72 ម៉ោងក្រោយពេលសម្លាប់។",
+      "link": "មើលដំណើរពីកសិដ្ឋានដល់តុអាហាររបស់យើង"
     },
     "marquee": "TODO-KM",
     "cutMap": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM",
-      "link": "TODO-KM"
+      "label": "ស្វែងយល់ពីប្រភេទសាច់គោរបស់យើង",
+      "title": "ស្គាល់សាច់គោរបស់អ្នក។ ជ្រើសរើសសាច់ដែលអ្នកចង់បាន។",
+      "body": "ចុចលើផ្នែកណាមួយនៃគោ ដើម្បីមើលថាប្រភេទសាច់នីមួយៗមកពីត្រង់ណា។",
+      "link": "មើលប្រភេទសាច់គោទាំងអស់"
     },
     "featured": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "carouselLabel": "TODO-KM",
-      "code": "TODO-KM",
-      "noCode": "TODO-KM",
-      "methods": "TODO-KM",
-      "view": "TODO-KM {cut}",
-      "illustrationNote": "TODO-KM"
+      "label": "ប្រភេទសាច់ពិសេស",
+      "title": "ប្រភេទសាច់លំដាប់ខ្ពស់ និងពេញនិយម",
+      "carouselLabel": "ប្រភេទសាច់ពិសេស",
+      "code": "លេខកូដ {code}",
+      "noCode": "គ្មានលេខកូដស្តង់ដារ",
+      "methods": "ល្អសម្រាប់",
+      "view": "មើល {cut} លើផែនទីប្រភេទសាច់",
+      "illustrationNote": "រូបភាពទាំងនេះជារូបភាពឧទាហរណ៍។"
     },
     "farm": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "stepOf": "TODO-KM",
-      "hours": "TODO-KM",
-      "link": "TODO-KM"
+      "label": "ពីកសិដ្ឋានដល់តុអាហារ",
+      "title": "ពីកសិដ្ឋានបាត់ដំបង មកដល់តុអាហាររបស់អ្នក។",
+      "stepOf": "ជំហានទី {n} នៃ {total}",
+      "hours": "ម៉ោង",
+      "link": "តាមដានដំណើរទាំងមូល"
     },
     "business": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM",
+      "label": "សម្រាប់អាជីវកម្ម",
+      "title": "ដៃគូសាច់គោដែលអាចទុកចិត្តបាន សម្រាប់ផ្ទះបាយរបស់អ្នក",
+      "body": "សម្រាប់ភោជនីយដ្ឋាន សណ្ឋាគារ និងអាជីវកម្មម្ហូបអាហារ ដែលចង់បានសាច់គោក្នុងស្រុកកាត់តាមស្តង់ដារច្បាស់លាស់។",
       "points": {
         "consistentCuts": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "សាច់កាត់ស្តង់ដារស្មើៗគ្នា",
+          "body": "សាច់កាត់រៀបចំតាមស្តង់ដារច្បាស់លាស់។ ព័ត៌មានលម្អិតកំពុងរង់ចាំការបញ្ជាក់។"
         },
         "customCutting": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "កាត់តាមតម្រូវការ",
+          "body": "ប្រាប់យើងពីម៉ឺនុយ និងទំហំចំណែករបស់អ្នក ហើយយើងនឹងពិភាក្សាអំពីប្រភេទសាច់ដែលសមស្រប។"
         },
         "regularSupply": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ការផ្គត់ផ្គង់ទៀងទាត់",
+          "body": "ការបញ្ជាទិញតាមកាលវិភាគដែលសមនឹងផ្ទះបាយរបស់អ្នក។ ព័ត៌មានលម្អិតកំពុងរង់ចាំការបញ្ជាក់។"
         }
       },
-      "cta": "TODO-KM",
-      "link": "TODO-KM"
+      "cta": "ស្នើសុំតម្លៃ",
+      "link": "មើលជម្រើសលក់ដុំ"
     },
     "knowledge": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM",
-      "photoSoon": "TODO-KM",
-      "link": "TODO-KM"
+      "label": "ចំណេះដឹងអំពីសាច់គោ",
+      "title": "ចម្អិនឲ្យកាន់តែឆ្ងាញ់។",
+      "body": "រូបមន្តងាយៗ និងការណែនាំសម្រាប់ប្រភេទសាច់នីមួយៗ។",
+      "photoSoon": "រូបថតនឹងមកដល់ឆាប់ៗ",
+      "link": "ស្វែងយល់ពីចំណេះដឹងសាច់គោ"
     }
   },
   "errors": {
-    "eyebrow": "TODO-KM",
-    "title": "TODO-KM",
-    "line": "TODO-KM",
-    "retry": "TODO-KM",
-    "home": "TODO-KM"
+    "eyebrow": "កំហុស",
+    "title": "មានបញ្ហាអ្វីមួយកើតឡើង",
+    "line": "មិនអាចបង្ហាញទំព័រនេះបានទេ។ សូមព្យាយាមម្ដងទៀត។",
+    "retry": "ព្យាយាមម្ដងទៀត",
+    "home": "ត្រឡប់ទៅទំព័រដើម"
   },
   "kit": {
-    "cursorDrag": "TODO-KM",
-    "cursorExplore": "TODO-KM",
-    "cursorView": "TODO-KM",
-    "carouselLabel": "TODO-KM",
-    "carouselPrev": "TODO-KM",
-    "carouselNext": "TODO-KM",
-    "slideOf": "TODO-KM",
-    "slide": "TODO-KM"
+    "cursorDrag": "អូស",
+    "cursorExplore": "ស្វែងយល់",
+    "cursorView": "មើល",
+    "carouselLabel": "ផ្ទាំងរំកិល",
+    "carouselPrev": "ផ្ទាំងមុន",
+    "carouselNext": "ផ្ទាំងបន្ទាប់",
+    "slideOf": "{current} នៃ {total}",
+    "slide": "ផ្ទាំង"
   },
   "styleguide": {
-    "eyebrow": "TODO-KM",
-    "title": "TODO-KM",
-    "intro": "TODO-KM",
+    "eyebrow": "ផ្ទៃក្នុង",
+    "title": "មគ្គុទ្ទេសក៍រចនាប័ទ្ម",
+    "intro": "តម្លៃរចនា អក្សរ និងឧបករណ៍អន្តរកម្ម លើផ្ទៃងងឹតមូលដ្ឋាន ព្រមទាំងផ្ទៃភ្លឺ និងផ្ទៃក្រដាសក្រាហ្វជាផ្ទៃបន្ថែម។ មិនមានតំណភ្ជាប់ពីគេហទំព័រទេ។",
     "sections": {
-      "colors": "TODO-KM",
-      "surfaces": "TODO-KM",
-      "type": "TODO-KM",
-      "buttons": "TODO-KM",
-      "kit": "TODO-KM"
+      "colors": "ពណ៌",
+      "surfaces": "ផ្ទៃ",
+      "type": "អក្សរ",
+      "buttons": "ប៊ូតុង",
+      "kit": "ឧបករណ៍អន្តរកម្ម"
     },
     "colors": {
-      "white": "TODO-KM",
-      "charcoal": "TODO-KM",
-      "charcoalDeep": "TODO-KM",
-      "crimson": "TODO-KM",
-      "crimsonHover": "TODO-KM",
-      "kraft": "TODO-KM",
-      "steel": "TODO-KM",
-      "surfaceRaised": "TODO-KM",
-      "surfaceLightRaised": "TODO-KM",
-      "textMuted": "TODO-KM",
-      "success": "TODO-KM",
-      "error": "TODO-KM"
+      "white": "អត្ថបទចម្បង និងចំណងជើងលើផ្ទៃងងឹត។ ផ្ទៃខាងក្រោយនៃផ្នែកភ្លឺ។",
+      "charcoal": "ផ្ទៃខាងក្រោយនៃគេហទំព័រទាំងមូល។ អត្ថបទចម្បងលើផ្ទៃភ្លឺ និងផ្ទៃក្រដាសក្រាហ្វ។",
+      "charcoalDeep": "ផ្ទៃខាងក្រោយនៃបាតទំព័រ៖ ងងឹតជាងពណ៌ធ្យូងមួយកម្រិត។",
+      "crimson": "ប៊ូតុងពេញពណ៌ ផ្លាក និងផ្ទៃពណ៌លើផ្ទៃងងឹត (មិនដែលជាអត្ថបទនៅទីនោះទេ)។ អត្ថបទសង្កត់ធ្ងន់លើផ្ទៃភ្លឺ។",
+      "crimsonHover": "ប៊ូតុងពេលដាក់កណ្ដុរលើ និងពេលចុច។",
+      "kraft": "ពាក្យសង្កត់ធ្ងន់ និងស្លាកលើផ្ទៃងងឹត។ ផ្ទៃក្រដាសក្រាហ្វ។ មិនដែលជាអត្ថបទលើពណ៌សទេ។",
+      "steel": "អត្ថបទបន្ទាប់បន្សំ និងស៊ុមលើផ្ទៃងងឹត។ ត្រឹមតែជាបន្ទាត់លើផ្ទៃភ្លឺ។",
+      "surfaceRaised": "ភ្លឺជាងពណ៌ធ្យូងមួយកម្រិត៖ កាតលើផ្ទៃងងឹតមូលដ្ឋាន។",
+      "surfaceLightRaised": "ងងឹតជាងពណ៌សមួយកម្រិត៖ កាតលើផ្នែកភ្លឺ។",
+      "textMuted": "អត្ថបទបន្ទាប់បន្សំលើផ្ទៃងងឹត។ ផ្ទៃភ្លឺ និងផ្ទៃក្រដាសក្រាហ្វ មានពណ៌អត្ថបទស្រាលរៀងៗខ្លួន។",
+      "success": "សារជោគជ័យលើផ្ទៃងងឹត។",
+      "error": "កំហុសលើផ្ទៃងងឹត។ ខុសគ្នាច្បាស់ពីពណ៌ក្រហមចាស់។"
     },
     "surfaces": {
-      "light": "TODO-KM",
-      "dark": "TODO-KM",
-      "kraft": "TODO-KM",
-      "allowed": "TODO-KM",
-      "notAllowed": "TODO-KM",
-      "largeOnly": "TODO-KM",
-      "sample": "TODO-KM",
-      "main": "TODO-KM",
-      "muted": "TODO-KM",
-      "accent": "TODO-KM",
-      "label": "TODO-KM",
-      "success": "TODO-KM",
-      "error": "TODO-KM",
-      "kraftOnWhite": "TODO-KM",
-      "steelOnWhite": "TODO-KM",
-      "crimsonOnCharcoal": "TODO-KM",
-      "link": "TODO-KM"
+      "light": "ផ្ទៃភ្លឺ (បន្ថែម)",
+      "dark": "ផ្ទៃងងឹត (លំនាំដើម)",
+      "kraft": "ផ្ទៃក្រដាសក្រាហ្វ (បន្ថែម)",
+      "allowed": "អនុញ្ញាត",
+      "notAllowed": "មិនអនុញ្ញាត",
+      "largeOnly": "សម្រាប់អក្សរធំតែប៉ុណ្ណោះ",
+      "sample": "សាច់កាត់ដ៏រហ័ស",
+      "main": "អត្ថបទចម្បង",
+      "muted": "អត្ថបទស្រាល",
+      "accent": "អត្ថបទសង្កត់ធ្ងន់",
+      "label": "ស្លាក",
+      "success": "ជោគជ័យ",
+      "error": "កំហុស",
+      "kraftOnWhite": "អត្ថបទពណ៌ក្រដាសក្រាហ្វលើពណ៌ស",
+      "steelOnWhite": "អត្ថបទពណ៌ដែកលើពណ៌ស",
+      "crimsonOnCharcoal": "អត្ថបទក្រហមចាស់លើពណ៌ធ្យូង",
+      "link": "អត្ថបទតំណភ្ជាប់"
     },
     "type": {
-      "english": "TODO-KM",
-      "khmer": "TODO-KM",
-      "khmerSource": "TODO-KM",
+      "english": "ភាសាអង់គ្លេស",
+      "khmer": "ភាសាខ្មែរ",
+      "khmerSource": "គំរូភាសាខ្មែរប្រើឈ្មោះប្រភេទសាច់ដែលបានពិនិត្យជាមួយក្រុមការងារ។",
       "sampleHero": "TODO-KM",
       "sampleXl": "TODO-KM",
       "sampleTitle": "TODO-KM",
@@ -230,717 +231,730 @@
       "sampleBody": "TODO-KM"
     },
     "buttons": {
-      "primary": "TODO-KM",
-      "outline": "TODO-KM",
-      "ghost": "TODO-KM",
-      "link": "TODO-KM",
-      "default": "TODO-KM",
-      "hover": "TODO-KM",
-      "focus": "TODO-KM",
-      "pressed": "TODO-KM",
-      "disabled": "TODO-KM",
-      "magnetic": "TODO-KM",
-      "onLight": "TODO-KM",
-      "onKraft": "TODO-KM"
+      "primary": "ចម្បង",
+      "outline": "គ្រោង",
+      "ghost": "ថ្លា",
+      "link": "តំណ",
+      "default": "លំនាំដើម",
+      "hover": "ដាក់កណ្ដុរលើ",
+      "focus": "ផ្ដោត",
+      "pressed": "ចុច",
+      "disabled": "បិទ",
+      "magnetic": "ទាញដូចមេដែក",
+      "onLight": "លើផ្ទៃភ្លឺ",
+      "onKraft": "លើផ្ទៃក្រដាសក្រាហ្វ"
     },
     "kit": {
-      "splitTitle": "TODO-KM",
+      "splitTitle": "SplitTextReveal",
       "splitEn": "TODO-KM",
-      "replay": "TODO-KM",
-      "revealTitle": "TODO-KM",
-      "revealItem": "TODO-KM",
-      "imageRevealTitle": "TODO-KM",
-      "pillTitle": "TODO-KM",
-      "pillBefore": "TODO-KM",
-      "pillMiddle": "TODO-KM",
-      "pillAfter": "TODO-KM",
-      "parallaxTitle": "TODO-KM",
-      "magneticTitle": "TODO-KM",
-      "cursorTitle": "TODO-KM",
-      "cursorHint": "TODO-KM",
-      "carouselTitle": "TODO-KM",
-      "carouselHint": "TODO-KM",
-      "card": "TODO-KM",
-      "cardBody": "TODO-KM",
-      "marqueeTitle": "TODO-KM",
+      "replay": "ចាក់ឡើងវិញ",
+      "revealTitle": "Reveal",
+      "revealItem": "កាត {n}",
+      "imageRevealTitle": "ImageReveal",
+      "pillTitle": "InlinePill",
+      "pillBefore": "ចិញ្ចឹមនៅបាត់ដំបង",
+      "pillMiddle": "ហើយទុកឲ្យត្រជាក់",
+      "pillAfter": "រយៈពេល 72 ម៉ោង។",
+      "parallaxTitle": "ParallaxImage",
+      "magneticTitle": "MagneticButton",
+      "cursorTitle": "CursorFollower",
+      "cursorHint": "ដាក់កណ្ដុរលើគោលដៅទាំងនេះ។",
+      "carouselTitle": "DragCarousel",
+      "carouselHint": "អូស អូសដោយម្រាមដៃ ប្រើព្រួញ ឬផ្ដោតលើវា ហើយចុច ← →។",
+      "card": "កាតគំរូ {n}",
+      "cardBody": "អូស អូសដោយម្រាមដៃ ឬប្រើព្រួញ។ ចុច Tab ទៅកាន់ប៊ូតុង ដើម្បីផ្លាស់ទីមកទីនេះ។",
+      "marqueeTitle": "Marquee",
       "marqueeItems": "TODO-KM|BattamBeef",
-      "countTitle": "TODO-KM",
-      "countLabel": "TODO-KM",
-      "tiltTitle": "TODO-KM",
-      "tiltBody": "TODO-KM",
-      "transitionTitle": "TODO-KM",
-      "transitionHint": "TODO-KM",
-      "placeholderImage": "TODO-KM",
-      "cardCta": "TODO-KM"
+      "countTitle": "CountUp",
+      "countLabel": "ម៉ោងនៃការទុកឲ្យត្រជាក់",
+      "tiltTitle": "TiltCard",
+      "tiltBody": "ផ្អៀងទៅរកទស្សន៍ទ្រនិចលើកុំព្យូទ័រ។ រាបស្មើលើអេក្រង់ប៉ះ។",
+      "transitionTitle": "PageTransition",
+      "transitionHint": "ចូលទៅទំព័រណាមួយ៖ ទំព័រថ្មីនឹងរះឡើង។",
+      "placeholderImage": "រូបភាពឧទាហរណ៍បណ្ដោះអាសន្ន (រូបថតគោបង្កើតដោយ AI)",
+      "cardCta": "ព័ត៌មានលម្អិត"
     }
   },
   "cutMap": {
-    "chipsLabel": "TODO-KM",
-    "partOf": "TODO-KM",
-    "partsOf": "TODO-KM",
-    "cutsHeading": "TODO-KM",
+    "chipsLabel": "ជ្រើសរើសផ្នែកមួយនៃគោ",
+    "partOf": "ផ្នែកទី {n} នៃ {total}",
+    "partsOf": "ផ្នែកទី {list} នៃ {total}",
+    "cutsHeading": "ប្រភេទសាច់ក្នុងផ្នែកនេះ",
     "parts": {
-      "neck": "TODO-KM",
-      "chuck": "TODO-KM",
-      "rib": "TODO-KM",
-      "loin": "TODO-KM",
-      "rump": "TODO-KM",
-      "round": "TODO-KM",
-      "brisket": "TODO-KM",
-      "plate": "TODO-KM",
-      "flank": "TODO-KM",
-      "fore-shank": "TODO-KM",
-      "hind-shank": "TODO-KM"
+      "neck": "កគោ",
+      "chuck": "ស្មា",
+      "rib": "ឆ្អឹងជំនី",
+      "loin": "ចំឡក",
+      "rump": "គុម្ពកន្ទុយ",
+      "round": "ភ្លៅក្រោយ",
+      "brisket": "ទ្រូង",
+      "plate": "ពោះមុខ",
+      "flank": "ពោះក្រោយ",
+      "fore-shank": "កំភួនជើងមុខ",
+      "hind-shank": "កំភួនជើងក្រោយ"
     },
     "descriptions": {
-      "neck": "TODO-KM",
-      "chuck": "TODO-KM",
-      "rib": "TODO-KM",
-      "loin": "TODO-KM",
-      "rump": "TODO-KM",
-      "round": "TODO-KM",
-      "brisket": "TODO-KM",
-      "plate": "TODO-KM",
-      "flank": "TODO-KM",
-      "fore-shank": "TODO-KM",
-      "hind-shank": "TODO-KM"
+      "neck": "សាច់ដុំដែលធ្វើការខ្លាំង និងមានរសជាតិឆ្ងាញ់។ ល្អបំផុតសម្រាប់ចម្អិនដោយភ្លើងតិចៗរយៈពេលយូរ ឬចិញ្ច្រាំ។",
+      "chuck": "ផ្នែកស្មា។ សាច់មានរសជាតិខ្លាំងសម្រាប់ខ ស្ទូ និងចិញ្ច្រាំ ព្រមទាំងសាច់អយស្ទ័រសម្រាប់អាំង។",
+      "rib": "សាច់ទន់ និងមានរសជាតិខ្លាំង ពីតាមបណ្ដោយខ្នង។ ជាកន្លែងដែលសាច់ក្បាលចំឡកមកពី។",
+      "loin": "ផ្នែកដែលទន់បំផុត ពីតាមបណ្ដោយឆ្អឹងខ្នង។ សាច់ចំឡកក្រៅ និងសាច់ចំឡកក្នុងមកពីទីនេះ។",
+      "rump": "សាច់មានខ្លាញ់តិច និងមានរសជាតិពេញលេញ។ ល្អសម្រាប់អាំង ឡុកឡាក់ និងឆា។",
+      "round": "ផ្នែកភ្លៅក្រោយ។ សាច់មានខ្លាញ់តិច ប្រើបានច្រើនបែប សម្រាប់ដុតក្នុងឡ ហាន់ស្តើង ឡុកឡាក់ និងឆា។",
+      "brisket": "ផ្នែកទ្រូង។ ការចម្អិនយូរធ្វើឲ្យវាទន់ សម្រាប់ឆ្អើរ ខ និងស៊ុប។",
+      "plate": "ផ្នែកពោះនៅក្រោមឆ្អឹងជំនី។ សាច់មានរសជាតិឆ្ងាញ់សម្រាប់ខ និងអាំង។",
+      "flank": "ផ្នែកពោះខាងក្រោម។ សាច់សរសៃវែងសម្រាប់ឆា អាំង និងចិញ្ច្រាំ។",
+      "fore-shank": "ជើងមុខ។ សម្បូរកូឡាជែន ធ្វើឲ្យស៊ុប និងម្ហូបខមានរសជាតិខ្លាំង។",
+      "hind-shank": "ជើងក្រោយ។ ចម្អិនយូរសម្រាប់ស៊ុប និងម្ហូបខដែលមានរសជាតិជ្រៅ និងខ្លាំង។"
     },
-    "requestQuote": "TODO-KM",
-    "seeAll": "TODO-KM",
-    "exploreAll": "TODO-KM",
-    "topCuts": "TODO-KM"
+    "requestQuote": "ស្នើសុំតម្លៃសាច់ផ្នែក{part}",
+    "seeAll": "មើលសាច់ផ្នែក{part}ទាំងអស់",
+    "exploreAll": "ស្វែងយល់ពីប្រភេទសាច់ទាំងអស់",
+    "topCuts": "ប្រភេទសាច់ពេញនិយម"
   },
   "cutOptions": {
     "methods": {
-      "grill": "TODO-KM",
-      "pan-sear": "TODO-KM",
-      "roast": "TODO-KM",
-      "braise": "TODO-KM",
-      "stew": "TODO-KM",
-      "stir-fry": "TODO-KM",
-      "lok-lak": "TODO-KM",
-      "soup": "TODO-KM",
-      "mince": "TODO-KM",
-      "smoke": "TODO-KM",
-      "thin-slice": "TODO-KM"
+      "grill": "អាំង",
+      "pan-sear": "ចៀនខ្ទះ",
+      "roast": "ដុតក្នុងឡ",
+      "braise": "ខ",
+      "stew": "ស្ទូ",
+      "stir-fry": "ឆា",
+      "lok-lak": "ឡុកឡាក់",
+      "soup": "ស៊ុប",
+      "mince": "ចិញ្ច្រាំ",
+      "smoke": "ឆ្អើរ",
+      "thin-slice": "ហាន់ស្តើង"
     },
     "tiers": {
-      "premium": "TODO-KM",
-      "everyday": "TODO-KM",
-      "slow-cook": "TODO-KM"
+      "premium": "លំដាប់ខ្ពស់",
+      "everyday": "ប្រចាំថ្ងៃ",
+      "slow-cook": "ចម្អិនយូរ"
     }
   },
   "beefCuts": {
     "intro": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM"
+      "label": "ស្វែងយល់ពីប្រភេទសាច់គោរបស់យើង",
+      "title": "ស្គាល់សាច់គោរបស់អ្នក។ ជ្រើសរើសសាច់ដែលអ្នកចង់បាន។",
+      "body": "ផ្នែកនីមួយៗនៃគោមានលក្ខណៈពិសេសរៀងៗខ្លួន។ ចុចលើគោ ដើម្បីមើលថាប្រភេទសាច់នីមួយៗមកពីត្រង់ណា បន្ទាប់មកតម្រងបញ្ជីទាំងមូលតាមផ្នែក វិធីចម្អិន ឬកម្រិត។"
     },
-    "mapHeading": "TODO-KM",
+    "mapHeading": "ផែនទីប្រភេទសាច់គោ",
     "grid": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "filtersLabel": "TODO-KM",
-      "byPart": "TODO-KM",
-      "byMethod": "TODO-KM",
-      "byTier": "TODO-KM",
-      "all": "TODO-KM",
-      "count": "TODO-KM",
-      "empty": "TODO-KM",
-      "clear": "TODO-KM",
-      "photoSoon": "TODO-KM",
-      "illustrationNote": "TODO-KM"
+      "label": "ប្រភេទសាច់ទាំងអស់",
+      "title": "គ្រប់ប្រភេទសាច់ នៅកន្លែងតែមួយ",
+      "filtersLabel": "តម្រងប្រភេទសាច់",
+      "byPart": "ផ្នែកគោ",
+      "byMethod": "វិធីចម្អិន",
+      "byTier": "កម្រិត",
+      "all": "ទាំងអស់",
+      "count": "បង្ហាញ {shown} ក្នុងចំណោម {total} ប្រភេទសាច់",
+      "empty": "គ្មានប្រភេទសាច់ណាត្រូវនឹងតម្រងទាំងនេះទេ។",
+      "clear": "សម្អាតតម្រង",
+      "photoSoon": "រូបថតនឹងមកដល់ឆាប់ៗ",
+      "illustrationNote": "រូបភាពទាំងនេះជារូបភាពឧទាហរណ៍។",
+      "price": {
+        "label": "តម្លៃលក់រាយ",
+        "units": {
+          "kg": "ក្នុងមួយគីឡូ",
+          "piece": "ក្នុងមួយដុំ ~{size} ក្រាម",
+          "pack": "ក្នុងមួយកញ្ចប់ {size} ក្រាម"
+        },
+        "more": "+{count} ទៀត",
+        "moreAria": "+{count} ជម្រើសតម្លៃទៀត",
+        "sampleTag": "គំរូ",
+        "sampleNote": "តម្លៃគំរូ សម្រាប់ជាឧទាហរណ៍ប៉ុណ្ណោះ។",
+        "businessLink": "តម្លៃសម្រាប់អាជីវកម្ម៖ សូមសាកសួរ"
+      }
     },
     "detail": {
-      "close": "TODO-KM",
-      "illustrationPrefix": "TODO-KM",
-      "illustrationNote": "TODO-KM",
-      "description": "TODO-KM",
-      "descriptionNoPart": "TODO-KM",
-      "code": "TODO-KM",
-      "part": "TODO-KM",
-      "tier": "TODO-KM",
-      "methods": "TODO-KM",
-      "requestQuote": "TODO-KM",
-      "showOnCow": "TODO-KM",
-      "loading": "TODO-KM",
-      "loadError": "TODO-KM",
-      "retry": "TODO-KM",
+      "close": "បិទ",
+      "illustrationPrefix": "រូបភាពឧទាហរណ៍៖",
+      "illustrationNote": "រូបភាពទាំងនេះជារូបភាពឧទាហរណ៍។",
+      "description": "មកពីផ្នែក{part}។ កម្រិត៖ {tier}។",
+      "descriptionNoPart": "មកពីផ្នែកជាច្រើននៃគោ ដូច្នេះមិនមាននៅលើផែនទីប្រភេទសាច់ទេ។ កម្រិត៖ {tier}។",
+      "code": "លេខកូដ",
+      "part": "ផ្នែកគោ",
+      "tier": "កម្រិត",
+      "methods": "ល្អសម្រាប់",
+      "requestQuote": "ស្នើសុំតម្លៃ",
+      "showOnCow": "បង្ហាញលើគោ",
+      "loading": "កំពុងផ្ទុកព័ត៌មានលម្អិតនៃប្រភេទសាច់…",
+      "loadError": "មិនអាចផ្ទុកព័ត៌មានលម្អិតនៃប្រភេទសាច់បានទេ។ សូមពិនិត្យការតភ្ជាប់របស់អ្នក ហើយព្យាយាមម្ដងទៀត។",
+      "retry": "ព្យាយាមម្ដងទៀត",
       "photoAlt": {
-        "neck-chuck": "TODO-KM",
-        "blade": "TODO-KM",
-        "shoulder-clod": "TODO-KM",
-        "oyster-blade": "TODO-KM",
-        "ribeye": "TODO-KM",
-        "short-rib": "TODO-KM",
-        "striploin": "TODO-KM",
-        "tenderloin": "TODO-KM",
-        "rump": "TODO-KM",
-        "topside": "TODO-KM",
-        "silverside": "TODO-KM",
-        "knuckle": "TODO-KM",
-        "eye-round": "TODO-KM",
-        "brisket": "TODO-KM",
-        "short-plate": "TODO-KM",
-        "thin-flank": "TODO-KM",
-        "shin": "TODO-KM",
-        "heel-muscle": "TODO-KM",
-        "trimmings-mince": "TODO-KM",
-        "soup-bones": "TODO-KM"
+        "neck-chuck": "សាច់កគោ និងស្មាឆៅពីរចំណិតក្រាស់ មានខ្លាញ់ជ្រៀត នៅលើក្រដាសខ្ចប់សាច់",
+        "blade": "សាច់ស្មាប្រចៀវឆៅមួយចំណិត នៅលើក្រដាសខ្ចប់សាច់",
+        "shoulder-clod": "សាច់ស្មាគោឆៅមួយដុំធំ នៅលើក្រដាសខ្ចប់សាច់",
+        "oyster-blade": "សាច់អយស្ទ័រឆៅមួយចំណិត មានខ្លាញ់ជ្រៀតល្អិតៗ នៅលើក្រដាសខ្ចប់សាច់",
+        "ribeye": "សាច់ក្បាលចំឡកឆៅមួយចំណិត មានខ្លាញ់ជ្រៀត នៅលើក្រដាសខ្ចប់សាច់",
+        "short-rib": "ឆ្អឹងជំនីជាប់សាច់ឆៅបីកំណាត់ នៅលើក្រដាសខ្ចប់សាច់",
+        "striploin": "សាច់ចំឡកក្រៅឆៅមួយចំណិត មានស្រទាប់ខ្លាញ់ នៅលើក្រដាសខ្ចប់សាច់",
+        "tenderloin": "សាច់ចំឡកក្នុងឆៅទាំងមូល នៅលើក្រដាសខ្ចប់សាច់",
+        "rump": "សាច់គុម្ពកន្ទុយឆៅមួយដុំ មានស្រទាប់ខ្លាញ់ នៅលើក្រដាសខ្ចប់សាច់",
+        "topside": "សាច់ប៊ីស្តេកឆៅមួយដុំ ជាមួយមែករ៉ូស្មារីមួយមែក នៅលើក្រដាសខ្ចប់សាច់",
+        "silverside": "សាច់ដុំវែងឆៅមួយដុំពីភ្លៅក្រោយ នៅលើក្រដាសខ្ចប់សាច់",
+        "knuckle": "សាច់ដុំរាងមូលឆៅមួយដុំពីភ្លៅក្រោយ នៅលើក្រដាសខ្ចប់សាច់",
+        "eye-round": "សាច់ដុំភ្លៅក្រោយឆៅមួយដុំវែង នៅលើក្រដាសខ្ចប់សាច់",
+        "brisket": "សាច់ទ្រូងមុខឆៅ មានស្រទាប់ខ្លាញ់ នៅលើក្រដាសខ្ចប់សាច់",
+        "short-plate": "សាច់ពោះឆៅមួយដុំ មានខ្លាញ់ច្រើនស្រទាប់ នៅលើក្រដាសខ្ចប់សាច់",
+        "thin-flank": "សាច់ពោះស្តើងឆៅ មានសរសៃវែង នៅលើក្រដាសខ្ចប់សាច់",
+        "shin": "សាច់កំភួនជើងឆៅពីរចំណិតកាត់ទទឹង ព័ទ្ធជុំវិញឆ្អឹងខួរ នៅលើក្រដាសខ្ចប់សាច់",
+        "heel-muscle": "សាច់ដុំឈើងឆៅ មានសរសៃភ្ជាប់ពណ៌ប្រាក់ នៅលើក្រដាសខ្ចប់សាច់",
+        "trimmings-mince": "សាច់យារឆៅមួយគំនរសម្រាប់ចិញ្ច្រាំ នៅលើក្រដាសខ្ចប់សាច់",
+        "soup-bones": "ឆ្អឹងគោឆៅសម្រាប់ស៊ុប មានខួរឆ្អឹង នៅលើក្រដាសខ្ចប់សាច់"
       }
     },
     "byProducts": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "line": "TODO-KM",
-      "cta": "TODO-KM"
+      "label": "អនុផល",
+      "title": "សាកសួរអំពីឆ្អឹង និងអនុផល",
+      "line": "មានសំណួរអំពីឆ្អឹង និងអនុផលមែនទេ? សូមទាក់ទងមកយើង។",
+      "cta": "សាកសួរអំពីអនុផល"
     },
     "quote": {
-      "title": "TODO-KM",
-      "line": "TODO-KM",
-      "cta": "TODO-KM"
+      "title": "ត្រូវការសាច់សម្រាប់ម៉ឺនុយរបស់អ្នកមែនទេ?",
+      "line": "ប្រាប់យើងពីអ្វីដែលអ្នកចម្អិន ហើយយើងនឹងជួយអ្នកជ្រើសរើស។",
+      "cta": "ស្នើសុំតម្លៃ"
     }
   },
   "farmToTable": {
     "intro": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM",
-      "scrollCue": "TODO-KM"
+      "label": "ពីកសិដ្ឋានដល់តុអាហារ",
+      "title": "ពីបាត់ដំបង មកដល់តុអាហាររបស់អ្នក។",
+      "body": "តាមដានសាច់គោពីបាត់ដំបង ទៅកាន់បន្ទប់ត្រជាក់ តុកាត់សាច់ និងផ្ទះបាយរបស់អ្នក។",
+      "scrollCue": "តាមដានដំណើរ"
     },
     "journey": {
-      "heading": "TODO-KM",
-      "label": "TODO-KM",
-      "stageOf": "TODO-KM",
-      "goTo": "TODO-KM",
-      "pendingNote": "TODO-KM",
-      "photoSoon": "TODO-KM",
-      "illustrationNote": "TODO-KM",
+      "heading": "ដំណើររបស់សាច់គោ",
+      "label": "ដំណើររបស់សាច់គោ",
+      "stageOf": "ដំណាក់កាលទី {n} នៃ {total}",
+      "goTo": "ទៅដំណាក់កាលទី {n}៖ {name}",
+      "pendingNote": "ព័ត៌មានលម្អិតកំពុងរង់ចាំការបញ្ជាក់",
+      "photoSoon": "រូបថតនឹងមកដល់ឆាប់ៗ",
+      "illustrationNote": "រូបភាពទាំងនេះជារូបភាពឧទាហរណ៍។",
       "stages": {
         "raising": {
-          "short": "TODO-KM",
-          "title": "TODO-KM",
-          "body": "TODO-KM",
-          "imageAlt": "TODO-KM"
+          "short": "ចិញ្ចឹម",
+          "title": "ចិញ្ចឹមនៅបាត់ដំបង",
+          "body": "សាច់គ្រប់ប្រភេទចាប់ផ្ដើមពីគោដែលចិញ្ចឹមនៅខេត្តបាត់ដំបង។ នេះជាកន្លែងដែលរឿងរ៉ាវរបស់ BattamBeef ចាប់ផ្ដើម។",
+          "imageAlt": "រូបភាពឧទាហរណ៍៖ ហ្វូងគោពណ៌សកំពុងស៊ីស្មៅនៅវាលពណ៌បៃតង មានដើមត្នោតនៅខាងក្រោយ"
         },
         "processing": {
-          "short": "TODO-KM",
-          "title": "TODO-KM",
-          "body": "TODO-KM",
-          "imageAlt": "TODO-KM"
+          "short": "កែច្នៃ",
+          "title": "ការសម្លាប់ និងការកែច្នៃ",
+          "body": "គោត្រូវបានកែច្នៃជាមួយដៃគូរោងសត្តឃាតនៅបាត់ដំបង។ ព័ត៌មានលម្អិតអំពីដំណើរការនេះ កំពុងរង់ចាំការបញ្ជាក់។",
+          "imageAlt": "រូបភាពឧទាហរណ៍៖ កម្មករពាក់មួកគ្របសក់ ម៉ាស់ និងស្រោមដៃ កំពុងពិនិត្យដងខ្លួនគោដែលព្យួរ"
         },
         "chilling": {
-          "short": "TODO-KM",
-          "title": "TODO-KM",
-          "body": "TODO-KM",
-          "imageAlt": "TODO-KM"
+          "short": "ទុកត្រជាក់",
+          "title": "ទុកឲ្យត្រជាក់ 72 ម៉ោង",
+          "body": "ក្រោយពេលសម្លាប់ ដងខ្លួនគោត្រូវបានទុកឲ្យត្រជាក់រយៈពេល 72 ម៉ោង។ ជាទូទៅ ការធ្វើឲ្យត្រជាក់មានសារៈសំខាន់សម្រាប់សុវត្ថិភាពចំណីអាហារ និងភាពទន់របស់សាច់។",
+          "imageAlt": "រូបភាពឧទាហរណ៍៖ កញ្ចប់សាច់គោនៅលើធ្នើដែកក្នុងបន្ទប់ត្រជាក់"
         },
         "cutting": {
-          "short": "TODO-KM",
-          "title": "TODO-KM",
-          "body": "TODO-KM",
-          "imageAlt": "TODO-KM"
+          "short": "កាត់",
+          "title": "កាត់ និងវេចខ្ចប់",
+          "body": "បន្ទាប់មក សាច់គោត្រូវបានកាត់ និងវេចខ្ចប់។",
+          "imageAlt": "រូបភាពឧទាហរណ៍៖ ដៃពាក់ស្រោមដៃកំពុងកាត់សាច់គោមួយដុំលើក្ដារពណ៌ស"
         },
         "delivery": {
-          "short": "TODO-KM",
-          "title": "TODO-KM",
-          "body": "TODO-KM",
-          "imageAlt": "TODO-KM"
+          "short": "ដឹកជញ្ជូន",
+          "title": "ការដឹកជញ្ជូន",
+          "body": "យើងកំពុងរៀបចំការដឹកជញ្ជូនទៅកាន់ភោជនីយដ្ឋាន និងផ្ទះបាយតាមផ្ទះ។",
+          "imageAlt": "រូបភាពឧទាហរណ៍៖ ឡានដឹកទំនិញមានស្លាកម៉ាកសាច់គោនៅចំហៀង ចតនៅលើផ្លូវដែលមានដើមឈើសងខាង"
         }
       }
     },
     "chill": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "unit": "TODO-KM",
-      "pointsTitle": "TODO-KM",
+      "label": "ទុកឲ្យត្រជាក់ក្រោយពេលសម្លាប់",
+      "title": "72 ម៉ោង ក្នុងបន្ទប់ត្រជាក់។",
+      "unit": "ម៉ោង ទុកត្រជាក់",
+      "pointsTitle": "ហេតុអ្វីការទុកឲ្យត្រជាក់មានសារៈសំខាន់",
       "points": {
         "foodSafety": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "សុវត្ថិភាពចំណីអាហារ",
+          "body": "ជាទូទៅ ការធ្វើឲ្យត្រជាក់ជួយបញ្ចុះសីតុណ្ហភាពដងខ្លួនគោបានយ៉ាងឆាប់រហ័ស ដែលមានសារៈសំខាន់សម្រាប់សុវត្ថិភាពចំណីអាហារ។"
         },
         "tenderness": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ភាពទន់",
+          "body": "ជាទូទៅ នៅពេលភាពរឹងក្រោយស្លាប់បាត់ទៅវិញក្នុងអំឡុងពេលទុកឲ្យត្រជាក់ អង់ស៊ីមធម្មជាតិចាប់ផ្ដើមធ្វើឲ្យសាច់ទន់។"
         },
         "ourBeef": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "សាច់គោរបស់យើង",
+          "body": "72 ម៉ោង គឺជារយៈពេលទុកឲ្យត្រជាក់ដែលប្រើសម្រាប់សាច់គោរបស់យើង។"
         }
       }
     },
     "result": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
+      "label": "គោលដៅរបស់យើង",
+      "title": "អ្វីដែលយើងកំពុងខិតខំឆ្ពោះទៅរក។",
       "items": {
-        "consistentCuts": "TODO-KM",
-        "freshFlavour": "TODO-KM",
-        "restaurants": "TODO-KM",
-        "homeKitchens": "TODO-KM"
+        "consistentCuts": "សាច់កាត់ស្តង់ដារស្មើៗគ្នា",
+        "freshFlavour": "រសជាតិស្រស់",
+        "restaurants": "រួចរាល់សម្រាប់ភោជនីយដ្ឋាន",
+        "homeKitchens": "រួចរាល់សម្រាប់ផ្ទះបាយតាមផ្ទះ"
       },
-      "ctaCuts": "TODO-KM",
-      "ctaQuote": "TODO-KM"
+      "ctaCuts": "ស្វែងយល់ពីប្រភេទសាច់របស់យើង",
+      "ctaQuote": "ស្នើសុំតម្លៃ"
     }
   },
   "about": {
     "hero": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM",
-      "imageAlt": "TODO-KM"
+      "label": "អំពី BattamBeef",
+      "title": "ចាក់ឫសនៅបាត់ដំបង។ កសាងឡើងដោយមានគោលបំណង។",
+      "body": "BattamBeef គឺជាម៉ាកសាច់គោខ្មែរពីខេត្តបាត់ដំបង។ យើងចង់ឲ្យសាច់គោក្នុងស្រុកឈានដល់ស្តង់ដារដែលប្រសើរជាងមុន សម្រាប់ភោជនីយដ្ឋាន អាជីវកម្មម្ហូបអាហារ និងអ្នកចម្អិននៅផ្ទះ។",
+      "imageAlt": "រូបភាពឧទាហរណ៍៖ គោពណ៌សមួយក្បាលនៅវាលស្រែពណ៌បៃតង មានដើមត្នោត និងភ្នំនៅខាងក្រោយ"
     },
     "story": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "p1": "TODO-KM",
-      "p2": "TODO-KM",
-      "p3": "TODO-KM",
-      "photoSoon": "TODO-KM"
+      "label": "រឿងរ៉ាវរបស់យើង",
+      "title": "សាច់គោក្នុងស្រុក តាមស្តង់ដារដែលប្រសើរជាងមុន។",
+      "p1": "BattamBeef ចាប់ផ្ដើមនៅបាត់ដំបង ដែលជាខេត្តល្បីល្បាញដោយវាលស្រែ និងកសិកម្ម។ គោរបស់យើងត្រូវបានចិញ្ចឹមនៅខេត្តបាត់ដំបង ហើយកែច្នៃជាមួយដៃគូរោងសត្តឃាតនៅបាត់ដំបង។",
+      "p2": "ក្រោយពេលសម្លាប់ សាច់គោត្រូវបានទុកឲ្យត្រជាក់រយៈពេល 72 ម៉ោង។ នេះជាជំហានមួយនៃគំនិតដ៏សាមញ្ញមួយ៖ សាច់គោខ្មែរអាចឈរស្មើនឹងសាច់គោល្អៗ នៅពេលដែលវាត្រូវបានថែរក្សាដោយយកចិត្តទុកដាក់។",
+      "p3": "យើងកំពុងកសាង BattamBeef សម្រាប់ភោជនីយដ្ឋាន អាជីវកម្មម្ហូបអាហារ និងអ្នកចម្អិននៅផ្ទះ ដែលចង់ដឹងថាសាច់គោរបស់ពួកគេមកពីណា។",
+      "photoSoon": "រូបថតនឹងមកដល់ឆាប់ៗ"
     },
     "missionVision": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
+      "label": "អ្វីដែលជំរុញយើង",
+      "title": "បេសកកម្ម និងចក្ខុវិស័យ។",
       "mission": {
-        "label": "TODO-KM",
-        "body": "TODO-KM"
+        "label": "បេសកកម្មរបស់យើង",
+        "body": "នាំយកសាច់គោក្នុងស្រុកពីបាត់ដំបង ដែលថែរក្សាដោយយកចិត្តទុកដាក់ និងកាត់តាមរបៀបចម្អិនរបស់ពួកគេ ទៅកាន់ផ្ទះបាយខ្មែរ។"
       },
       "vision": {
-        "label": "TODO-KM",
-        "body": "TODO-KM"
+        "label": "ចក្ខុវិស័យរបស់យើង",
+        "body": "កម្ពុជាមួយដែលពាក្យ «សាច់គោក្នុងស្រុក» មានន័យថាស្តង់ដារដែលមនុស្សទុកចិត្ត ហើយបាត់ដំបងល្បីល្បាញដោយសារវា។"
       }
     },
     "values": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
+      "label": "គុណតម្លៃរបស់យើង",
+      "title": "អ្វីដែលយើងប្រកាន់ខ្ជាប់។",
       "items": {
         "proudlyLocal": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "មោទនភាពជាផលិតផលក្នុងស្រុក",
+          "body": "បាត់ដំបងគឺជាកន្លែងដែលយើងបានចាប់ផ្ដើម និងជាកន្លែងដែលគោរបស់យើងត្រូវបានចិញ្ចឹម។"
         },
         "trustworthy": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "គួរឲ្យទុកចិត្ត",
+          "body": "យើងនិយាយតែអ្វីដែលយើងអាចធានាបាន ហើយយើងបើកចំហអំពីអ្វីដែលកំពុងរង់ចាំការបញ្ជាក់។"
         },
         "culinaryExcellence": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ឧត្តមភាពផ្នែកធ្វើម្ហូប",
+          "body": "យើងគិតអំពីសាច់គោដូចអ្នកចម្អិនម្ហូបគិត៖ សាច់ត្រឹមត្រូវ សម្រាប់ម្ហូបត្រឹមត្រូវ។"
         },
         "modernProgressive": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ទំនើប និងរីកចម្រើន",
+          "body": "យើងចង់នាំយកស្តង់ដារថ្មីៗ និងគំនិតស្រស់ៗមកកាន់វិស័យសាច់គោខ្មែរ។"
         },
         "peopleFirst": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "មនុស្សជាអាទិភាព",
+          "body": "កសិករ ដៃគូ មេចុងភៅ និងក្រុមគ្រួសារ៖ មនុស្សដែលនៅពីក្រោយអាហារគ្រប់ពេល គឺជាអាទិភាពទីមួយរបស់យើង។"
         }
       }
     }
   },
   "forBusiness": {
     "hero": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM",
-      "quote": "TODO-KM",
-      "cuts": "TODO-KM"
+      "label": "សម្រាប់អាជីវកម្ម",
+      "title": "ដៃគូសាច់គោដែលអាចទុកចិត្តបាន សម្រាប់អាជីវកម្មរបស់អ្នក។",
+      "body": "សាច់គោក្នុងស្រុកពីបាត់ដំបង សម្រាប់ភោជនីយដ្ឋាន សណ្ឋាគារ និងអាជីវកម្មម្ហូបអាហារ។ ប្រាប់យើងពីអ្វីដែលអ្នកចម្អិន ហើយយើងនឹងពិភាក្សាអំពីប្រភេទសាច់ដែលសមស្រប។",
+      "quote": "ស្នើសុំតម្លៃ",
+      "cuts": "មើលប្រភេទសាច់របស់យើង"
     },
     "offers": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
+      "label": "អ្វីដែលយើងផ្ដល់ជូន",
+      "title": "រៀបចំឡើងសម្រាប់ផ្ទះបាយអាជីព។",
       "items": {
         "wholesale": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ការផ្គត់ផ្គង់លក់ដុំ",
+          "body": "សាច់គោសម្រាប់ផ្ទះបាយដែលចម្អិនក្នុងបរិមាណច្រើន។ បរិមាណ និងកាលវិភាគកំពុងរង់ចាំការបញ្ជាក់។"
         },
         "customCuts": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "កាត់តាមតម្រូវការ",
+          "body": "ប្រាប់យើងពីម្ហូប និងទំហំចំណែករបស់អ្នក ហើយយើងនឹងពិភាក្សាថាតើប្រភេទសាច់ណាខ្លះអាចរៀបចំជូនអ្នកបាន។"
         },
         "partnerships": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ភាពជាដៃគូជាមួយភោជនីយដ្ឋាន",
+          "body": "សហការជាមួយយើងលើប្រភេទសាច់សម្រាប់ម្ហូបពិសេសរបស់អ្នក ឬម៉ឺនុយតាមរដូវកាល។"
         }
       },
-      "pendingNote": "TODO-KM"
+      "pendingNote": "ព័ត៌មានលម្អិតកំពុងរង់ចាំការបញ្ជាក់"
     },
     "steps": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "stepOf": "TODO-KM",
+      "label": "របៀបដំណើរការ",
+      "title": "របៀបសហការជាមួយយើង។",
+      "stepOf": "ជំហានទី {n}",
       "items": {
         "enquiry": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ផ្ញើការសាកសួររបស់អ្នក",
+          "body": "ប្រើទម្រង់ខាងក្រោម ឬទាក់ទងមកយើងអំពីអ្វីដែលអ្នកត្រូវការ។"
         },
         "discuss": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "យើងពិភាក្សាពីតម្រូវការរបស់អ្នក",
+          "body": "យើងពិភាក្សាអំពីម៉ឺនុយ ប្រភេទសាច់ និងបរិមាណរបស់អ្នក។"
         },
         "samples": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "សំណាក និងសម្រង់តម្លៃ",
+          "body": "សំណាក និងសម្រង់តម្លៃ៖ ព័ត៌មានលម្អិតកំពុងរង់ចាំការបញ្ជាក់។"
         },
         "supply": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ការផ្គត់ផ្គង់ទៀងទាត់",
+          "body": "ការបញ្ជាទិញតាមកាលវិភាគដែលសមនឹងផ្ទះបាយរបស់អ្នក។ ព័ត៌មានលម្អិតកំពុងរង់ចាំការបញ្ជាក់។"
         }
       }
     },
     "why": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
+      "label": "ហេតុអ្វីជ្រើសរើស BattamBeef",
+      "title": "ហេតុអ្វីគួរសហការជាមួយយើង។",
       "items": {
         "chilled": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ទុកឲ្យត្រជាក់ 72 ម៉ោង",
+          "body": "ក្រោយពេលសម្លាប់ សាច់គោត្រូវបានទុកឲ្យត្រជាក់រយៈពេល 72 ម៉ោង។"
         },
         "consistentCuts": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "សាច់កាត់ស្តង់ដារស្មើៗគ្នា",
+          "body": "សាច់កាត់រៀបចំតាមលក្ខណៈបច្ចេកទេសច្បាស់លាស់។"
         },
         "yourMenu": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "រៀបចំតាមម៉ឺនុយរបស់អ្នក",
+          "body": "យើងពិភាក្សាអំពីប្រភេទសាច់ដែលសមនឹងម្ហូប និងទំហំចំណែករបស់អ្នក។"
         },
         "directLine": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ទំនាក់ទំនងផ្ទាល់ជាមួយក្រុមការងាររបស់យើង",
+          "body": "និយាយផ្ទាល់ជាមួយអ្នកដែលរៀបចំការបញ្ជាទិញរបស់អ្នក។"
         }
       },
-      "pendingNote": "TODO-KM"
+      "pendingNote": "ព័ត៌មានលម្អិតកំពុងរង់ចាំការបញ្ជាក់"
     },
     "enquiry": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM"
+      "label": "ការសាកសួរសម្រាប់អាជីវកម្ម",
+      "title": "ប្រាប់យើងអំពីផ្ទះបាយរបស់អ្នក។",
+      "body": "ចែករំលែកព័ត៌មានលម្អិតបន្តិច ហើយយើងនឹងឆ្លើយតបទៅអ្នកវិញ។"
     }
   },
   "beefKnowledge": {
     "hero": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM"
+      "label": "ចំណេះដឹងអំពីសាច់គោ",
+      "title": "ស្គាល់សាច់គោឲ្យកាន់តែច្បាស់។",
+      "body": "ការណែនាំអំពីប្រភេទសាច់ ការចម្អិន ការរក្សាទុក និងរូបមន្តងាយៗ សម្រាប់អ្នកចម្អិននៅផ្ទះ និងផ្ទះបាយអាជីព។"
     },
     "quickLinks": {
-      "label": "TODO-KM",
+      "label": "លោតទៅ",
       "items": {
         "cutGuide": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "មគ្គុទ្ទេសក៍ប្រភេទសាច់",
+          "body": "គ្រប់ប្រភេទសាច់ នៅលើគោ។"
         },
         "methods": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "វិធីចម្អិន",
+          "body": "ផ្គូផ្គងវិធីចម្អិនទៅនឹងប្រភេទសាច់។"
         },
         "storage": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ការរក្សាទុក",
+          "body": "ទូទឹកកក ទូកក និងការរំលាយសាច់កក។"
         },
         "recipes": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "រូបមន្តម្ហូប",
+          "body": "ម្ហូបងាយៗសម្រាប់ចាប់ផ្ដើម។"
         },
         "faq": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "សំណួរញឹកញាប់",
+          "body": "ចម្លើយរហ័ស។"
         }
       }
     },
     "methods": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "tabsLabel": "TODO-KM",
-      "cutsHeading": "TODO-KM",
-      "cutLink": "TODO-KM",
-      "cutLinkGrid": "TODO-KM",
+      "label": "វិធីចម្អិន",
+      "title": "ជ្រើសរើសវិធីចម្អិន ស្វែងរកប្រភេទសាច់។",
+      "tabsLabel": "វិធីចម្អិន",
+      "cutsHeading": "ប្រភេទសាច់សម្រាប់វិធីនេះ",
+      "cutLink": "{cut}៖ មើលលើផែនទីប្រភេទសាច់",
+      "cutLinkGrid": "{cut}៖ មើលក្នុងបញ្ជីប្រភេទសាច់ទាំងអស់",
       "guides": {
-        "grill": "TODO-KM",
-        "pan-sear": "TODO-KM",
-        "roast": "TODO-KM",
-        "braise": "TODO-KM",
-        "stir-fry": "TODO-KM",
-        "soup": "TODO-KM"
+        "grill": "ភ្លើងខ្លាំងដោយផ្ទាល់ ដើម្បីឲ្យខាងក្រៅក្រៀម និងខាងក្នុងនៅតែមានទឹកសាច់។ ជូតសាច់ឲ្យស្ងួត លាបប្រេងស្ដើងៗ ហើយទុកឲ្យចង្ក្រានអាំងក្ដៅខ្លាំងសិន មុននឹងចាប់ផ្ដើម។ ទុកសាច់ឲ្យសម្រាកពីរបីនាទី មុននឹងហាន់។",
+        "pan-sear": "ប្រើខ្ទះធ្ងន់ ដុតឲ្យក្ដៅខ្លាំង ហើយកុំដាក់សាច់ច្រើនពេកក្នុងពេលតែមួយ។ ចៀនដោយមិនរុញសាច់ ដើម្បីឲ្យវាឡើងពណ៌ត្នោត ត្រឡប់តែម្ដង ហើយបន្ថែមប៊ឺនៅចុងក្រោយ បើអ្នកចូលចិត្ត។",
+        "roast": "កម្ដៅឡថេរ សម្រាប់សាច់ដុំធំៗ។ ចៀនខាងក្រៅឲ្យឡើងពណ៌ត្នោតជាមុនសិន ដុតក្នុងកម្ដៅមធ្យម ហើយទុកសាច់ឲ្យសម្រាកឲ្យបានល្អ មុននឹងកាត់។",
+        "braise": "ចៀនសាច់ឲ្យឡើងពណ៌ត្នោត រួចចម្អិនយឺតៗ ដោយត្រាំក្នុងទឹកមួយផ្នែក រហូតដល់ទន់។ សាច់ដុំដែលធ្វើការខ្លាំង នឹងក្លាយជាទន់ និងមានរសជាតិខ្លាំងតាមវិធីនេះ។",
+        "stir-fry": "ហាន់ស្ដើងៗ ខ្ទះក្ដៅខ្លាំង និងចម្អិនរហ័ស។ ហាន់កាត់ទទឹងសរសៃសាច់ ហើយឆាម្ដងបន្តិចៗ ដើម្បីឲ្យសាច់ក្រៀមឆ្អិន ជាជាងចេញទឹកហើយស្ងោរ។",
+        "soup": "ការរំងាស់ភ្លើងតិចៗរយៈពេលយូរ ទាញរសជាតិ និងភាពខាប់ចូលទៅក្នុងទឹកស៊ុប។ ដួសពពុះចេញតាំងពីដំបូង ហើយរក្សាឆ្នាំងឲ្យក្ដៅ ក្រោមចំណុចពុះបន្តិច។"
       }
     },
     "storage": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM",
+      "label": "ការរក្សាទុក",
+      "title": "រក្សាឲ្យត្រជាក់ រក្សាឲ្យមានសុវត្ថិភាព។",
+      "body": "មូលដ្ឋានគ្រឹះទូទៅនៃសុវត្ថិភាពចំណីអាហារ សម្រាប់សាច់គោឆៅនៅផ្ទះ។",
       "items": {
         "fridge": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ក្នុងទូទឹកកក",
+          "body": "រក្សាសាច់គោឆៅក្នុងទូទឹកកក នៅសីតុណ្ហភាព 4°C ឬត្រជាក់ជាងនេះ មិនត្រូវលើសពី 5°C ឡើយ។ ខ្ចប់វា ឬដាក់ក្នុងប្រអប់បិទជិត នៅលើធ្នើខាងក្រោមបង្អស់ ដើម្បីកុំឲ្យទឹកសាច់ស្រក់ទៅលើអាហារផ្សេងទៀត។"
         },
         "freezer": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ក្នុងទូកក",
+          "body": "បង្កកនៅសីតុណ្ហភាព -18°C ឬត្រជាក់ជាងនេះ។ ខ្ចប់សាច់គោឲ្យជិត កុំឲ្យខ្យល់ចូល ហើយសរសេរកាលបរិច្ឆេទលើវា។"
         },
         "thawing": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ការរំលាយសាច់កក",
+          "body": "រំលាយសាច់គោកកនៅក្នុងទូទឹកកក កុំរំលាយនៅសីតុណ្ហភាពបន្ទប់។ ដាក់វាលើចាន ដើម្បីទ្រទឹកដែលស្រក់ ហើយទុកពេលឲ្យបានគ្រប់គ្រាន់៖ សាច់ដុំធំៗអាចត្រូវការពេលមួយថ្ងៃ ឬច្រើនជាងនេះ។"
         },
         "refreezing": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ការបង្កកឡើងវិញ",
+          "body": "កុំបង្កកសាច់គោឆៅឡើងវិញ បន្ទាប់ពីវារលាយហើយ។ ចូរចម្អិនវាជំនួសវិញ។"
         }
       },
-      "productNote": "TODO-KM"
+      "productNote": "រយៈពេលរក្សាទុកសម្រាប់ផលិតផល BattamBeef៖ ព័ត៌មានលម្អិតកំពុងរង់ចាំការបញ្ជាក់។"
     },
     "recipes": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "carouselLabel": "TODO-KM",
-      "serves": "TODO-KM",
-      "minutes": "TODO-KM",
-      "hours": "TODO-KM",
-      "open": "TODO-KM",
-      "openLabel": "TODO-KM",
-      "close": "TODO-KM",
-      "ingredients": "TODO-KM",
-      "steps": "TODO-KM",
-      "cut": "TODO-KM",
-      "method": "TODO-KM",
-      "photoSoon": "TODO-KM",
+      "label": "រូបមន្តម្ហូប",
+      "title": "រូបមន្តងាយៗសម្រាប់ចាប់ផ្ដើម។",
+      "carouselLabel": "រូបមន្តម្ហូប",
+      "serves": "សម្រាប់ {n} នាក់",
+      "minutes": "{n} នាទី",
+      "hours": "ប្រហែល {h} ម៉ោង {m} នាទី",
+      "open": "មើលរូបមន្ត",
+      "openLabel": "មើលរូបមន្ត៖ {recipe}",
+      "close": "បិទ",
+      "ingredients": "គ្រឿងផ្សំ",
+      "steps": "វិធីធ្វើ",
+      "cut": "ប្រភេទសាច់",
+      "method": "វិធីចម្អិន",
+      "photoSoon": "រូបថតនឹងមកដល់ឆាប់ៗ",
       "items": {
         "lok-lak": {
-          "title": "TODO-KM",
-          "intro": "TODO-KM",
+          "title": "ឡុកឡាក់សាច់គោ",
+          "intro": "សាច់គោឆាដែលពេញនិយមបំផុតរបស់កម្ពុជា បម្រើជាមួយសាឡាត់ និងទឹកជ្រលក់ក្រូចឆ្មាម្រេច។",
           "ingredients": {
-            "beef": "TODO-KM",
-            "garlic": "TODO-KM",
-            "sauces": "TODO-KM",
-            "sugar": "TODO-KM",
-            "salad": "TODO-KM",
-            "dip": "TODO-KM",
-            "rice": "TODO-KM"
+            "beef": "សាច់ប៊ីស្តេក 400 ក្រាម កាត់ជាដុំការ៉េ 2 សង់ទីម៉ែត្រ",
+            "garlic": "ខ្ទឹមស 3 កំពឹស ចិញ្ច្រាំ",
+            "sauces": "ប្រេងខ្យង 1 ស្លាបព្រាបាយ និងទឹកស៊ីអ៊ីវ 1 ស្លាបព្រាបាយ",
+            "sugar": "ស្ករត្នោត 1 ស្លាបព្រាកាហ្វេ",
+            "salad": "សាឡាត់ ប៉េងប៉ោះ និងខ្ទឹមបារាំង សម្រាប់បម្រើ",
+            "dip": "ទឹកក្រូចឆ្មា 1 ផ្លែ លាយម្រេច និងអំបិលបន្តិច សម្រាប់ធ្វើទឹកជ្រលក់",
+            "rice": "បាយ ឬពងមាន់ចៀន សម្រាប់បម្រើ"
           },
           "steps": {
-            "marinate": "TODO-KM",
-            "salad": "TODO-KM",
-            "sear": "TODO-KM",
-            "dip": "TODO-KM",
-            "serve": "TODO-KM"
+            "marinate": "លាយសាច់គោជាមួយខ្ទឹមស គ្រឿងទឹក និងស្ករ។ ទុករយៈពេល 20 នាទី។",
+            "salad": "រៀបសាឡាត់ ប៉េងប៉ោះ និងខ្ទឹមបារាំងហាន់ ដាក់លើចាន។",
+            "sear": "ដុតខ្ទះឲ្យក្ដៅខ្លាំង។ ឆាសាច់ម្ដងបន្តិចៗរយៈពេល 2–3 នាទី ដើម្បីឲ្យសាច់ឡើងពណ៌ត្នោត ជាជាងចេញទឹក។",
+            "dip": "កូរទឹកក្រូចឆ្មា ម្រេច និងអំបិលបញ្ចូលគ្នា សម្រាប់ធ្វើទឹកជ្រលក់។",
+            "serve": "ដាក់សាច់គោលើសាឡាត់ ហើយបម្រើជាមួយបាយ និងទឹកជ្រលក់។"
           }
         },
         "pan-seared-ribeye": {
-          "title": "TODO-KM",
-          "intro": "TODO-KM",
+          "title": "សាច់ក្បាលចំឡកចៀនខ្ទះ",
+          "intro": "សាច់ក្បាលចំឡកមួយចំណិតក្រាស់ មានសំបកពណ៌ត្នោតក្រៀម ស្រោចដោយប៊ឺខ្ទឹមស។",
           "ingredients": {
-            "steak": "TODO-KM",
-            "salt": "TODO-KM",
-            "oil": "TODO-KM",
-            "butter": "TODO-KM",
-            "garlic": "TODO-KM",
-            "herbs": "TODO-KM"
+            "steak": "សាច់ក្បាលចំឡក 1 ចំណិត ក្រាស់ប្រហែល 3 សង់ទីម៉ែត្រ",
+            "salt": "អំបិល និងម្រេច",
+            "oil": "ប្រេងឆាគ្មានក្លិន 1 ស្លាបព្រាបាយ",
+            "butter": "ប៊ឺ 2 ស្លាបព្រាបាយ",
+            "garlic": "ខ្ទឹមស 2 កំពឹស ញីបែក",
+            "herbs": "ស្លឹកថាយម៍ ពីរបីមែក"
           },
           "steps": {
-            "temper": "TODO-KM",
-            "heat": "TODO-KM",
-            "sear": "TODO-KM",
-            "baste": "TODO-KM",
-            "rest": "TODO-KM"
+            "temper": "យកសាច់ចេញពីទូទឹកកក 30 នាទីមុនចម្អិន។ ជូតឲ្យស្ងួត ហើយប្រឡាក់គ្រឿងឲ្យបានល្អ។",
+            "heat": "ដុតប្រេងក្នុងខ្ទះធ្ងន់ រហូតដល់វាចាប់ផ្ដើមមានផ្សែង។",
+            "sear": "ចៀនម្ខាងៗ 3–4 នាទី សម្រាប់កម្រិតឆ្អិនពាក់កណ្ដាល ដោយត្រឡប់តែម្ដង។ ចៀនយូរជាងនេះ បើអ្នកចូលចិត្តឆ្អិនជាងនេះ។",
+            "baste": "ដាក់ប៊ឺ ខ្ទឹមស និងស្លឹកថាយម៍ ហើយដួសប៊ឺដែលកំពុងពុះពពុះ ស្រោចលើសាច់រយៈពេលមួយនាទី។",
+            "rest": "ទុកសាច់ឲ្យសម្រាក 5 នាទី រួចហាន់កាត់ទទឹងសរសៃ។"
           }
         },
         "brisket-soup": {
-          "title": "TODO-KM",
-          "intro": "TODO-KM",
+          "title": "ស៊ុបសាច់ទ្រូងរំងាស់",
+          "intro": "ទឹកស៊ុបថ្លា ក្លិនឈ្ងុយ ជាមួយសាច់ទ្រូងដែលរំងាស់រហូតដល់ទន់។",
           "ingredients": {
-            "brisket": "TODO-KM",
-            "water": "TODO-KM",
-            "aromatics": "TODO-KM",
-            "spices": "TODO-KM",
-            "fishSauce": "TODO-KM",
-            "vegetables": "TODO-KM",
-            "herbs": "TODO-KM"
+            "brisket": "សាច់ទ្រូង 600 ក្រាម កាត់ជាដុំធំៗ",
+            "water": "ទឹក 2 លីត្រ",
+            "aromatics": "ខ្ទឹមបារាំង 1 គ្រាប់ ខ្ញីមួយដុំប៉ុនមេដៃ និងស្លឹកគ្រៃ 2 ដើម",
+            "spices": "ផ្កាចន្ទ 2 ផ្កា និងសំបកឈើអែម 1 ដុំ",
+            "fishSauce": "ទឹកត្រី តាមចំណូលចិត្ត",
+            "vegetables": "ឆៃថាវ ឬការ៉ុត កាត់ជាដុំៗ",
+            "herbs": "ស្លឹកខ្ទឹម ជីវ៉ាន់ស៊ុយ និងក្រូចឆ្មា សម្រាប់បម្រើ"
           },
           "steps": {
-            "blanch": "TODO-KM",
-            "simmer": "TODO-KM",
-            "vegetables": "TODO-KM",
-            "season": "TODO-KM",
-            "serve": "TODO-KM"
+            "blanch": "ស្ងោរសាច់ទ្រូងក្នុងទឹកពុះ 5 នាទី រួចលាងជម្រះ។ វាជួយឲ្យទឹកស៊ុបថ្លា។",
+            "simmer": "ចាក់ទឹកថ្មីឲ្យលិច ដាក់គ្រឿងក្រអូប និងគ្រឿងទេស ហើយរំងាស់ភ្លើងតិចៗរយៈពេល 2½–3 ម៉ោង រហូតដល់ទន់។",
+            "vegetables": "ដាក់បន្លែក្នុងរយៈពេល 30 នាទីចុងក្រោយ។",
+            "season": "បន្ថែមរសជាតិដោយទឹកត្រី។ ហាន់សាច់ទ្រូង ហើយដាក់ត្រឡប់ចូលឆ្នាំងវិញ។",
+            "serve": "បម្រើក្ដៅៗជាមួយបន្លែក្រអូប និងក្រូចឆ្មា។"
           }
         },
         "pepper-stir-fry": {
-          "title": "TODO-KM",
-          "intro": "TODO-KM",
+          "title": "សាច់គោឆាម្រេចកំពត",
+          "intro": "ឆាប់រហ័ស ហឹរម្រេច និងធ្វើរួចក្នុងពីរបីនាទី ជាមួយសាច់បាតពោះហាន់ស្ដើងៗ។",
           "ingredients": {
-            "beef": "TODO-KM",
-            "pepper": "TODO-KM",
-            "garlic": "TODO-KM",
-            "onion": "TODO-KM",
-            "sauces": "TODO-KM",
-            "sugar": "TODO-KM",
-            "oil": "TODO-KM",
-            "spring": "TODO-KM"
+            "beef": "សាច់បាតពោះ 300 ក្រាម ហាន់ស្ដើងៗកាត់ទទឹងសរសៃ",
+            "pepper": "ម្រេចខ្មៅកំពតបុក 1 ស្លាបព្រាកាហ្វេ ឬម្រេចខ្ចីស្រស់",
+            "garlic": "ខ្ទឹមស 3 កំពឹស ហាន់",
+            "onion": "ខ្ទឹមបារាំង 1 គ្រាប់ ចិតជាចម្រៀក",
+            "sauces": "ប្រេងខ្យង 1 ស្លាបព្រាបាយ និងទឹកស៊ីអ៊ីវ 1 ស្លាបព្រាកាហ្វេ",
+            "sugar": "ស្ករ 1 ស្លាបព្រាកាហ្វេ",
+            "oil": "ប្រេងឆា 1 ស្លាបព្រាបាយ",
+            "spring": "ស្លឹកខ្ទឹម សម្រាប់បញ្ចប់"
           },
           "steps": {
-            "slice": "TODO-KM",
-            "season": "TODO-KM",
-            "sear": "TODO-KM",
-            "vegetables": "TODO-KM",
-            "serve": "TODO-KM"
+            "slice": "ហាន់សាច់បាតពោះឲ្យស្ដើងៗ កាត់ទទឹងសរសៃ ដើម្បីឲ្យវានៅតែទន់។",
+            "season": "ប្រឡាក់សាច់គោជាមួយគ្រឿងទឹកពាក់កណ្ដាល និងម្រេច។",
+            "sear": "ឆាសាច់គោក្នុងខ្ទះក្ដៅខ្លាំងរយៈពេល 1–2 នាទី រួចដួសចេញ។",
+            "vegetables": "ឆាខ្ទឹមស និងខ្ទឹមបារាំង រួចដាក់សាច់គោចូលវិញ ជាមួយគ្រឿងទឹកដែលនៅសល់ និងស្ករ។",
+            "serve": "បញ្ចប់ដោយស្លឹកខ្ទឹម ហើយបម្រើជាមួយបាយ។"
           }
         }
       }
     },
     "faq": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
+      "label": "សំណួរញឹកញាប់",
+      "title": "សំណួរ និងចម្លើយ។",
       "items": {
         "origin": {
-          "q": "TODO-KM",
-          "a": "TODO-KM"
+          "q": "តើ BattamBeef មកពីណា?",
+          "a": "គោរបស់យើងត្រូវបានចិញ្ចឹមនៅខេត្តបាត់ដំបង ហើយកែច្នៃជាមួយដៃគូរោងសត្តឃាតនៅបាត់ដំបង។"
         },
         "chilling": {
-          "q": "TODO-KM",
-          "a": "TODO-KM"
+          "q": "តើ «ទុកឲ្យត្រជាក់ 72 ម៉ោង» មានន័យដូចម្ដេច?",
+          "a": "ក្រោយពេលសម្លាប់ សាច់គោត្រូវបានទុកឲ្យត្រជាក់រយៈពេល 72 ម៉ោង។ ជាទូទៅ ការធ្វើឲ្យត្រជាក់ជួយបញ្ចុះសីតុណ្ហភាពបានយ៉ាងឆាប់រហ័ស ហើយនៅពេលភាពរឹងក្រោយស្លាប់បាត់ទៅវិញក្នុងអំឡុងពេលទុកឲ្យត្រជាក់ អង់ស៊ីមធម្មជាតិចាប់ផ្ដើមធ្វើឲ្យសាច់ទន់។"
         },
         "homeCooks": {
-          "q": "TODO-KM",
-          "a": "TODO-KM"
+          "q": "តើខ្ញុំអាចទិញ BattamBeef សម្រាប់ចម្អិននៅផ្ទះបានទេ?",
+          "a": "ព័ត៌មានលម្អិតកំពុងរង់ចាំការបញ្ជាក់។ សូមផ្ញើសារមកយើង ហើយយើងនឹងជូនដំណឹងដល់អ្នក។"
         },
         "delivery": {
-          "q": "TODO-KM",
-          "a": "TODO-KM"
+          "q": "តើអ្នកមានសេវាដឹកជញ្ជូនទេ?",
+          "a": "តំបន់ និងកាលវិភាគដឹកជញ្ជូនកំពុងរង់ចាំការបញ្ជាក់។ សូមប្រាប់យើងពីទីតាំងរបស់អ្នក នៅក្នុងការសាកសួររបស់អ្នក។"
         },
         "customCuts": {
-          "q": "TODO-KM",
-          "a": "TODO-KM"
+          "q": "តើអាចកាត់តាមលក្ខណៈដែលខ្ញុំចង់បានទេ?",
+          "a": "សូមប្រាប់យើងពីម្ហូប និងទំហំចំណែករបស់អ្នក ហើយយើងនឹងពិភាក្សាជាមួយអ្នក។ ព័ត៌មានលម្អិតកំពុងរង់ចាំការបញ្ជាក់។"
         },
         "storage": {
-          "q": "TODO-KM",
-          "a": "TODO-KM"
+          "q": "តើគួររក្សាទុកសាច់គោនៅផ្ទះយ៉ាងដូចម្ដេច?",
+          "a": "រក្សាសាច់គោឆៅក្នុងទូទឹកកក នៅសីតុណ្ហភាព 4°C ឬត្រជាក់ជាងនេះ ឬបង្កកវានៅ -18°C។ សូមមើលការណែនាំអំពីការរក្សាទុកខាងលើ សម្រាប់មូលដ្ឋានគ្រឹះ។"
         }
       }
     }
   },
   "contact": {
     "hero": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM"
+      "label": "សាកសួរការបញ្ជាទិញ",
+      "title": "តោះនិយាយអំពីការបញ្ជាទិញរបស់អ្នក។",
+      "body": "ប្រាប់យើងថាអ្នកចង់បានប្រភេទសាច់អ្វីខ្លះ និងចំនួនប៉ុន្មាន។ យើងក៏ស្វាគមន៍សំណួរអំពីភាពជាដៃគូ ឬរឿងផ្សេងៗទៀតផងដែរ។"
     },
     "cards": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
+      "label": "ទាក់ទងមកយើង",
+      "title": "ទាក់ទងទៅអ្នកណា។",
       "items": {
         "orders": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ការសាកសួរការបញ្ជាទិញ",
+          "body": "សម្រាប់ការបញ្ជាទិញ និងសំណួរអំពីប្រភេទសាច់។"
         },
         "partnerships": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ភាពជាដៃគូអាជីវកម្ម",
+          "body": "សម្រាប់ភោជនីយដ្ឋាន សណ្ឋាគារ និងអាជីវកម្មម្ហូបអាហារ។"
         },
         "location": {
-          "title": "TODO-KM",
-          "body": "TODO-KM"
+          "title": "ទីតាំង",
+          "body": "បាត់ដំបង កម្ពុជា"
         }
       }
     },
     "form": {
-      "label": "TODO-KM",
-      "title": "TODO-KM"
+      "label": "ការសាកសួររបស់អ្នក",
+      "title": "ប្រាប់យើងពីអ្វីដែលអ្នកត្រូវការ។"
     },
     "social": {
-      "label": "TODO-KM",
-      "title": "TODO-KM",
-      "body": "TODO-KM",
-      "soon": "TODO-KM"
+      "label": "Telegram និងបណ្ដាញសង្គម",
+      "title": "តាមដាន BattamBeef។",
+      "body": "គណនី Telegram និងបណ្ដាញសង្គមរបស់យើងនឹងមកដល់ឆាប់ៗ។",
+      "soon": "មកដល់ឆាប់ៗ"
     }
   },
   "forms": {
-    "optional": "TODO-KM",
-    "chooseOne": "TODO-KM",
-    "noPreference": "TODO-KM",
-    "submit": "TODO-KM",
-    "submitBusiness": "TODO-KM",
-    "sending": "TODO-KM",
-    "previewTitle": "TODO-KM",
-    "previewBody": "TODO-KM",
-    "privacy": "TODO-KM",
-    "fromQuote": "TODO-KM",
-    "errorSummary": "TODO-KM",
+    "optional": "ស្រេចចិត្ត",
+    "chooseOne": "ជ្រើសរើសមួយ",
+    "noPreference": "គ្មានជម្រើសជាក់លាក់",
+    "submit": "ផ្ញើសារ",
+    "submitBusiness": "ផ្ញើការសាកសួរ",
+    "sending": "កំពុងផ្ញើ…",
+    "previewTitle": "កំណែសាកល្បងប៉ុណ្ណោះ៖ មិនបានផ្ញើទេ",
+    "previewBody": "កំណែសាកល្បងនេះមិនផ្ញើ ឬរក្សាទុកអ្វីដែលអ្នកបញ្ចូលទេ។",
+    "privacy": "គេហទំព័រសាកល្បង៖ អ្វីដែលអ្នកបញ្ចូលនៅទីនេះ មិនត្រូវបានផ្ញើ ឬរក្សាទុកទេ។",
+    "fromQuote": "យើងបានបំពេញប្រភេទសាច់ពីសំណើសុំតម្លៃរបស់អ្នករួចហើយ។ អ្នកអាចប្ដូរវានៅខាងក្រោម។",
+    "errorSummary": "ទម្រង់នេះ{count, plural, one {មានបញ្ហា # ចំណុច} other {មានបញ្ហា # ចំណុច}}។",
     "errors": {
-      "tooLong": "TODO-KM"
+      "tooLong": "អត្ថបទនេះវែងពេក។ សូមប្រើមិនលើសពី {max} តួអក្សរ។"
     },
     "fields": {
       "name": {
-        "label": "TODO-KM",
-        "errorRequired": "TODO-KM"
+        "label": "ឈ្មោះរបស់អ្នក",
+        "errorRequired": "សូមបញ្ចូលឈ្មោះរបស់អ្នក។"
       },
       "company": {
-        "label": "TODO-KM"
+        "label": "ក្រុមហ៊ុន"
       },
       "businessName": {
-        "label": "TODO-KM",
-        "errorRequired": "TODO-KM"
+        "label": "ឈ្មោះអាជីវកម្ម",
+        "errorRequired": "សូមបញ្ចូលឈ្មោះអាជីវកម្មរបស់អ្នក។"
       },
       "contactName": {
-        "label": "TODO-KM",
-        "errorRequired": "TODO-KM"
+        "label": "ឈ្មោះអ្នកទំនាក់ទំនង",
+        "errorRequired": "សូមបញ្ចូលឈ្មោះអ្នកទំនាក់ទំនង។"
       },
       "phone": {
-        "label": "TODO-KM",
-        "hint": "TODO-KM",
-        "errorRequired": "TODO-KM",
-        "errorFormat": "TODO-KM"
+        "label": "ទូរស័ព្ទ",
+        "hint": "លេខទូរស័ព្ទកម្ពុជា ឧទាហរណ៍ 012 345 678 ឬ +855 12 345 678។",
+        "errorRequired": "សូមបញ្ចូលលេខទូរស័ព្ទ។",
+        "errorFormat": "សូមបញ្ចូលលេខទូរស័ព្ទកម្ពុជា ឧទាហរណ៍ 012 345 678។"
       },
       "email": {
-        "label": "TODO-KM",
-        "errorFormat": "TODO-KM"
+        "label": "អ៊ីមែល",
+        "errorFormat": "សូមបញ្ចូលអាសយដ្ឋានអ៊ីមែល ដូចជា name@example.com។"
       },
       "enquiryType": {
-        "label": "TODO-KM",
-        "errorRequired": "TODO-KM",
+        "label": "ប្រភេទនៃការសាកសួរ",
+        "errorRequired": "សូមជ្រើសរើសប្រភេទនៃការសាកសួរ។",
         "options": {
-          "order": "TODO-KM",
-          "partnership": "TODO-KM",
-          "general": "TODO-KM"
+          "order": "ការសាកសួរការបញ្ជាទិញ",
+          "partnership": "ភាពជាដៃគូអាជីវកម្ម",
+          "general": "ទូទៅ"
         }
       },
       "interest": {
-        "label": "TODO-KM",
-        "anyCut": "TODO-KM",
-        "otherGroup": "TODO-KM",
-        "errorInvalid": "TODO-KM"
+        "label": "ប្រភេទសាច់ ឬផ្នែកដែលចាប់អារម្មណ៍",
+        "anyCut": "សាច់ផ្នែក{part}ណាមួយ",
+        "otherGroup": "ឆ្អឹង និងសាច់យារ",
+        "errorInvalid": "សូមជ្រើសរើសប្រភេទសាច់ពីក្នុងបញ្ជី។"
       },
       "businessType": {
-        "label": "TODO-KM",
-        "errorRequired": "TODO-KM",
+        "label": "ប្រភេទអាជីវកម្ម",
+        "errorRequired": "សូមជ្រើសរើសប្រភេទអាជីវកម្ម។",
         "options": {
-          "restaurant": "TODO-KM",
-          "hotel": "TODO-KM",
-          "cafe": "TODO-KM",
-          "catering": "TODO-KM",
-          "retail": "TODO-KM",
-          "other": "TODO-KM"
+          "restaurant": "ភោជនីយដ្ឋាន",
+          "hotel": "សណ្ឋាគារ",
+          "cafe": "ហាងកាហ្វេ",
+          "catering": "សេវាម្ហូបអាហារ",
+          "retail": "ហាង ឬផ្សារ",
+          "other": "ផ្សេងៗ"
         }
       },
       "cuts": {
-        "label": "TODO-KM",
-        "hint": "TODO-KM",
-        "errorInvalid": "TODO-KM"
+        "label": "ប្រភេទសាច់ដែលចាប់អារម្មណ៍",
+        "hint": "ជ្រើសរើសប៉ុន្មានក៏បាន តាមដែលពាក់ព័ន្ធ។",
+        "errorInvalid": "សូមជ្រើសរើសប្រភេទសាច់ពីក្នុងបញ្ជី។"
       },
       "volume": {
-        "label": "TODO-KM",
-        "errorInvalid": "TODO-KM",
+        "label": "បរិមាណប្រចាំសប្ដាហ៍ (ប៉ាន់ស្មាន)",
+        "errorInvalid": "សូមជ្រើសរើសបរិមាណពីក្នុងបញ្ជី។",
         "options": {
-          "under20": "TODO-KM",
-          "20to50": "TODO-KM",
-          "50to100": "TODO-KM",
-          "over100": "TODO-KM",
-          "unsure": "TODO-KM"
+          "under20": "តិចជាង 20 គីឡូ",
+          "20to50": "20–50 គីឡូ",
+          "50to100": "50–100 គីឡូ",
+          "over100": "លើសពី 100 គីឡូ",
+          "unsure": "មិនទាន់ប្រាកដនៅឡើយ"
         }
       },
       "area": {
-        "label": "TODO-KM",
-        "hint": "TODO-KM"
+        "label": "តំបន់ដឹកជញ្ជូន",
+        "hint": "ក្រុង/ខេត្ត ឬស្រុក/ខណ្ឌ។"
       },
       "message": {
-        "label": "TODO-KM",
-        "errorShort": "TODO-KM"
+        "label": "សារ",
+        "errorShort": "សូមសរសេរសារខ្លីមួយ (យ៉ាងហោចណាស់ 10 តួអក្សរ)។"
       }
     }
   }

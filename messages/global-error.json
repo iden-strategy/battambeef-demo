@@ -9,10 +9,10 @@
   },
   "km": {
     "siteName": "BattamBeef",
-    "eyebrow": "TODO-KM",
-    "title": "TODO-KM",
-    "line": "TODO-KM",
-    "retry": "TODO-KM",
-    "home": "TODO-KM"
+    "eyebrow": "កំហុស",
+    "title": "មានបញ្ហាអ្វីមួយកើតឡើង",
+    "line": "មិនអាចបង្ហាញទំព័រនេះបានទេ។ សូមព្យាយាមម្ដងទៀត។",
+    "retry": "ព្យាយាមម្ដងទៀត",
+    "home": "ត្រឡប់ទៅទំព័រដើម"
   }
 }
